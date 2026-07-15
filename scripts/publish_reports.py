@@ -47,20 +47,32 @@ REPORT_PATTERN = re.compile(
 def parse_rating(html_path: Path) -> str:
     """从 HTML 内容中提取评级标签。
 
-    优先匹配 badge 元素 class（如 class="badge buy"），
-    避免正文中偶然出现的"买入"等词造成误判。
+    支持多种格式：
+      - B版: class="badge buy"           (拓普集团原版)
+      - A版: class="v-big buy"            (华新建材新版)
+      - A版: verdict-box + "买入"/"观察"  (百济神州/泡泡玛特原版)
     """
     content = html_path.read_text("utf-8", errors="ignore")
 
-    # Method 1: 精确匹配 badge 元素上的 class（最可靠）
-    m = re.search(r'class="badge\s+(buy|watch|avoid)"', content)
+    # Method 1: 精确匹配 badge/v-big 元素上的 class（最可靠）
+    m = re.search(r'class="(?:badge|v-big)\s+(buy|watch|avoid)"', content)
     if m:
         return m.group(1)
 
-    # Method 2: 匹配 badge 元素内的评级文本
-    if re.search(r'(?:class="[^"]*badge[^"]*"|badge-buy)[^>]*>.*?买入', content):
+    # Method 2: 在 verdict-box 容器内匹配评级文本
+    vb = re.search(r'class="verdict-box[^"]*".*?class="(?:big|v-big)"[^>]*>.*?(买入|观察|回避)', content, re.DOTALL)
+    if vb:
+        txt = vb.group(1)
+        if '买入' in txt:
+            return "buy"
+        if '观察' in txt:
+            return "watch"
+        return "avoid"
+
+    # Method 3: 匹配 badge 元素内的评级文本（旧版 fallback）
+    if re.search(r'class="badge[^"]*"[^>]*>.*?买入', content):
         return "buy"
-    if re.search(r'(?:class="[^"]*badge[^"]*"|badge-watch)[^>]*>.*?观察', content):
+    if re.search(r'class="badge[^"]*"[^>]*>.*?观察', content):
         return "watch"
     if 'rating-avoid' in content or '回避' in content:
         return "avoid"
