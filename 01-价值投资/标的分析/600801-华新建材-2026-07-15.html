@@ -131,38 +131,23 @@
 
   /* ── Verdict box ── */
   .verdict-box {
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    padding: 32px 24px;
-    margin: 16px 0;
+    background: linear-gradient(135deg, var(--green-bg), #fff);
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
   .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
-  .verdict-box .v-big { font-size: 2.4em; font-weight: 800; margin: 8px 0 12px; line-height: 1.2; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
   .verdict-box .v-big.buy { color: var(--green); }
   .verdict-box .v-big.watch { color: var(--yellow); }
   .verdict-box .v-big.sell { color: var(--red); }
-  .verdict-box .v-desc {
-    color: var(--text2);
-    max-width: 600px;
-    margin: 0 auto 18px;
-    font-size: 0.92em;
-    line-height: 1.7;
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
   }
-  .verdict-box .v-row {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    flex-wrap: wrap;
-    font-size: 0.9em;
-  }
-  .verdict-box .v-row .l { color: var(--text2); }
-  .verdict-box .v-row .v { font-weight: 700; }
-  .verdict-box .v-row .v.green { color: var(--green); }
-  .verdict-box .v-row .v.yellow { color: var(--yellow); }
-  .verdict-box .v-row .v.red { color: var(--red); }
 
   /* ── Tables ── */
   table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
@@ -286,17 +271,17 @@
 
 <!-- ═══ VERDICT ═══ -->
 <div class="verdict-box">
-  <div class="v-label">📌 综合评级</div>
+  <div style="font-size:0.9em; color:var(--text2);">📌 综合评级</div>
   <div class="v-big buy">✅ 买入</div>
   <div class="v-desc">
     海外业务爆发（占比33%→预计40%，净利率22~29%）+ 骨料全国第一（毛利率43%）+ 估值历史低位（~11x PE）。<br>
     好生意 + 好管理层 + 好价格，三重共振。
   </div>
-  <div class="v-row">
-    <span><span class="l">🎯 买入区间：</span><span class="v green">¥16~23</span></span>
-    <span><span class="l">💹 当前价：</span><span class="v green">¥19.29</span></span>
-    <span><span class="l">📊 合理价值：</span><span class="v">¥22~26</span></span>
-    <span><span class="l">🏆 建议仓位：</span><span class="v">8~12%</span></span>
+  <div class="v-details">
+    <span>🎯 买入区间：<strong style="color:var(--green);">¥16~23</strong></span>
+    <span>💹 当前价：<strong style="color:var(--green);">¥19.29</strong></span>
+    <span>📊 合理价值：<strong>¥22~26</strong></span>
+    <span>🏆 仓位：<strong>8~12%</strong></span>
   </div>
 </div>
 
