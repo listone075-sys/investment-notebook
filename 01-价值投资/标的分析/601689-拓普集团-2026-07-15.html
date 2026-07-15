@@ -122,6 +122,28 @@
   .three-q .q-item .a .green { color: var(--green); font-weight: 600; }
   .three-q .q-item .a .red { color: var(--red); font-weight: 600; }
   .three-q .q-item .a .orange { color: var(--orange); font-weight: 600; }
+
+  /* ── Verdict Box: prominent rating display ── */
+  .verdict-box {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 4px; letter-spacing: 1px; }
+  .verdict-box .v-rating { font-size: 34px; font-weight: 800; margin: 6px 0 10px; line-height: 1.2; }
+  .verdict-box .v-rating.buy { color: var(--green); }
+  .verdict-box .v-rating.watch { color: var(--orange); }
+  .verdict-box .v-rating.sell { color: var(--red); }
+  .verdict-box .v-summary { font-size: 14px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 18px; line-height: 1.6; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; font-size: 14px; }
+  .verdict-box .v-details .l { color: var(--text-secondary); }
+  .verdict-box .v-details .v { font-weight: 700; }
+  .verdict-box .v-details .v.green { color: var(--green); }
+  .verdict-box .v-details .v.orange { color: var(--orange); }
+  .verdict-box .v-details .v.red { color: var(--red); }
 </style>
 </head>
 <body>
@@ -138,6 +160,21 @@
     <span>💹 当前股价：<strong>¥54.80</strong></span>
     <span>📊 总市值：约 ¥952 亿</span>
     <span><span class="badge watch">⚡ 观察评级</span></span>
+  </div>
+</div>
+
+<!-- ═══ Verdict: Prominent Rating ═══ -->
+<div class="verdict-box">
+  <div class="v-label">📌 综合评级</div>
+  <div class="v-rating watch">⚡ 观察</div>
+  <div class="v-summary">
+    优秀零部件平台型企业，但当前 PE ~31x 安全边际有限，建议等待更好价格。
+  </div>
+  <div class="v-details">
+    <span><span class="l">🎯 买入区间：</span><span class="v green">¥38~48</span></span>
+    <span><span class="l">💹 当前价：</span><span class="v orange">¥54.80</span></span>
+    <span><span class="l">📊 合理价值：</span><span class="v">¥55~65</span></span>
+    <span><span class="l">🏆 建议仓位：</span><span class="v">5~8%</span></span>
   </div>
 </div>
 
