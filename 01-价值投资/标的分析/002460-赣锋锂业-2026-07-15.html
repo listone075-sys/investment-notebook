@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赣锋锂业 (002460.SZ / 01772.HK) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; color: var(--text); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .card h4 { font-size: 0.95em; color: var(--text2); margin: 14px 0 6px; font-weight: 600; }
+  .section-body { overflow: hidden; }
+  .section-body.collapsed { display: none; }
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); color: var(--text); list-style: none; display: flex; align-items: center; gap: 8px; }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .verdict-box { background: linear-gradient(135deg, var(--yellow-bg), #fff); border: 2px solid var(--yellow); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .toggle-bar button:hover { background: var(--card2); }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>赣锋锂业 <span>价值投资分析</span></h1>
+  <div class="subtitle">Ganfeng Lithium — 全球锂业龙头·强周期·治理存疑</div>
+  <div class="codes">
+    <span>002460.SZ</span><span>01772.HK</span><span>有色金属·锂</span>
+  </div>
+  <div class="meta-bar">
+    <span>📅 2026-07-15</span>
+    <span>💰 A股 ¥51.50</span>
+    <span>🏢 市值 ¥1,080亿</span>
+    <span>📊 数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">📂 全部展开 / 全部折叠</button>
+</div>
+
+<!-- ═══ VERDICT ═══ -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">📌 综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    全球锂资源龙头+全产业链布局，2026年业绩爆发式复苏。但强周期属性+管理层内幕交易污点+锂价不可预测性，使得长期持有的确定性不足。适合在锂价低迷时分批布局，不宜追高。
+  </div>
+  <div class="v-details">
+    <span>🎯 买入区间：<strong style="color:var(--green);">¥35~45</strong></span>
+    <span>💹 当前价：<strong style="color:var(--yellow);">¥51.50</strong></span>
+    <span>📊 合理价值：<strong>¥50~65</strong></span>
+    <span>🏆 仓位：<strong>3~5%</strong></span>
+  </div>
+</div>
+
+<!-- ═══ SNAPSHOT ═══ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📊 核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥51.50</div><div class="label">A股当前价</div></div>
+      <div class="stat-tile"><div class="num">¥1,080亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num">~15x</div><div class="label">2026E PE</div></div>
+      <div class="stat-tile"><div class="num">~2.35x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥91.96亿</div><div class="label">2026Q1营收(+144%)</div></div>
+      <div class="stat-tile"><div class="num green">¥18.37亿</div><div class="label">2026Q1净利(+616%)</div></div>
+      <div class="stat-tile"><div class="num green">¥36.5~46亿</div><div class="label">2026H1净利(扭亏)</div></div>
+      <div class="stat-tile"><div class="num">55.3%</div><div class="label">资产负债率</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num">29.7%</div><div class="label">毛利率</div></div>
+      <div class="stat-tile"><div class="num green">4.0%</div><div class="label">ROE(Q1单季)</div></div>
+      <div class="stat-tile"><div class="num green">¥101亿</div><div class="label">期末现金</div></div>
+      <div class="stat-tile"><div class="num">3,960万吨</div><div class="label">权益锂资源(LCE)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 1                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⛏️ 一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>赣锋锂业由李良彬于 2000 年创立，总部位于江西新余，是全球最大的锂生态企业之一。公司覆盖 <strong>上游锂资源开采 → 中游锂化合物加工 → 下游锂电池制造及回收</strong> 的全产业链。全球权益锂资源储量近 <strong>4,000 万吨 LCE</strong>，锂化合物产能全球前三。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>📌 一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          从全球各地挖锂矿/提盐湖卤水 → 加工成碳酸锂/氢氧化锂等锂化合物 → 卖给电池厂和新能源车厂；<br>
+          同时用自己的锂造电池 → 卖给储能和电动汽车市场；<br>
+          电池用完了回收提锂 → 形成闭环。<br>
+          <strong>核心逻辑：锂价高时赚资源钱，锂价低时靠加工+电池平滑周期。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>📌 核心护城河</h4>
+        <div class="key-insight" style="border-left-color:var(--yellow);">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          赣锋的护城河是 <strong>"全球资源壁垒 + 全产业链闭环 + 多工艺提锂技术"</strong> 三层组合。全球近 4,000 万吨 LCE 资源量、同时掌握矿石/盐湖/回收三种提锂技术、产业链从矿到电池全覆盖，这在全球范围内都是稀缺的。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>锂化合物 ~56% + 锂电池 ~36% + 其他 ~8%</td></tr>
+      <tr><td>核心客户</td><td>电池厂（CATL/比亚迪/松下/LG）、新能源车厂（Tesla/宝马）</td></tr>
+      <tr><td>成本结构</td><td>采矿成本 5~8 万/吨 LCE + 加工成本 2~3 万/吨；锂价决定毛利率弹性</td></tr>
+      <tr><td>利润驱动</td><td><strong>锂价是第一驱动力</strong>（毛利率从 2023 年高峰 ~50%→2024 年低谷 ~10%→2026 年恢复 ~30%）</td></tr>
+      <tr><td>周期特征</td><td>锂价在 5~60 万/吨之间剧烈波动，公司利润随之大起大落</td></tr>
+      <tr><td>全球化程度</td><td>资源布局覆盖澳洲/阿根廷/马里/墨西哥/中国等，产业链跨国运营</td></tr>
+    </table>
+
+    <h3>1.3 这生意赚钱吗？—— 关键财务特征</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>强周期是最大特征</strong>——锂价 2022 年高峰 ~60 万/吨 → 2024 年低谷 ~7 万/吨 → 2026 年恢复至 ~15 万/吨。公司 ROE 从 34% → -5% → 回升，波动极大</li>
+      <li><strong>下游电池业务是平滑器</strong>——2025 年锂电池收入占比已提升至 ~36%，储能市场需求爆发为公司提供第二增长曲线，也部分对冲锂价波动</li>
+      <li><strong>资本开支巨大</strong>——全球矿山+盐湖+电池产能建设需要持续投入，2024 年投资活动现金流净流出超 80 亿</li>
+      <li><strong>资源禀赋决定下限</strong>——4,000 万吨 LCE 资源量是全球最大之一。持续锂价低迷会淘汰高成本矿，但赣锋的优质矿（如马里 Goulamina）成本可控制在 5 万/吨以内</li>
+    </ul>
+
+    <details>
+      <summary>📖 深度理解：锂的超级周期与赣锋的生存之道</summary>
+      <div class="detail-body">
+        <p><strong>锂的周期本质</strong>：锂不是稀缺品（地壳丰度不低），但优质锂矿（高品位锂辉石、高浓度盐湖）是稀缺的。2015-2022 年新能源车爆发驱动锂需求 CAGR >30%，价格从 4 万/吨飙升至 60 万/吨；随后供给端疯狂扩产，2023-2024 年价格暴跌至 7 万/吨；2025-2026 年随着低成本产能出清+需求增长，价格回升至 15 万/吨附近。</p>
+        <p><strong>赣锋的全产业链战略</strong>：李良彬的应对思路是"不赌锂价，赌产业链"。向上游买矿锁定资源，向下游做电池锁定需求。这样在锂价低时，电池业务赚制造业利润；锂价高时，资源业务赚周期利润。2024 年锂价低谷期，公司亏损 5.3 亿，但电池业务收入增长 40%+，证明了下游布局的平滑作用。</p>
+        <p><strong>但仍需清醒</strong>：锂能否卖出去，取决于新能源车+储能的渗透速度；成本能否降下来，取决于自给率和产能利用率。这两个变量都不完全在赣锋控制范围内。</p>
+      </div>
+    </details>
+
+    <h3>1.4 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th>评分</th><th>说明</th></tr>
+      <tr><td>资源壁垒</td><td>⭐⭐⭐⭐⭐</td><td>4,000 万吨 LCE 全球最大资源储备之一，高品质矿山+盐湖锁定长期成本优势</td></tr>
+      <tr><td>全产业链一体化</td><td>⭐⭐⭐⭐☆</td><td>矿→化合物→电池→回收，全球仅少数企业能做到。平滑周期波动</td></tr>
+      <tr><td>技术壁垒</td><td>⭐⭐⭐⭐☆</td><td>唯一同时具备矿石/卤水/回收三种工艺的企业，固态电池布局领先</td></tr>
+      <tr><td>客户粘性</td><td>⭐⭐⭐☆☆</td><td>与 Tesla/宝马/CATL 等有长协，但锂化合物本身有一定标准化属性</td></tr>
+      <tr><td>品牌/特许权</td><td>⭐⭐⭐☆☆</td><td>矿业权+出口许可证等构成一定行政壁垒</td></tr>
+    </table>
+
+    <div class="key-insight">
+      <strong>综合护城河评级：中等</strong> — 资源壁垒和技术壁垒都很强，但锂的强周期属性使得"能持续赚钱"这一条受到挑战。当锂价跌至 7 万/吨时，连赣锋这样的龙头也会亏损。护城河能在下行期保护公司"不死"，但不能保证"赚钱"。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 2                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">👥 二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th>人物</th><th>职位</th><th>背景</th></tr>
+      <tr><td><strong>李良彬</strong></td><td>创始人、董事长</td><td>1967 年生，1988 年化学专科毕业，从江西锂厂技术员做到"世界锂王"。2021 年江西首富（身家 545 亿）。持股 ~18.8%</td></tr>
+      <tr><td><strong>王晓申</strong></td><td>副董事长、总经理</td><td>李良彬的长期搭档，负责日常运营</td></tr>
+      <tr><td><strong>李承霖</strong></td><td>副总裁</td><td>李良彬之子，1996 年生，南加州大学经济学学士，2023 年起进入管理层</td></tr>
+    </table>
+
+    <h3>2.2 管理评估 ⚠️ 重大治理污点</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+      <tr><td>战略眼光</td><td><span class="tag tag-green">优秀</span></td><td>从锂厂技术员到全球锂王，战略嗅觉敏锐，全产业链布局方向正确</td></tr>
+      <tr><td>诚信合规</td><td><span class="tag tag-red">重大瑕疵</span></td><td><strong>2020 年内幕交易 ST 江特股票</strong>：获利 110 万元，李良彬决策、时任董秘执行。2024 年行政处罚（罚款 442 万），<strong>2025 年 12 月刑事立案</strong>，2026 年 7 月检察院决定不起诉但行政处罚保留。此事导致子公司赣锋锂电 IPO 受阻、机构股东退出</td></tr>
+      <tr><td>股东导向</td><td><span class="tag tag-blue">中等</span></td><td>历史上不太注重分红（锂价好时也未大幅提高分红率），更倾向再投资</td></tr>
+      <tr><td>二代接班</td><td><span class="tag tag-yellow">待观察</span></td><td>李承霖 2023 年入列管理层，经验和能力尚未验证</td></tr>
+    </table>
+    <div class="key-insight red" style="background:#fee2e2;border-left-color:var(--red);">
+      <strong>核心判断</strong>：内幕交易案是一颗"定时炸弹"。虽然最终未刑事起诉，但暴露了公司治理层面的重大缺陷——创始人兼最大股东在并购窗口期利用内部信息牟利。段永平式的观点：<strong>"好的管理层不会在合规问题上踩红线。"</strong> 这是长期投资中难以忽略的减分项。评分 <strong>5/10</strong>——战略能力优秀但诚信有重大瑕疵。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 3                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📈 三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 周期波动一览</h3>
+    <table>
+      <tr><th>指标</th><th>2021（高峰）</th><th>2022（顶峰）</th><th>2023（下行）</th><th>2024（低谷）</th><th>2025（修复）</th></tr>
+      <tr><td>营收（亿）</td><td>112</td><td>418</td><td>330</td><td>189</td><td><strong>231</strong></td></tr>
+      <tr><td>归母净利（亿）</td><td>52.3</td><td><strong>205.0</strong></td><td>49.5</td><td>-13.0</td><td><strong>16.1</strong></td></tr>
+      <tr><td>毛利率</td><td>41%</td><td>50%</td><td>25%</td><td>11%</td><td><strong>22%</strong></td></tr>
+      <tr><td>ROE</td><td>27%</td><td><strong>34%</strong></td><td>13%</td><td>-5%</td><td><strong>4%</strong></td></tr>
+      <tr><td>经营现金流（亿）</td><td>33</td><td>81</td><td>55</td><td>-16</td><td><strong>15</strong></td></tr>
+    </table>
+    <div class="key-insight yellow">
+      赣锋的财务特征比任何矿业公司都更极端——利润可以在 2 年内从 205 亿变为 -13 亿，再变回 16 亿。这种波动性要求投资者在估值时必须留足够的安全边际。
+    </div>
+
+    <h3>3.2 2026 年最新数据</h3>
+    <table>
+      <tr><th>指标</th><th>2026Q1</th><th>同比</th><th>2026H1 预告</th><th>同比</th></tr>
+      <tr><td>营收</td><td><strong>91.96 亿</strong></td><td>+144%</td><td>—</td><td>—</td></tr>
+      <tr><td>归母净利</td><td><strong>18.37 亿</strong></td><td>+616%</td><td><strong>36.5~46 亿</strong></td><td>扭亏</td></tr>
+      <tr><td>毛利率</td><td>29.7%</td><td>+18pct</td><td>—</td><td>—</td></tr>
+    </table>
+    <p>2026 年业绩爆发主因：① 碳酸锂均价回升至 ~15-17 万/吨；② 马里 Goulamina 矿山投产，自给率提升；③ 储能电池业务放量；④ 出售 PLS 股票的投资收益。</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 4                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚔️ 四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 锂业双雄：赣锋 vs 天齐</h3>
+    <table>
+      <tr><th>维度</th><th>赣锋锂业</th><th>天齐锂业</th></tr>
+      <tr><td>战略模式</td><td>全产业链一体化</td><td>聚焦上游资源</td></tr>
+      <tr><td>资源自给率</td><td>~50-70%</td><td>~100%</td></tr>
+      <tr><td>业务结构</td><td>锂盐 56% + 电池 36%</td><td>锂矿+锂化合物各半</td></tr>
+      <tr><td>2025 净利</td><td>16.1 亿</td><td>28.3 亿</td></tr>
+      <tr><td>2026Q1 毛利率</td><td>29.7%</td><td><strong>62.7%</strong></td></tr>
+      <tr><td>2026E PE</td><td>~15x</td><td>~12x</td></tr>
+      <tr><td>资产负债率</td><td>55.3%</td><td><strong>28.4%</strong></td></tr>
+    </table>
+
+    <div class="key-insight">
+      <strong>竞争格局判断</strong>：天齐锂业在"低成本"和"财务稳健"上更优，赣锋在"产业链完整度"和"成长故事"上更优。周期上行时天齐弹性更大，周期震荡时赣锋更有韧性。市场给予赣锋 ~15x PE（天齐 ~12x），溢价源于全产业链的"抗波动"叙事和固态电池想象空间。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 5                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🤔 五、段永平三问</h2>
+  <div class="section-body">
+    <div class="q-item">
+      <div class="q">第一问：这家公司我能理解吗？</div>
+      <div class="a"><span class="green">✅ 基本能理解。</span> 锂生意的逻辑不复杂——从地里挖出东西加工后卖给电池厂。核心变量是锂价，而锂价取决于新能源车和储能的渗透速度 vs 全球锂矿的扩产速度。虽然锂价预测很难，但生意本身是好理解的。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第二问：有强大的护城河吗？</div>
+      <div class="a"><span class="yellow">⚠️ 有护城河但穿透力不够。</span> 资源储备和全产业链确实是壁垒，但当锂价跌到成本线以下时，有矿也白搭——可以选择停产，但固定成本不会停。赣锋的优势是多元化（电池业务占比 36%），在下行期比纯资源商更能扛。但护城河不能阻止周期性亏损，段永平可能不喜欢这种"会亏钱"的护城河。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第三问：当前价格有安全边际吗？</div>
+      <div class="a"><span class="red">❌ 安全边际不足。</span> 当前 ¥51.50 对应 2026E PE ~15x（基于锂价 15~17 万/吨）。如果锂价维持，估值合理；但如果锂价再次跌回 10 万/吨以下，2027 年利润可能骤降至 20~30 亿，对应 PE 将升至 35~50x。当前价位的安全边际不足以覆盖这种周期风险。更好的买入区间在 ¥35~45（锂价悲观预期充分反映）。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 6                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">💰 六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值</h3>
+    <table>
+      <tr><th>情景</th><th>锂价假设</th><th>2026E 净利</th><th>对应 PE</th></tr>
+      <tr><td>保守</td><td>13 万/吨</td><td>~55 亿</td><td>~19.6x</td></tr>
+      <tr><td>基准（一致预期）</td><td>15~17 万/吨</td><td>~71 亿</td><td>~15.2x</td></tr>
+      <tr><td>乐观</td><td>20 万/吨</td><td>~95 亿</td><td>~11.4x</td></tr>
+    </table>
+
+    <h3>6.2 周期股估值特殊性</h3>
+    <p>锂业公司不能用简单 PE 估值——周期高峰 PE 最低时恰恰是最危险的买入时机（如 2022 年 PE 仅 5x 但锂价随后暴跌 80%）。更合理的方法：</p>
+    <table>
+      <tr><th>方法</th><th>计算</th><th>合理股价</th></tr>
+      <tr><td>PB 估值（周期底部）</td><td>每股净资产 ~22 × 1.5~2.0x PB</td><td><strong>¥33~44</strong></td></tr>
+      <tr><td>正常化 PE（中线锂价 12 万）</td><td>正常化净利 ~40 亿 × 15x PE</td><td><strong>¥28~30</strong></td></tr>
+      <tr><td>乐观情景 PE（锂价 18 万）</td><td>2026E 净利 ~80 亿 × 13~15x</td><td><strong>¥50~57</strong></td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>估值结论</strong>：当前 ¥51.50 在乐观情景中合理，在保守和正常化情景中偏高。考虑到锂价的不确定性和管理层治理风险，只有在 ¥35~45（PB 1.6~2.0x）才有足够安全边际。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 7                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📅 七、催化剂时间线</h2>
+  <div class="section-body">
+    <div class="tl-item">
+      <div class="tl-time">2026 年 7~8 月</div>
+      <div class="tl-body"><div class="tl-title">中报正式发布</div><div class="tl-desc">验证 H1 净利 36.5~46 亿，关注电池业务占比和锂价展望</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 H2</div>
+      <div class="tl-body"><div class="tl-title">马里 Goulamina 矿达产</div><div class="tl-desc">一期 50 万吨/年锂辉石精矿产能爬坡，显著提升资源自给率</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 H2</div>
+      <div class="tl-body"><div class="tl-title">固态电池进展</div><div class="tl-desc">与宝马合作的 10GWh 固态电池产线建设进展，是估值溢价的关键支撑</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026~2027</div>
+      <div class="tl-body"><div class="tl-title">锂价走势</div><div class="tl-desc">全球锂矿供给释放节奏 vs 新能源车+储能需求——这是最大的催化剂也是最大的风险</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 8                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🎯 八、操作区间</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>区间</th><th>价格</th><th>操作</th><th>依据</th></tr>
+      <tr><td style="color:var(--green);font-weight:700;">✅ 低估</td><td>¥30~40</td><td><strong>分批建仓</strong></td><td>对应 PB < 1.8x，充分反映锂价悲观预期</td></tr>
+      <tr><td style="color:var(--text);font-weight:700;">💰 合理</td><td>¥40~50</td><td><strong>持有/轻仓布局</strong></td><td>锂价中性假设下的合理区间</td></tr>
+      <tr><td style="color:var(--yellow);font-weight:700;">👀 偏高</td><td>¥50~60</td><td>观望</td><td>已反映锂价乐观预期，当前在此区间</td></tr>
+      <tr><td style="color:var(--red);font-weight:700;">🔴 高估</td><td>¥60+</td><td>减仓</td><td>锂价假设过于乐观，周期高位特征</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>当前操作建议</strong>：¥51.50 处于偏高区间，不建议追入。赣锋锂业适合在 <strong>锂价低迷、市场悲观</strong> 时逆势布局（如锂价跌至 10 万/吨以下时），然后在锂价高涨、市场狂热时分批退出。当前锂价 ~15 万/吨处于中位，赔率一般。列入深度观察。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 9                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚠️ 九、风险提示</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>风险</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td>锂价大幅回落</td><td>中高</td><td>极大</td><td>锂价是所有因素中最重要的变量。分散投资，控制仓位</td></tr>
+      <tr><td>管理层合规风险</td><td>中</td><td>中大</td><td>内幕交易案虽未刑事起诉，但治理缺陷长期存在</td></tr>
+      <tr><td>海外资产国有化</td><td>低中</td><td>大</td><td>墨西哥锂矿特许权被取消（仲裁中），非洲/南美有地缘风险</td></tr>
+      <tr><td>固态电池不及预期</td><td>中</td><td>中</td><td>固态电池是估值溢价的核心支撑，若进展慢会打压估值</td></tr>
+      <tr><td>负债率偏高</td><td>中</td><td>中</td><td>55.3% 负债率在周期下行期会增加财务压力</td></tr>
+    </table>
+    <div class="key-insight red" style="background:#fee2e2;border-left-color:var(--red);">
+      <strong>最大风险情景</strong>：锂价跌回 10 万/吨 + 海外资产被国有化 + 固态电池进展不及预期，三者同时发生。在此极端情景下，2027 年净利可能降至 10~15 亿，股价可能跌至 ¥20~25（PB ~1x）。当前价位下行风险约 50%，上行空间 ~30%，赔率不利。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 10                    -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📋 十、跟踪要点</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>指标</th><th>频率</th><th>正常信号</th><th>预警</th></tr>
+      <tr><td>碳酸锂价格</td><td>周</td><td>13~18 万/吨</td><td>< 10 万或 > 25 万</td></tr>
+      <tr><td>锂化合物出货量</td><td>季</td><td>同比 +20%+</td><td>< +5%</td></tr>
+      <tr><td>电池业务收入占比</td><td>季</td><td>继续提升 > 40%</td><td>占比下降</td></tr>
+      <tr><td>资源自给率</td><td>半年</td><td>> 60%</td><td>< 40%</td></tr>
+      <tr><td>毛利率</td><td>季</td><td>维持 25%+</td><td>< 18%</td></tr>
+      <tr><td>赣锋锂电 IPO 进展</td><td>半年</td><td>重启申报</td><td>继续搁置</td></tr>
+    </table>
+    <p style="margin-top:12px;font-size:0.9em;color:var(--text2);"><strong>一句话跟踪</strong>：赣锋的核心矛盾是"好赛道 + 好资源 + 好战略" vs "强周期 + 治理瑕疵"。投资窗口在锂价低迷时，而非锂价高涨时。</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <p>本报告仅为个人投资分析记录，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p style="margin-top:6px;">数据来源：公司公告、东方财富、财通证券、东吴证券、华泰证券研究报告</p>
+  <p style="margin-top:12px;">— 段永平："买股票就是买公司，买公司就是买其未来现金流。"</p>
+</div>
+
+<script>
+function toggleSection(heading) {
+  const body = heading.nextElementSibling;
+  if (!body || !body.classList) return;
+  body.classList.toggle('collapsed');
+  heading.classList.toggle('collapsed');
+}
+function toggleAll() {
+  const allHeads = document.querySelectorAll('.card h2');
+  let anyOpen = false;
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (body && body.classList && !body.classList.contains('collapsed')) { anyOpen = true; break; }
+  }
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (!body || !body.classList) continue;
+    if (anyOpen) { body.classList.add('collapsed'); h.classList.add('collapsed'); }
+    else { body.classList.remove('collapsed'); h.classList.remove('collapsed'); }
+  }
+}
+</script>
+
+</body>
+</html>

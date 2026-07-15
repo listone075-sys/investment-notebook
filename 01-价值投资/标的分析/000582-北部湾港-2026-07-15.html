@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>北部湾港 (000582.SZ) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em; color: var(--text); margin-bottom: 18px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; user-select: none;
+  }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .card h4 { font-size: 0.95em; color: var(--text2); margin: 14px 0 6px; font-weight: 600; }
+  .section-body { overflow: hidden; }
+  .section-body.collapsed { display: none; }
+
+  /* ── Details / Summary ── */
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); color: var(--text); list-style: none; display: flex; align-items: center; gap: 8px; }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  /* ── Verdict box (Watch - yellow) ── */
+  .verdict-box {
+    background: linear-gradient(135deg, var(--yellow-bg), #fff);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  /* ── Tags ── */
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-4 { grid-template-columns: 1fr; } }
+
+  /* ── Stat tile ── */
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  /* ── Key insight ── */
+  .key-insight { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+
+  /* ── Timeline ── */
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  /* ── Three questions ── */
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  /* ── Misc ── */
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .toggle-bar button:hover { background: var(--card2); }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>北部湾港 <span>价值投资分析</span></h1>
+  <div class="subtitle">Beibu Gulf Port — 西南门户·东盟枢纽·平陆运河催化</div>
+  <div class="codes">
+    <span>000582.SZ</span><span>交通运输·港口</span>
+  </div>
+  <div class="meta-bar">
+    <span>📅 2026-07-15</span>
+    <span>💰 ¥11.29</span>
+    <span>🏢 市值 ¥284亿</span>
+    <span>📊 数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">📂 全部展开 / 全部折叠</button>
+</div>
+
+<!-- ═══ VERDICT ═══ -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">📌 综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    平陆运河 2026年9月通航是核心催化，2027年起业绩有望加速。但当前 ~22x PE 已反映部分预期，ROE偏低（5.6%），股息率不足 1%。好故事需要兑现。
+  </div>
+  <div class="v-details">
+    <span>🎯 买入区间：<strong style="color:var(--green);">¥8.5~10</strong></span>
+    <span>💹 当前价：<strong style="color:var(--yellow);">¥11.29</strong></span>
+    <span>📊 合理价值：<strong>¥10~12</strong></span>
+    <span>🏆 仓位：<strong>3~5%</strong></span>
+  </div>
+</div>
+
+<!-- ═══ SNAPSHOT ═══ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📊 核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥11.29</div><div class="label">当前价</div></div>
+      <div class="stat-tile"><div class="num">¥284亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num">~22x</div><div class="label">2026E PE</div></div>
+      <div class="stat-tile"><div class="num">~1.37x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num">¥76.1亿</div><div class="label">2025营收(+8.7%)</div></div>
+      <div class="stat-tile"><div class="num yellow">¥10.4亿</div><div class="label">2025净利(-14.9%)</div></div>
+      <div class="stat-tile"><div class="num yellow">5.64%</div><div class="label">ROE(下滑)</div></div>
+      <div class="stat-tile"><div class="num">43.3%</div><div class="label">资产负债率</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">30.5%</div><div class="label">毛利率(2026Q1)</div></div>
+      <div class="stat-tile"><div class="num green">¥30.6亿</div><div class="label">经营现金流(强劲)</div></div>
+      <div class="stat-tile"><div class="num green">+17%</div><div class="label">2026Q1净利增速</div></div>
+      <div class="stat-tile"><div class="num yellow">~0.76%</div><div class="label">股息率(低)</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 1                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🚢 一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>北部湾港股份有限公司是广西最大的港口运营商，控股股东为广西北部湾国际港务集团（持股 54.87%，广西国资委实控）。公司整合北海、钦州、防城港三港资源，是 <strong>西部陆海新通道</strong> 的核心枢纽、中国对东盟贸易的第一大出海口。</p>
+    <p>2025 年全港货物吞吐量 3.58 亿吨（全国第 9），集装箱吞吐量突破 <strong>1,000 万 TEU</strong>（全国第 8），正式跻身千万标箱大港行列。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>📌 一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          拥有港口码头资产（不动产）→ 为船公司和货主提供船舶停靠、货物装卸/堆存服务 → 按货物量收取装卸费和堆存费。<br>
+          <strong>核心逻辑：坐地收租，流量变现。吞吐量是收入命脉。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>📌 核心护城河</h4>
+        <div class="key-insight" style="border-left-color:var(--yellow);">
+          港口是典型的 <strong>"自然资源垄断"</strong>——好的深水岸线是有限的、不可再生的，一旦开发就形成天然排他性。北部湾港的核心护城河是 <strong>西南地区唯一深水良港群 + 面向东盟的独家门户地位</strong>，区域内的竞争壁垒极高。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>装卸堆存 94%（绝对主业）+ 拖轮 3.6% + 理货 1.3%</td></tr>
+      <tr><td>核心客户</td><td>船公司（中远/马士基等）、货主、物流公司（B2B 为主）</td></tr>
+      <tr><td>成本结构</td><td>固定成本高（折旧+人工占 ~60%）+ 变动成本低（电费+维护）</td></tr>
+      <tr><td>利润驱动</td><td>吞吐量增长 → 产能利用率提升 → 固定成本摊薄 → 利润弹性放大</td></tr>
+      <tr><td>定价权</td><td>受政府指导价限制，但费率在指导价框架内有调整空间</td></tr>
+      <tr><td>区位优势</td><td>面向东盟，RCEP 红利直接受益者</td></tr>
+    </table>
+
+    <h3>1.3 这生意赚钱吗？—— 关键财务特征</h3>
+    <p>港口是一门 <strong>重资产、长周期、稳定现金流</strong> 的生意：</p>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>进入壁垒极高</strong>——港口建设需国家发改委核准 + 多个部委审批 + 数十亿投资 + 3~5 年建设期，区域垄断格局极难打破</li>
+      <li><strong>现金流出色</strong>——2025 年经营现金流 30.6 亿元，是净利润的 3 倍，现金创造能力很强</li>
+      <li><strong>增长有天花板</strong>——港口有服务半径，不能无限扩张。北部湾港的增长天花板取决于广西+西南腹地的经济规模和东盟贸易量</li>
+      <li><strong>需求韧性</strong>——港口吞吐量与宏观经济高度相关，但中国进出口总量决定长期需求有底</li>
+    </ul>
+
+    <details>
+      <summary>📖 深度理解：平陆运河为何是北部湾港的"第二曲线"</summary>
+      <div class="detail-body">
+        <p>平陆运河是新中国成立以来第一条连通江海的大运河，全长 135km，总投资约 720 亿元，预计 2026 年 9 月通航。它打通了西江航运干线 → 北部湾的出海口捷径。</p>
+        <p><strong>影响机制</strong>：目前西南地区（云贵川渝）的货物出海主要走两条路：① 经西江东行至珠三角出港（绕道广州/深圳）；② 经铁路/公路至北部湾出港。平陆运河通航后，西行路线将大幅缩短约 560km，运费显著降低，预计大量原走珠三角的西南货物将 <strong>回流</strong> 北部湾。</p>
+        <p><strong>券商测算</strong>：天风证券预计 2027 年吞吐量增速跳升至 +15%，2028 年再 +15%；财通证券预计 2027 年净利跳升至 17 亿（较 2026E 增长 28%），2028 年达 21 亿。平陆运河是北部湾港从"区域性港口"迈向"国际枢纽"的核心催化。</p>
+        <p><strong>但需注意</strong>：2026 年 9 月才通航，业绩实质释放要到 2027 年。当前 ~22x PE 已包含部分预期，不能简单线性外推。</p>
+      </div>
+    </details>
+
+    <h3>1.4 主营业务构成</h3>
+    <table>
+      <tr><th>业务</th><th>2025 收入</th><th>占比</th><th>特征</th></tr>
+      <tr><td>装卸堆存</td><td>~¥71.7 亿</td><td>94%</td><td>核心主业，量增驱动</td></tr>
+      <tr><td>拖轮业务</td><td>~¥2.7 亿</td><td>3.6%</td><td>配套服务，毛利较高</td></tr>
+      <tr><td>理货业务</td><td>~¥1.0 亿</td><td>1.3%</td><td>港口增值服务</td></tr>
+    </table>
+
+    <h3>1.5 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分</th><th>说明</th></tr>
+      <tr><td>区位垄断</td><td>⭐⭐⭐⭐⭐</td><td>西南地区唯一深水良港群，东盟门户，不可替代</td></tr>
+      <tr><td>岸线资源独占</td><td>⭐⭐⭐⭐⭐</td><td>深水岸线不可再生，一旦开发形成自然垄断</td></tr>
+      <tr><td>特许经营权</td><td>⭐⭐⭐⭐☆</td><td>港口经营需政府审批，准入门槛极高</td></tr>
+      <tr><td>转换成本</td><td>⭐⭐⭐⭐☆</td><td>船公司和货主一旦建立稳定挂靠关系，切换港口成本高</td></tr>
+      <tr><td>品牌/声誉</td><td>⭐⭐⭐☆☆</td><td>To B 生意，品牌效应有限</td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>综合护城河评级：较宽</strong> — 港口生意的护城河主要来自"自然资源垄断+行政审批壁垒"的双重排他性。在西南区域，北部湾港没有真正的竞争对手。但护城河保护的是生存下限（不会亏损），而非上限（增长空间受限于腹地经济）。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 2                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">👥 二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th>人物</th><th>职位</th><th>背景</th></tr>
+      <tr><td><strong>胡华平</strong></td><td>董事长（2026.1 当选）</td><td>北部湾港集团党委书记、董事长，广西国企系统资深管理者</td></tr>
+      <tr><td><strong>莫怒</strong></td><td>总经理</td><td>港口运营管理出身，熟悉一线业务</td></tr>
+    </table>
+
+    <h3>2.2 管理评估</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+      <tr><td>治理规范</td><td><span class="tag tag-green">优秀</span></td><td>连续 3 年深交所信息披露 A 级评价，连续 12 年现金分红。国企制度健全、合规意识强</td></tr>
+      <tr><td>股东导向</td><td><span class="tag tag-blue">中等偏上</span></td><td>分红比例提至 40%，控股股东增持超 2 亿。但国企体制下分红率仍有提升空间</td></tr>
+      <tr><td>战略执行</td><td><span class="tag tag-blue">中等偏上</span></td><td>平陆运河对接、自动化码头建设稳步推进，资本运作累计融资 206.8 亿</td></tr>
+      <tr><td>企业文化</td><td><span class="tag tag-blue">中等偏上</span></td><td>国企规范运作，清廉建设深入；但国企管理效率有提升空间</td></tr>
+    </table>
+    <div class="key-insight">
+      <strong>综合评价</strong>：国企管理层，制度健全、合规规范、执行稳定。但缺少民营企业的进攻性。评分 <strong>7/10</strong>——不出彩但不出错。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 3                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📈 三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿）</td><td>53.7</td><td>59.9</td><td>66.1</td><td>70.0</td><td><strong>76.1</strong></td><td>📈 稳增</td></tr>
+      <tr><td>营收增速</td><td>+7.8%</td><td>+11.6%</td><td>+10.3%</td><td>+5.9%</td><td><strong>+8.7%</strong></td><td>➡️ 稳健</td></tr>
+      <tr><td>归母净利（亿）</td><td>10.0</td><td>10.3</td><td>11.3</td><td>12.2</td><td><strong>10.4</strong></td><td>↘️ 2025 下滑</td></tr>
+      <tr><td>毛利率</td><td>35.5%</td><td>34.8%</td><td>33.9%</td><td>32.1%</td><td><strong>30.3%</strong></td><td>↘️ 逐年下降</td></tr>
+      <tr><td>净利率</td><td>19.1%</td><td>18.3%</td><td>18.5%</td><td>19.2%</td><td><strong>15.7%</strong></td><td>↘️ 下滑</td></tr>
+      <tr><td>ROE</td><td>8.7%</td><td>8.2%</td><td>8.0%</td><td>7.5%</td><td><strong>5.6%</strong></td><td>↘️ 明显下降</td></tr>
+      <tr><td>负债率</td><td>37.6%</td><td>39.1%</td><td>409%</td><td>39.7%</td><td>43.3%</td><td>↗️ 微升</td></tr>
+      <tr><td>经营现金流/净利</td><td>2.3x</td><td>2.1x</td><td>2.6x</td><td>2.5x</td><td><strong>2.9x</strong></td><td>✅ 极强</td></tr>
+    </table>
+    <div class="key-insight">
+      ROE 从 8.7% 持续下滑至 5.6%，毛利率逐年下降，是核心隐忧。主因资本开支大、资产持续膨胀（固定资产折旧增加），但吞吐量增速跟不上资产增速。好消息是 2026Q1 净利恢复 +17% 增长，拐点初现。
+    </div>
+
+    <h3>3.2 2026Q1 最新数据</h3>
+    <table>
+      <tr><th>指标</th><th>2026Q1</th><th>同比</th><th>说明</th></tr>
+      <tr><td>营收</td><td>17.26 亿</td><td>+5.0%</td><td>稳健增长</td></tr>
+      <tr><td>归母净利</td><td><strong>2.29 亿</strong></td><td><strong>+16.9%</strong></td><td>拐点信号，外贸吞吐量+10.7%驱动</td></tr>
+      <tr><td>毛利率</td><td>30.49%</td><td>+0.75pct</td><td>环比+3pct，改善明显</td></tr>
+      <tr><td>经营现金流</td><td>7.53 亿</td><td>-24%</td><td>季节性波动，正常</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 4                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚔️ 四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 港口行业估值对比</h3>
+    <table>
+      <tr><th>公司</th><th>2026E PE</th><th>PB</th><th>ROE</th><th>股息率</th><th>定位</th></tr>
+      <tr><td><strong>上港集团</strong></td><td>8~10x</td><td>0.84x</td><td>11.2%</td><td>~3.5%</td><td>全球集装箱第一大港</td></tr>
+      <tr><td><strong>招商港口</strong></td><td>11~13x</td><td>0.78x</td><td>7.3%</td><td>~3.7%</td><td>全球布局的港口投资商</td></tr>
+      <tr><td><strong>宁波港</strong></td><td>12~15x</td><td>0.90x</td><td>6.3%</td><td>~3.2%</td><td>全球货物吞吐量第一大港</td></tr>
+      <tr><td style="background:var(--yellow-bg);"><strong>北部湾港</strong></td><td style="background:var(--yellow-bg);"><strong>~22x</strong></td><td style="background:var(--yellow-bg);">1.37x</td><td style="background:var(--yellow-bg);">5.6%</td><td style="background:var(--yellow-bg);">~0.76%</td><td style="background:var(--yellow-bg);">东盟门户，高成长预期</td></tr>
+    </table>
+    <p>北部湾港是 A 股港口中估值最高的（PE ~22x），对应市场对其平陆运河通航后的高成长预期。但 ROE 却是最低的（5.6% vs 龙头 11.2%），股息率也最低。市场在为"未来"买单。</p>
+
+    <div class="key-insight yellow">
+      <strong>竞争格局判断</strong>：港口行业的区域垄断属性意味着北部湾港在西南地区没有直接竞争对手。其成长天花板取决于腹地经济和运河红利，而非与同行竞争。当前高估值（PE ~22x vs 行业均值 ~12x）说明市场已在定价平陆运河的预期，需要兑现。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 5                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🤔 五、段永平三问</h2>
+  <div class="section-body">
+    <div class="q-item">
+      <div class="q">第一问：这家公司我能理解吗？</div>
+      <div class="a"><span class="green">✅ 很容易理解。</span> 港口生意非常直观：建码头、停船、装卸货、收钱。收入驱动因素就是吞吐量×费率。核心变量是平陆运河通航后能带来多少新增货源。没有复杂的产品结构或难懂的商业模式。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第二问：有强大的护城河吗？</div>
+      <div class="a"><span class="green">✅ 护城河较宽。</span> 深水岸线的自然资源垄断+港口经营行政壁垒，在西南区域没有竞争对手。这是"不会死"的护城河，但也不是"能大赚"的护城河——港口增长空间受限于腹地经济和贸易量。平陆运河打开第二曲线，但需要时间兑现。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第三问：当前价格有安全边际吗？</div>
+      <div class="a"><span class="yellow">⚠️ 安全边际有限。</span> 当前 ¥11.29 对应 2026E PE ~22x，在港口行业中明显偏高。即使乐观情景（平陆运河通航后 2027 年净利 17 亿），前瞻 PE 也达 16.7x。更合理的买入区间在 ¥8.5~10（对应 PE 16~18x）。当前价位安全边际不够，建议等待。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 6                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">💰 六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值</h3>
+    <table>
+      <tr><th>指标</th><th>北部湾港</th><th>上港集团</th><th>行业均值</th></tr>
+      <tr><td>2026E PE</td><td><strong>~22x</strong></td><td>~9x</td><td>~12x</td></tr>
+      <tr><td>PB</td><td>~1.37x</td><td>~0.84x</td><td>~0.9x</td></tr>
+      <tr><td>ROE</td><td>5.6%</td><td>11.2%</td><td>~8%</td></tr>
+    </table>
+
+    <h3>6.2 多种估值</h3>
+    <table>
+      <tr><th>方法</th><th>假设</th><th>合理股价</th></tr>
+      <tr><td>PE 估值（保守）</td><td>2026E 净利 12 亿 × 16~18x PE</td><td><strong>¥8.0~9.0</strong></td></tr>
+      <tr><td>PE 估值（平陆运河预期）</td><td>2027E 净利 16 亿 × 15~17x PE（折现）</td><td><strong>¥10.0~12.0</strong></td></tr>
+      <tr><td>PB 估值</td><td>每股净资产 ~8.0 × 1.1~1.3x PB</td><td><strong>¥8.8~10.4</strong></td></tr>
+      <tr><td>DCF 毛估</td><td>WACC 8%，永续 2%</td><td><strong>¥9~12</strong></td></tr>
+    </table>
+    <div class="key-insight">
+      <strong>估值结论</strong>：合理价值区间 <strong>¥10~12</strong>（含平陆运河预期），当前 ¥11.29 在合理区间的上沿。安全边际不厚，赔率一般。好的买入区间在 <strong>¥8.5~10</strong>。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 7                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📅 七、催化剂时间线</h2>
+  <div class="section-body">
+    <div class="tl-item">
+      <div class="tl-time">2026 年 7~8 月</div>
+      <div class="tl-body"><div class="tl-title">中报披露</div><div class="tl-desc">关注 Q2 吞吐量和净利趋势，验证增长拐点</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time"><strong>2026 年 9 月</strong></div>
+      <div class="tl-body"><div class="tl-title" style="color:var(--accent);">🎯 平陆运河通航（核心催化）</div><div class="tl-desc">运河通航后，西南货物将大量回流北部湾，2027 年起吞吐量有望跳升</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 H2</div>
+      <div class="tl-body"><div class="tl-title">钦州大榄坪泊位投产</div><div class="tl-desc">3 个 7 万吨级泊位（投资 31 亿），年设计吞吐量 1,350 万吨</div></div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027 年</div>
+      <div class="tl-body"><div class="tl-title">运河通航首年完整贡献</div><div class="tl-desc">券商预计 2027 年净利跳升至 14~19 亿，PE 估值将大幅压缩</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 8                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🎯 八、操作区间</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>区间</th><th>价格</th><th>操作</th><th>依据</th></tr>
+      <tr><td style="color:var(--green);font-weight:700;">✅ 低估</td><td>¥8.0~9.5</td><td><strong>积极买入</strong></td><td>对应 PE < 18x，PB < 1.2x，足够安全边际</td></tr>
+      <tr><td style="color:var(--text);font-weight:700;">💰 合理</td><td>¥9.5~11</td><td><strong>分批买入</strong></td><td>运河预期已有部分体现，可轻仓布局</td></tr>
+      <tr><td style="color:var(--yellow);font-weight:700;">👀 偏高</td><td>¥11~13</td><td>持有/观望</td><td>当前在此区间，安全边际不足</td></tr>
+      <tr><td style="color:var(--red);font-weight:700;">🔴 高估</td><td>¥13+</td><td>减仓</td><td>透支运河 2 年以上预期</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>当前操作建议</strong>：¥11.29 处于偏高区间，不建议现价买入。列入深度观察，等待回调至 ¥10 以下或平陆运河通航后数据验证再行介入。仓位上限 <strong>5%</strong>。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 9                     -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚠️ 九、风险提示</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>风险</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td>运河通航延迟</td><td>低中</td><td>大</td><td>跟踪工程进度，延迟则估值需下修</td></tr>
+      <tr><td>货源回流不及预期</td><td>中</td><td>大</td><td>分流比例不确定，需通航后验证</td></tr>
+      <tr><td>ROE 持续下滑</td><td>中</td><td>中</td><td>资本开支大、资产扩张快于利润增长</td></tr>
+      <tr><td>宏观经济下行</td><td>中</td><td>中</td><td>港口与贸易量正相关，难以避免</td></tr>
+      <tr><td>费率管制</td><td>低</td><td>中</td><td>政府指导价框架内调整空间有限</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>最大风险</strong>：平陆运河货源回流不及预期 + ROE 继续下滑。在此情景下，~22x PE 将面临双杀，股价可能回调至 ¥8~9（-20~25%）。
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!-- SECTION 10                    -->
+<!-- ══════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📋 十、跟踪要点</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>指标</th><th>频率</th><th>正常信号</th><th>预警</th></tr>
+      <tr><td>货物吞吐量增速</td><td>月</td><td>> +5%</td><td>< +2%</td></tr>
+      <tr><td>集装箱吞吐量增速</td><td>月</td><td>> +8%</td><td>< +3%</td></tr>
+      <tr><td>平陆运河工程进度</td><td>月</td><td>按期 9 月通航</td><td>延迟公告</td></tr>
+      <tr><td>毛利率</td><td>季</td><td>维持 30%+</td><td>< 27%</td></tr>
+      <tr><td>ROE</td><td>年</td><td>回升至 6%+</td><td>继续 < 5.5%</td></tr>
+    </table>
+    <p style="margin-top:12px;font-size:0.9em;color:var(--text2);"><strong>一句话跟踪</strong>：北部湾港的投资价值 = 平陆运河。通航前验证预期，通航后验证数据。数据落地前仅适合轻仓布局。</p>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <p>本报告仅为个人投资分析记录，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p style="margin-top:6px;">数据来源：公司公告、东方财富、Wind、券商研报（天风/财通/金元）</p>
+  <p style="margin-top:12px;">— 段永平："买股票就是买公司，买公司就是买其未来现金流。"</p>
+</div>
+
+<script>
+function toggleSection(heading) {
+  const body = heading.nextElementSibling;
+  if (!body || !body.classList) return;
+  body.classList.toggle('collapsed');
+  heading.classList.toggle('collapsed');
+}
+function toggleAll() {
+  const allHeads = document.querySelectorAll('.card h2');
+  let anyOpen = false;
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (body && body.classList && !body.classList.contains('collapsed')) { anyOpen = true; break; }
+  }
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (!body || !body.classList) continue;
+    if (anyOpen) { body.classList.add('collapsed'); h.classList.add('collapsed'); }
+    else { body.classList.remove('collapsed'); h.classList.remove('collapsed'); }
+  }
+}
+</script>
+
+</body>
+</html>
