@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>百济神州 (688235.SH / 6160.HK) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card2: #334155;
+    --accent: #38bdf8;
+    --green: #4ade80;
+    --red: #fb7185;
+    --yellow: #fbbf24;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #334155;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 0;
+  }
+  .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 0 30px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 2em;
+    background: linear-gradient(135deg, var(--accent), #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle { color: var(--muted); margin-top: 8px; font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 12px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--card2); padding: 4px 14px; border-radius: 20px;
+    font-size: 0.85em; color: var(--accent);
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 30px; margin-top: 16px;
+    font-size: 0.85em; color: var(--muted); flex-wrap: wrap;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+  }
+  .card h2 {
+    font-size: 1.3em;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h3 {
+    font-size: 1em;
+    color: var(--accent);
+    margin: 16px 0 8px;
+  }
+  .card h4 {
+    font-size: 0.9em;
+    color: var(--yellow);
+    margin: 12px 0 6px;
+  }
+
+  /* Rating badge */
+  .rating-badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
+    text-align: center;
+  }
+  .rating-buy { background: #14532d; color: var(--green); border: 1px solid var(--green); }
+  .rating-watch { background: #451a03; color: var(--yellow); border: 1px solid var(--yellow); }
+  .rating-avoid { background: #450a0a; color: var(--red); border: 1px solid var(--red); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 0.9em;
+  }
+  th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; }
+  tr:hover { background: rgba(56, 189, 248, 0.05); }
+
+  /* Moat stars */
+  .stars { color: var(--yellow); letter-spacing: 2px; }
+  .stars-empty { color: var(--muted); opacity: 0.3; }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin: 2px;
+  }
+  .tag-green { background: rgba(74, 222, 128, 0.15); color: var(--green); }
+  .tag-yellow { background: rgba(251, 191, 36, 0.15); color: var(--yellow); }
+  .tag-red { background: rgba(251, 113, 133, 0.15); color: var(--red); }
+  .tag-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
+
+  /* Progress bar */
+  .bar { height: 8px; border-radius: 4px; background: var(--card2); margin: 8px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-green { background: var(--green); }
+  .bar-yellow { background: var(--yellow); }
+  .bar-red { background: var(--red); }
+  .bar-blue { background: var(--accent); }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+  }
+  .checklist li::before {
+    content: "✓";
+    position: absolute; left: 0;
+    color: var(--green); font-weight: bold;
+  }
+  .checklist li.warn::before { content: "△"; color: var(--yellow); }
+  .checklist li.no::before { content: "✗"; color: var(--red); }
+
+  /* Score row */
+  .score-row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 6px 0;
+  }
+  .score-row .label { flex: 0 0 100px; font-size: 0.9em; color: var(--muted); }
+  .score-row .bar { flex: 1; }
+  .score-row .val { flex: 0 0 50px; text-align: right; font-weight: 600; }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* Stat tile */
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-tile .label { font-size: 0.8em; color: var(--muted); margin-top: 4px; }
+  .stat-tile .green { color: var(--green); }
+  .stat-tile .red { color: var(--red); }
+  .stat-tile .yellow { color: var(--yellow); }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.8em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* Risks */
+  .risk-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 6px;
+    background: rgba(251, 113, 133, 0.08);
+    border-left: 3px solid var(--red);
+  }
+  .risk-item .prob {
+    font-size: 0.8em;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--card2);
+    flex-shrink: 0;
+  }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  .verdict-box {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .big {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin: 10px 0;
+  }
+  .verdict-box .desc {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 10px auto 0;
+    font-size: 0.9em;
+  }
+
+  /* Section highlight */
+  .key-insight {
+    background: rgba(56, 189, 248, 0.08);
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>🔬 百济神州 价值投资分析</h1>
+  <div class="subtitle">BeiGene — 中国创新药全球化龙头</div>
+  <div class="codes">
+    <span>688235.SH (A股)</span>
+    <span>6160.HK (港股)</span>
+    <span>BGNE (美股)</span>
+  </div>
+  <div class="meta-bar">
+    <span>分析日期：2026-07-15</span>
+    <span>A股股价：¥255.20</span>
+    <span>市值：约 ¥3,934亿</span>
+    <span>行业：生物医药 / 创新药</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--muted);">综合评级</div>
+  <div class="big" style="color:var(--yellow);">⚡ 观察（Waiting）</div>
+  <div class="desc">
+    百济神州是一家优秀的公司，但当前价格缺乏足够的安全边际。<br>
+    建议列入深度观察名单，等待更好的买入时机。
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2>📊 核心速览</h2>
+  <div class="grid-3">
+    <div class="stat-tile">
+      <div class="num green">¥255.20</div>
+      <div class="label">A股当前价</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num">¥3,934亿</div>
+      <div class="label">总市值</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num green">✓ 盈利</div>
+      <div class="label">2026Q1 归母净利润 16.08亿</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num">87.61%</div>
+      <div class="label">毛利率（2025）</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num yellow">5.33%</div>
+      <div class="label">ROE（2025，首年转正）</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num">382亿</div>
+      <div class="label">2025年营收（+40%）</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: 生意理解 -->
+<div class="card">
+  <h2>🏭 一、生意理解</h2>
+
+  <h3>1.1 一句话说清怎么赚钱</h3>
+  <div class="key-insight">
+    <strong>百济神州是一家全球化创新药企</strong>，核心模式是：自主发现并开发抗癌新药 → 在全球（美/欧/中为主的75+市场）获批上市 → 通过自有商业化团队销售获利。目前主要靠拳头产品<strong>泽布替尼（百悦泽®）</strong>——一款BTK抑制剂的全球销售驱动收入。
+  </div>
+
+  <h3>1.2 商业模式</h3>
+  <table>
+    <tr><th>维度</th><th>特征</th></tr>
+    <tr><td>收入结构</td><td>产品收入占98%，服务收入占2%</td></tr>
+    <tr><td>主要客户</td><td>全球医院/药房/医疗机构（非集采模式，以自费+商保为主）</td></tr>
+    <tr><td>成本结构</td><td>高毛利（87.61%）、高研发投入（占营收40.57%）、高销售费用</td></tr>
+    <tr><td>利润驱动力</td><td>泽布替尼全球放量 + 规模效应摊薄固定成本 → 2025年首次盈利</td></tr>
+  </table>
+
+  <h3>1.3 护城河分析</h3>
+  <div class="key-insight">
+    <strong>段永平定义：护城河 = 能持续赚钱的能力</strong><br><br>
+    百济神州的护城河是 <strong>"先发+全球化+研发平台"</strong> 三位一体的组合护城河，而非单一优势。但这条护城河仍需持续投入维持，并非"一劳永逸"型。
+  </div>
+
+  <table>
+    <tr><th>护城河维度</th><th>评级</th><th>说明</th></tr>
+    <tr>
+      <td>全球商业化网络</td>
+      <td><span class="stars">★★★★★</span></td>
+      <td>自建美欧中日销售团队，覆盖75+市场，是中国药企中独一无二的全球化能力</td>
+    </tr>
+    <tr>
+      <td>研发平台</td>
+      <td><span class="stars">★★★★☆</span></td>
+      <td>从靶点发现→临床→注册的全链条能力，泽布替尼是首个获FDA批准的中国原创抗癌药</td>
+    </tr>
+    <tr>
+      <td>品牌与先发优势</td>
+      <td><span class="stars">★★★★☆</span></td>
+      <td>在BTK抑制剂领域已建立医生品牌认知，新患者处方份额第一</td>
+    </tr>
+    <tr>
+      <td>专利壁垒</td>
+      <td><span class="stars">★★★☆☆</span></td>
+      <td>泽布替尼有专利保护到2030+，但面临后续迭代竞争（BTK降解剂、双抗等）</td>
+    </tr>
+    <tr>
+      <td>规模成本优势</td>
+      <td><span class="stars">★★★☆☆</span></td>
+      <td>苏州/广州生产基地已投产，但相对MNC仍有差距</td>
+    </tr>
+    <tr>
+      <td><strong>综合护城河</strong></td>
+      <td><span class="stars">★★★★☆</span></td>
+      <td><strong>宽护城河</strong> — 但属于"主动维护型"，需要持续研发投入</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SECTION 2: 管理层 -->
+<div class="card">
+  <h2>👥 二、管理层评估</h2>
+
+  <h3>2.1 核心人物</h3>
+  <table>
+    <tr><th>人物</th><th>角色</th><th>背景</th><th>评价</th></tr>
+    <tr>
+      <td>欧雷强 (John Oyler)</td>
+      <td>CEO / 董事长</td>
+      <td>MIT工程+斯坦福MBA、麦肯锡出身、Genta CEO、保诺科技创始人</td>
+      <td><span class="tag tag-green">优秀企业家</span> 全球化视野+资本运作能力极强</td>
+    </tr>
+    <tr>
+      <td>王晓东</td>
+      <td>科学顾问委员会主席</td>
+      <td>美国国家科学院院士、北京生命科学研究所所长</td>
+      <td><span class="tag tag-green">顶尖科学家</span> 源头创新能力，B类股控制研发方向</td>
+    </tr>
+    <tr>
+      <td>吴晓滨</td>
+      <td>总裁 / COO</td>
+      <td>前辉瑞中国总经理</td>
+      <td><span class="tag tag-green">商业执行</span> 销售体系搭建者</td>
+    </tr>
+  </table>
+
+  <h3>2.2 关键判断</h3>
+  <ul class="checklist">
+    <li><strong>诚信务实？</strong> 公司财务规范，三地上市遵循最严格的信息披露标准，历史无造假记录</li>
+    <li><strong>股东导向？</strong> AB股机制确保创始团队控制权，长期战略稳定；2025年首次盈利即上调业绩指引，积极沟通</li>
+    <li><strong>专注 vs 多元化？</strong> 15年专注抗癌药，从未跨界，管线围绕血液瘤+实体瘤核心能力延伸</li>
+    <li><strong>企业文化？</strong> 科学驱动、长期主义 — "百创新药，济世惠民"</li>
+    <li class="warn"><strong>⚠ 关注点：</strong> 管理层薪酬偏高（欧雷强薪酬一度全球药企Top10），经营费用率仍需优化</li>
+  </ul>
+
+  <div class="key-insight">
+    <strong>段永平评价框架：</strong> 百济神州的管理层属于"能做对的事 + 有能力把事做对"的类型。创始人科学家+企业家的组合，文化是"产品导向"而非"利润导向"，这是长期主义的底色。
+  </div>
+</div>
+
+<!-- SECTION 3: 财务分析 -->
+<div class="card">
+  <h2>💰 三、财务分析</h2>
+
+  <h3>3.1 核心财务指标</h3>
+  <table>
+    <tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>2026Q1</th><th>趋势</th></tr>
+    <tr>
+      <td>营收（亿元）</td>
+      <td>174.23</td>
+      <td>272.14</td>
+      <td><strong>382.25</strong></td>
+      <td><strong>105.44</strong></td>
+      <td><span style="color:var(--green)">↗ 高速增长</span></td>
+    </tr>
+    <tr>
+      <td>营收增速</td>
+      <td>+82%</td>
+      <td>+56%</td>
+      <td>+40%</td>
+      <td>+31%</td>
+      <td><span style="color:var(--yellow)">↘ 增速放缓</span></td>
+    </tr>
+    <tr>
+      <td>归母净利润（亿）</td>
+      <td>-68.61</td>
+      <td>-45.84</td>
+      <td><strong>14.61</strong></td>
+      <td><strong>16.08</strong></td>
+      <td><span style="color:var(--green)">↗ 首年盈利</span></td>
+    </tr>
+    <tr>
+      <td>毛利率</td>
+      <td>83.91%</td>
+      <td>83.85%</td>
+      <td><strong>87.61%</strong></td>
+      <td><strong>89.02%</strong></td>
+      <td><span style="color:var(--green)">↗ 持续改善</span></td>
+    </tr>
+    <tr>
+      <td>ROE</td>
+      <td>-49.27%</td>
+      <td>-20.20%</td>
+      <td><strong>5.33%</strong></td>
+      <td>—</td>
+      <td><span style="color:var(--green)">↗ 转正</span></td>
+    </tr>
+    <tr>
+      <td>经营现金流（亿）</td>
+      <td>-17.23</td>
+      <td>-12.59</td>
+      <td><strong>137.13</strong></td>
+      <td><strong>13.53</strong></td>
+      <td><span style="color:var(--green)">↗ 大幅转正</span></td>
+    </tr>
+    <tr>
+      <td>资产负债率</td>
+      <td>—</td>
+      <td>43.56%</td>
+      <td>46.53%</td>
+      <td>—</td>
+      <td><span style="color:var(--yellow)">↗ 略升</span></td>
+    </tr>
+    <tr>
+      <td>研发/收入比</td>
+      <td>~70%</td>
+      <td>51.96%</td>
+      <td>40.57%</td>
+      <td>—</td>
+      <td><span style="color:var(--green)">↘ 优化中</span></td>
+    </tr>
+  </table>
+
+  <h3>3.2 财务健康度评估</h3>
+
+  <div class="score-row">
+    <span class="label">利润质量</span>
+    <div class="bar"><div class="bar-fill bar-green" style="width:85%"></div></div>
+    <span class="val">8.5/10</span>
+  </div>
+  <div style="font-size:0.85em; color:var(--muted); padding-left:116px;">
+    经营现金流/净利润 > 1（2025年为9.4倍），利润含金量极高；但累计未弥补亏损仍达612亿元
+  </div>
+
+  <div class="score-row" style="margin-top:8px;">
+    <span class="label">偿债能力</span>
+    <div class="bar"><div class="bar-fill bar-blue" style="width:75%"></div></div>
+    <span class="val">7.5/10</span>
+  </div>
+  <div style="font-size:0.85em; color:var(--muted); padding-left:116px;">
+    流动比率3.47，速动比率3.13，短期偿债能力强；资产负债率46.53%，合理范围；但长期借款同比+455%
+  </div>
+
+  <div class="score-row" style="margin-top:8px;">
+    <span class="label">研发效率</span>
+    <div class="bar"><div class="bar-fill bar-yellow" style="width:60%"></div></div>
+    <span class="val">6/10</span>
+  </div>
+  <div style="font-size:0.85em; color:var(--muted); padding-left:116px;">
+    R&D投入占营收40.57%（全球药企最高之一），泽布替尼已验证研发能力，但整体研发回报率尚待更多管线验证
+  </div>
+
+  <div class="key-insight" style="border-left-color: var(--green);">
+    <strong>✅ 财务转折确认：</strong> 2025年是百济神州的财务分水岭——首次全年盈利、经营现金流首次全年为正、ROE转正。<br>
+    2026Q1延续盈利态势（净利16.08亿元），已完成从"烧钱"到"造血"的关键一步。
+  </div>
+</div>
+
+<!-- SECTION 4: 估值分析 -->
+<div class="card">
+  <h2>📈 四、估值分析</h2>
+
+  <h3>4.1 当前估值水平</h3>
+  <div class="grid-3">
+    <div class="stat-tile">
+      <div class="num yellow">~269x</div>
+      <div class="label">PE(TTM, 2025)</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num yellow">~100x</div>
+      <div class="label">PE(2026E)</div>
+    </div>
+    <div class="stat-tile">
+      <div class="num blue">~9x</div>
+      <div class="label">PS(2026E)</div>
+    </div>
+  </div>
+
+  <h3>4.2 估值方法</h3>
+
+  <h4>📌 方法一：PS估值法（适用于创新药企盈利早期）</h4>
+  <table>
+    <tr><th>情景</th><th>2026E营收</th><th>PS倍数</th><th>对应市值</th><th>对应股价(A股)</th></tr>
+    <tr>
+      <td>保守</td>
+      <td>436亿</td>
+      <td>6x</td>
+      <td>2,616亿</td>
+      <td><strong>¥170</strong></td>
+    </tr>
+    <tr style="background:rgba(56,189,248,0.08);">
+      <td><strong>中性</strong></td>
+      <td><strong>445亿</strong></td>
+      <td><strong>8x</strong></td>
+      <td><strong>3,560亿</strong></td>
+      <td><strong>¥231</strong></td>
+    </tr>
+    <tr>
+      <td>乐观</td>
+      <td>455亿</td>
+      <td>10x</td>
+      <td>4,550亿</td>
+      <td><strong>¥295</strong></td>
+    </tr>
+  </table>
+  <div style="font-size:0.85em; color:var(--muted);">
+    * 对比：全球MNC药企PS通常3-5x，高增长Biotech 8-12x。百济作为全球化创新药企，给予8x PS中性合理。
+  </div>
+
+  <h4>📌 方法二：PE估值法（2026年进入常态化盈利）</h4>
+  <table>
+    <tr><th>情景</th><th>2026E净利</th><th>PE倍数</th><th>对应市值</th><th>对应股价(A股)</th></tr>
+    <tr>
+      <td>保守</td>
+      <td>35亿</td>
+      <td>60x</td>
+      <td>2,100亿</td>
+      <td><strong>¥136</strong></td>
+    </tr>
+    <tr style="background:rgba(56,189,248,0.08);">
+      <td><strong>中性</strong></td>
+      <td><strong>42亿</strong></td>
+      <td><strong>80x</strong></td>
+      <td><strong>3,360亿</strong></td>
+      <td><strong>¥218</strong></td>
+    </tr>
+    <tr>
+      <td>乐观</td>
+      <td>50亿</td>
+      <td>100x</td>
+      <td>5,000亿</td>
+      <td><strong>¥324</strong></td>
+    </tr>
+  </table>
+  <div style="font-size:0.85em; color:var(--muted);">
+    * 80x PE对于年增速30%+的创新药企属于成长性溢价，合理但无安全边际。
+  </div>
+
+  <h4>📌 方法三：DCF思维（段永平"毛估估"）</h4>
+  <div class="key-insight">
+    泽布替尼专利保护到2030+，预计未来5年峰值销售50-60亿美元。<br>
+    索托克拉+BGB-16673+实体瘤管线有望在2030年前接力。<br>
+    <strong>毛估估内在价值区间：¥170~230/股（A股）</strong><br>
+    当前价格¥255，高出内在价值上沿约<strong style="color:var(--red)">11%</strong>，安全边际不足。
+  </div>
+
+  <h3>4.3 历史估值分位</h3>
+  <table>
+    <tr><th>指标</th><th>当前</th><th>历史低位</th><th>历史高位</th><th>当前分位</th></tr>
+    <tr>
+      <td>PS(TTM)</td>
+      <td>10.3x</td>
+      <td>~5x</td>
+      <td>~25x</td>
+      <td>~40%分位</td>
+    </tr>
+    <tr>
+      <td>PB</td>
+      <td>~6.5x</td>
+      <td>~3x</td>
+      <td>~12x</td>
+      <td>~35%分位</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SECTION 5: 投资决策 -->
+<div class="card">
+  <h2>🎯 五、投资决策</h2>
+
+  <h3>5.1 综合评分</h3>
+  <table>
+    <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+    <tr>
+      <td>生意质量</td>
+      <td><strong>8/10</strong> <span class="bar" style="display:inline-block;width:80px;vertical-align:middle"><div class="bar-fill bar-green" style="width:80%"></div></span></td>
+      <td>高毛利、高壁垒，"好生意"但需要持续高研发投入维持</td>
+    </tr>
+    <tr>
+      <td>管理层</td>
+      <td><strong>8.5/10</strong> <span class="bar" style="display:inline-block;width:80px;vertical-align:middle"><div class="bar-fill bar-green" style="width:85%"></div></span></td>
+      <td>科学家+企业家黄金组合，长期主义文化。薪酬偏高扣0.5</td>
+    </tr>
+    <tr>
+      <td>财务状况</td>
+      <td><strong>7/10</strong> <span class="bar" style="display:inline-block;width:80px;vertical-align:middle"><div class="bar-fill bar-blue" style="width:70%"></div></span></td>
+      <td>盈利拐点确认，现金流转正，但累计亏损大，负债率略升</td>
+    </tr>
+    <tr>
+      <td>当前价格</td>
+      <td><strong>5/10</strong> <span class="bar" style="display:inline-block;width:80px;vertical-align:middle"><div class="bar-fill bar-yellow" style="width:50%"></div></span></td>
+      <td>PE~100x，PS~9x，中性估值但不具备安全边际</td>
+    </tr>
+    <tr style="background:rgba(56,189,248,0.05);">
+      <td><strong>综合得分</strong></td>
+      <td><strong>7.1/10</strong></td>
+      <td>优秀公司 + 合理价格 = 可以研究观察</td>
+    </tr>
+  </table>
+
+  <h3>5.2 投资区间建议</h3>
+  <table>
+    <tr><th>区间</th><th>价格</th><th>操作</th></tr>
+    <tr>
+      <td><span class="tag tag-red">高估区</span></td>
+      <td>¥280+</td>
+      <td>不买入，已有持仓可考虑逐步减仓</td>
+    </tr>
+    <tr style="background:rgba(251,191,36,0.08);">
+      <td><span class="tag tag-yellow">观察区</span></td>
+      <td><strong>¥220 ~ ¥280</strong></td>
+      <td><strong>当前在观察区（¥255），等待更好的买入机会</strong></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-green">价值区</span></td>
+      <td>¥170 ~ ¥220</td>
+      <td>开始分批建仓，首次买入目标仓位3-5%</td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-green">深度价值区</span></td>
+      <td>¥170以下</td>
+      <td>加仓至目标仓位8-10%</td>
+    </tr>
+  </table>
+
+  <h3>5.3 仓位建议</h3>
+  <div class="grid-2">
+    <div>
+      <h4>价值仓位配置</h4>
+      <div class="stat-tile" style="margin:8px 0;">
+        <div class="num yellow">观察</div>
+        <div class="label">暂不建仓，列入深度观察</div>
+      </div>
+      <div class="stat-tile">
+        <div class="num">8~10%</div>
+        <div class="label">目标最大仓位（到达价值区后）</div>
+      </div>
+    </div>
+    <div>
+      <h4>首次建仓节奏</h4>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding:4px 0;">① ¥220~240 — 建仓 20%（总仓位 1.5%~2%）</li>
+        <li style="padding:4px 0;">② ¥190~220 — 加仓 40%（总仓位 4%~6%）</li>
+        <li style="padding:4px 0;">③ ¥170~190 — 加仓 40%（总仓位 8%~10%）</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 风险提示 -->
+<div class="card">
+  <h2>⚠️ 六、风险提示</h2>
+
+  <div class="risk-item">
+    <span class="prob" style="background:#451a03;color:var(--yellow);">高概率·高影响</span>
+    <div>
+      <strong>泽布替尼增速放缓超预期</strong><br>
+      <span style="font-size:0.85em;color:var(--muted);">2026年营收增速指引仅16-20%（2025年为40%），美国医保谈判+竞品降价压缩价格空间，伊布替尼仿制药冲击即将到来。如果增速跌破10%，估值将面临大幅修正。</span>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <span class="prob" style="background:#451a03;color:var(--yellow);">中概率·高影响</span>
+    <div>
+      <strong>第二曲线断档</strong><br>
+      <span style="font-size:0.85em;color:var(--muted);">索托克拉（BCL-2）、BGB-16673（BTK降解剂）尚处于III期阶段。如果临床数据不佳或审批延迟，公司将长期依赖单一产品，市场将重新定价。</span>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <span class="prob" style="background:#14532d;color:var(--green);">中概率·中影响</span>
+    <div>
+      <strong>集采/医保降价风险</strong><br>
+      <span style="font-size:0.85em;color:var(--muted);">泽布替尼在美国面临IRA价格谈判（月费从1.29万→0.93万），阿卡替尼已降价40%。虽暂未纳入中国集采，但长期价格下行不可避免。</span>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <span class="prob" style="background:#14532d;color:var(--green);">中概率·中影响</span>
+    <div>
+      <strong>中美地缘政治风险</strong><br>
+      <span style="font-size:0.85em;color:var(--muted);">创始人为美籍，公司治理层及主要研发在中国。若中美科技脱钩加剧，可能影响美国市场销售或融资能力。</span>
+    </div>
+  </div>
+
+  <div class="risk-item">
+    <span class="prob" style="background:#14532d;color:var(--accent);">低概率·高影响</span>
+    <div>
+      <strong>竞品技术替代</strong><br>
+      <span style="font-size:0.85em;color:var(--muted);">礼来的匹妥布替尼（非共价BTK抑制剂）一线CLL/SLL数据优异，若FDA批准将直接威胁泽布替尼的核心适应症市场。</span>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: 关键催化 -->
+<div class="card">
+  <h2>📅 七、未来12个月关键催化</h2>
+  <table>
+    <tr><th>时间</th><th>事件</th><th>影响</th></tr>
+    <tr>
+      <td>2026H2</td>
+      <td>泽布替尼MANGROVE研究申报（一线MCL新适应症）</td>
+      <td><span class="tag tag-green">利好</span> 扩大适应症范围</td>
+    </tr>
+    <tr>
+      <td>2026H2</td>
+      <td>BGB-16673提交加速批准申请</td>
+      <td><span class="tag tag-green">利好</span> 验证第二代管线</td>
+    </tr>
+    <tr>
+      <td>2026年内</td>
+      <td>索托克拉欧美获批</td>
+      <td><span class="tag tag-green">利好</span> 开启"三驾马车"时代</td>
+    </tr>
+    <tr>
+      <td>2026下半年</td>
+      <td>2026全年业绩（营收指引436-452亿）</td>
+      <td><span class="tag tag-yellow">验证</span> 增速能否符合指引</td>
+    </tr>
+    <tr>
+      <td>2026-2027</td>
+      <td>ZS组合 vs AV组合的头对头III期数据</td>
+      <td><span class="tag tag-yellow">关键</span> 决定CLL领域格局</td>
+    </tr>
+    <tr>
+      <td>2027</td>
+      <td>匹妥布替尼一线CLL/SLL FDA审评</td>
+      <td><span class="tag tag-red">风险</span> 可能改变BTK格局</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SECTION 8: 跟踪要点 -->
+<div class="card">
+  <h2>📋 八、跟踪要点</h2>
+
+  <h3>核心观测指标（季报关注）</h3>
+  <ol style="padding-left:20px;">
+    <li style="margin:6px 0;"><strong>泽布替尼全球销售额增速</strong> — 核心生命线，关注同比增幅是否在20%以上</li>
+    <li style="margin:6px 0;"><strong>美国市场份额变化</strong> — 新患者处方份额能否持续领先伊布替尼/阿卡替尼</li>
+    <li style="margin:6px 0;"><strong>毛利率</strong> — 是否稳定在85%以上（规模效应的体现）</li>
+    <li style="margin:6px 0;"><strong>研发费用率</strong> — 能否从40%+向30%+逐步优化（盈利杠杆）</li>
+    <li style="margin:6px 0;"><strong>经营现金流</strong> — 是否持续为正且扩大</li>
+    <li style="margin:6px 0;"><strong>索托克拉 + BGB-16673临床进展</strong> — 决定第二曲线能否接棒</li>
+  </ol>
+
+  <h3>卖出条件</h3>
+  <ul class="checklist">
+    <li>泽布替尼同比增速滑落至个位数（需求饱和或竞争冲击）</li>
+    <li>核心管线III期临床失败（索托克拉/BGB-16673）</li>
+    <li>股价进入¥280+高估区且无新催化支撑</li>
+    <li>管理层出现诚信问题或重大人事动荡</li>
+    <li class="warn">补税事件后续若升级为行政处罚（目前为正常税务调整，不涉及处罚）</li>
+  </ul>
+</div>
+
+<!-- SECTION 9: 段永平测试 -->
+<div class="card">
+  <h2>🧠 九、段永平"三问"测试</h2>
+
+  <div style="margin:12px 0; padding:16px; background: var(--card2); border-radius:8px;">
+    <strong style="color:var(--yellow);">Q1: 我是否真的理解这个生意？（能向门外汉说清楚吗？）</strong>
+    <p style="margin:6px 0 0; font-size:0.9em; color:var(--muted);">
+      ✅ 能。百济神州是一家做抗癌药的biotech，核心能力是自主研发新药并在全球销售。就像一家"全球药房"，但只卖自己研发的处方抗癌药。
+    </p>
+  </div>
+
+  <div style="margin:12px 0; padding:16px; background: var(--card2); border-radius:8px;">
+    <strong style="color:var(--yellow);">Q2: 这个生意10年后还会存在吗？会更好还是更差？</strong>
+    <p style="margin:6px 0 0; font-size:0.9em; color:var(--muted);">
+      ⚠️ 大概率会存在，且可能更好——全球老龄化，癌症发病率持续上升，抗癌药需求只增不减。但10年后的百济可能已不是靠泽布替尼驱动，而是靠新一代管线接力。前提是研发平台能持续输出。这是创新药行业的固有特征——"不进则退"。
+    </p>
+  </div>
+
+  <div style="margin:12px 0; padding:16px; background: var(--card2); border-radius:8px;">
+    <strong style="color:var(--yellow);">Q3: 如果现在买入，股价跌了30%我慌不慌？</strong>
+    <p style="margin:6px 0 0; font-size:0.9em; color:var(--muted);">
+      ⚠️ 当前¥255买入，跌30%到¥178。这个价格接近我的"深度价值区"，所以我不会慌，反而会加仓。但问题是能否承受持有期间—30%的波动——以百济的波动率，完全可能。<br>
+      <strong style="color:var(--accent);">结论：如果能在¥220以下买入，心理安全度高得多。</strong>
+    </p>
+  </div>
+</div>
+
+<!-- FINAL VERDICT -->
+<div class="card" style="border: 2px solid var(--yellow);">
+  <h2 style="border-bottom-color: var(--yellow);">📝 最终结论</h2>
+
+  <div class="key-insight" style="border-left-color:var(--yellow); font-size:1em;">
+    <strong>百济神州是中国创新药领域最优秀的公司之一</strong>，管理层一流、产品全球化验证成功、财务已跨过盈利拐点。但<strong style="color:var(--red);">当前价格（¥255）未提供足够的安全边际</strong>。
+  </div>
+
+  <div style="margin:16px 0;">
+    <p><strong style="color:var(--green);">✅ 看好理由：</strong></p>
+    <ul style="padding-left:20px;">
+      <li>泽布替尼已验证Global Blockbuster能力，美国新患者份额第一</li>
+      <li>2025年财务拐点确认，经营现金流转正</li>
+      <li>管理层（欧雷强+王晓东）长期主义，文化优秀</li>
+      <li>管线储备丰富，"三驾马车"（泽布+索托克拉+BTK降解剂）雏形已现</li>
+      <li>87%+毛利率，高壁垒的好生意特征</li>
+    </ul>
+  </div>
+
+  <div style="margin:16px 0;">
+    <p><strong style="color:var(--red);">⚠️ 谨慎理由（当前不买）：</strong></p>
+    <ul style="padding-left:20px;">
+      <li>PE~100x，即使考虑成长性溢价，安全边际不足</li>
+      <li>泽布替尼增速已从40%放缓至~30%，指引仅16-20%</li>
+      <li>第二曲线（索托克拉/16673）尚未兑现，存在不确定性</li>
+      <li>中美地缘政治 + 医保降价压力持续存在</li>
+      <li>累计未弥补亏损612亿，需要时间消化</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center; margin-top:24px;">
+    <div class="rating-badge rating-watch" style="font-size:1.5em;">⚡ 观察评级</div>
+    <p style="margin-top:12px; color:var(--muted); font-size:0.9em;">
+      目标买入区间：<strong style="color:var(--green);">¥170 ~ ¥220</strong>（对应市值2,600~3,400亿）<br>
+      当前价格：<strong style="color:var(--yellow);">¥255</strong> — 比目标上沿高约16%<br>
+      建议：<strong>放入深度观察池，等待回调或基本面进一步明朗</strong>
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>本报告为个人投资研究，不构成投资建议。数据来源：百济神州公告、券商研报、媒体报道。</p>
+  <p>分析框架：价值投资（巴菲特/段永平思想）| 生成时间：2026-07-15</p>
+</div>
+
+</div>
+</body>
+</html>
