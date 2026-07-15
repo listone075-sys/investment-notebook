@@ -63,6 +63,7 @@
 - 运行：`python scripts/publish_reports.py`
 - 然后去 `D:\ai\stock-theme-assistant` 项目 git commit + push
 - 脚本自动处理：复制文件 + 更新列表页
+- ⚠️ **默认操作**：分析报告 git commit 后，自动执行发布流程（publish → stock-theme-assistant commit+push），不需要额外询问
 
 ## Windows 注意事项
 
