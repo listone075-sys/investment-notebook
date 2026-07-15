@@ -19,6 +19,7 @@ import shutil
 import sys
 from pathlib import Path
 from datetime import date
+from urllib.parse import quote
 
 # ═══════════════════════════════════════════
 # 配置区（按需修改）
@@ -207,7 +208,7 @@ def generate_reports_html(reports: list[dict]) -> str:
                 tags_html += f'\n        <span class="tag {tc}">{tag}</span>'
 
             card = f'''
-  <a class="report-card" href="/reports/{r["filename"]}">
+  <a class="report-card" href="/reports/{quote(r["filename"], safe="-./")}">
     <div class="tag-box"><span class="rating {rating_class}">{rating_label}</span></div>
     <div class="info">
       <h3>{r["title"]}</h3>
