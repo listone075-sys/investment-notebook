@@ -44,14 +44,26 @@ REPORT_PATTERN = re.compile(
 
 
 def parse_rating(html_path: Path) -> str:
-    """从 HTML 内容中提取评级标签。"""
+    """从 HTML 内容中提取评级标签。
+
+    优先匹配 badge 元素 class（如 class="badge buy"），
+    避免正文中偶然出现的"买入"等词造成误判。
+    """
     content = html_path.read_text("utf-8", errors="ignore")
-    if 'rating-buy' in content or '✅ 买入' in content or '"买入"' in content:
+
+    # Method 1: 精确匹配 badge 元素上的 class（最可靠）
+    m = re.search(r'class="badge\s+(buy|watch|avoid)"', content)
+    if m:
+        return m.group(1)
+
+    # Method 2: 匹配 badge 元素内的评级文本
+    if re.search(r'(?:class="[^"]*badge[^"]*"|badge-buy)[^>]*>.*?买入', content):
         return "buy"
-    if 'rating-watch' in content or '⚡ 观察' in content or '"观察"' in content:
+    if re.search(r'(?:class="[^"]*badge[^"]*"|badge-watch)[^>]*>.*?观察', content):
         return "watch"
-    if 'rating-avoid' in content:
+    if 'rating-avoid' in content or '回避' in content:
         return "avoid"
+
     return "watch"
 
 
@@ -438,6 +450,22 @@ def main():
 
     print(f"\n[Done] Publish success!")
     print(f"   https://stock.futuretime.site/reports.html")
+    print()
+    print("═" * 50)
+    print(">> 下一步: 部署到生产服务器 <<")
+    print("═" * 50)
+    print("git push 后还需在 CVM 上执行：")
+    print()
+    print("   # 登录服务器")
+    print("   ssh root@124.156.154.129")
+    print()
+    print("   # 拉取最新文件 + 重启服务")
+    print("   cd /opt/stock_1")
+    print("   git pull")
+    print("   systemctl restart theme-assistant")
+    print()
+    print("   或通过腾讯云 OrcaTerm 网页终端操作：")
+    print("   https://orcaterm.cloud.tencent.com/terminal?type=cvm&instanceId=ins-clv3bkp2&region=ap-hongkong")
 
 
 if __name__ == "__main__":
