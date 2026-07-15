@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泡泡玛特 (09992.HK) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8;
+    --accent: #2563eb; --accent-light: #dbeafe;
+    --green: #16a34a; --green-bg: #dcfce7;
+    --red: #dc2626; --red-bg: #fee2e2;
+    --yellow: #d97706; --yellow-bg: #fef3c7;
+    --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px; text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em; color: var(--text); margin-bottom: 18px; padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px;
+    cursor: pointer; user-select: none;
+  }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .card h4 { font-size: 0.95em; color: var(--text2); margin: 14px 0 6px; font-weight: 600; }
+
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary {
+    padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em;
+    background: var(--card2); color: var(--text); list-style: none; display: flex; align-items: center; gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  .rating-badge { display: inline-block; padding: 8px 28px; border-radius: 8px; font-size: 1.1em; font-weight: 700; }
+  .rating-buy { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+  .rating-watch { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow); }
+  .rating-avoid { background: var(--red-bg); color: var(--red); border: 1px solid var(--red); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .stat-tile .green { color: var(--green); }
+  .stat-tile .red { color: var(--red); }
+  .stat-tile .yellow { color: var(--yellow); }
+
+  .key-insight { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); }
+  .key-insight strong { color: var(--text); }
+
+  .risk-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; margin: 8px 0; border-radius: 8px; background: #fef2f2; border-left: 4px solid var(--red); }
+  .risk-item .prob { white-space: nowrap; font-size: 0.78em; padding: 3px 10px; border-radius: 10px; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+
+  .verdict-box { background: linear-gradient(135deg, var(--green-bg), #fff); border: 2px solid var(--green); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+
+  .signal-box { background: var(--green-bg); border: 1px solid var(--green); border-radius: 8px; padding: 16px 20px; margin: 12px 0; }
+  .signal-box h4 { color: var(--green); margin: 0 0 6px; }
+
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .toggle-bar button:hover { background: var(--card2); }
+
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+
+  .ip-row { display: flex; align-items: center; gap: 12px; padding: 6px 0; }
+  .ip-row .ip-name { flex: 0 0 140px; font-weight: 600; }
+  .ip-row .ip-bar { flex: 1; }
+  .ip-row .ip-rev { flex: 0 0 100px; text-align: right; font-size: 0.85em; color: var(--text2); }
+
+  .highlight { background: var(--yellow-bg); padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+
+  .score-row { display: flex; align-items: center; gap: 16px; padding: 5px 0; }
+  .score-row .label { flex: 0 0 100px; font-size: 0.88em; color: var(--text2); }
+  .score-row .bar-wrap { flex: 1; }
+  .score-row .val { flex: 0 0 50px; text-align: right; font-weight: 600; font-size: 0.9em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎨 泡泡玛特 <span>深度价值分析</span></h1>
+  <div class="subtitle">Pop Mart — 中国潮玩IP平台龙头·从盲盒到全球IP帝国的蜕变</div>
+  <div class="codes"><span>09992.HK</span></div>
+  <div class="meta-bar">
+    <span>📅 2026-07-15</span>
+    <span>💰 港股 HK$156.8</span>
+    <span>🏢 市值 HK$2,088亿</span>
+    <span>🎪 潮玩·IP·消费</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">📂 全部展开 / 全部折叠</button>
+</div>
+
+<!-- ═══ VERDICT ═══ -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">📌 综合评级</div>
+  <div class="big" style="color:var(--green);">✅ 买入（Buy）</div>
+  <div class="desc">
+    泡泡玛特是一家罕见的"好生意+好管理+好价格"三好公司，且价值投资大师段永平已在HK$150附近大举增持。<br>
+    当前估值合理偏低，安全边际充足。
+  </div>
+  <div style="margin-top:16px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-size:0.88em;">
+    <span>🎯 合理估值区间：<strong style="color:var(--accent);">HK$200~250</strong></span>
+    <span>📊 当前价格：<strong style="color:var(--green);">HK$156.8</strong></span>
+    <span>🏆 目标仓位：<strong>15~20%</strong></span>
+    <span>📈 潜在空间：<strong style="color:var(--green);">+27~59%</strong></span>
+  </div>
+</div>
+
+<!-- ═══ SIGNAL: 段永平 ═══ -->
+<div class="signal-box">
+  <h4>🔔 重要信号：段永平近期大举增持</h4>
+  <p style="font-size:0.92em;">
+    2026年7月6日，<strong>段永平家族办公室以每股最高HK$150增持约1,059万股，涉资约15.9亿港元</strong>。持股比例由6.85%升至7.65%。<br>
+    这是段永平在港股市场的重仓动作之一，传递了清晰的信号：<strong style="color:var(--green);">在价值投资者眼中，泡泡玛特当前价格具有吸引力。</strong>
+  </p>
+</div>
+
+<!-- ═══ SNAPSHOT ═══ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📊 核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num">HK$156.8</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num">HK$2,088亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num green">~14.7x</div><div class="label">PE(TTM)</div></div>
+      <div class="stat-tile"><div class="num green">78.14%</div><div class="label">ROE(2025)</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">72.1%</div><div class="label">毛利率(2025)</div></div>
+      <div class="stat-tile"><div class="num green">371.2亿</div><div class="label">2025年营收(+184.7%)</div></div>
+      <div class="stat-tile"><div class="num green">127.8亿</div><div class="label">2025年净利(+308.8%)</div></div>
+      <div class="stat-tile"><div class="num green">0负债</div><div class="label">无银行借款</div></div>
+    </div>
+    <div style="margin-top:12px; font-size:0.88em; color:var(--text2);">
+      52周范围：HK$137.6 ~ HK$340 | 年初至今：<span style="color:var(--red);">-18.65%</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 一、生意理解 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🏭 一、生意理解</h2>
+  <div class="section-body">
+    <h3>1.1 公司速览</h3>
+    <p>泡泡玛特由<strong>王宁</strong>于2010年创立（时年23岁），2020年在港交所上市。最初是潮流杂货零售商，2015年凭借引入日本IP Sonny Angel转型，2016年推出首个自有IP MOLLY后开启爆发式增长。如今已从"盲盒公司"进化为<strong>全球化的IP平台企业</strong>。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>📌 一句话说清怎么赚钱</h4>
+        <div class="key-insight" style="border-left-color:var(--green);">
+          签约全球艺术家 → 将设计师IP形象工业化量产为潮玩产品（手办/毛绒/积木等）→ 通过全球630+直营门店+线上渠道销售给消费者，赚取IP品牌溢价。<br>
+          <strong>本质：</strong>做的是"情绪价值"的生意。消费者买的不是塑料玩具，是陪伴感、收集欲和社交货币。
+        </div>
+      </div>
+      <div>
+        <h4>📌 核心护城河</h4>
+        <div class="key-insight" style="border-left-color:var(--yellow);">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          泡泡玛特的护城河是<strong>"工业化IP孵化平台+全球直营渠道+物理陪伴的情感价值"</strong>的组合。最独特的是——它建立了一套不依赖影视内容的IP孵化体系，这在全球范围内极其罕见。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th>维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>商品销售98%+（毛绒>手办>积木>MEGA大娃），乐园/授权占2%</td></tr>
+      <tr><td>核心客户</td><td>Z世代年轻消费者（18-35岁），女性占~70%，会员7,258万</td></tr>
+      <tr><td>成本结构</td><td>高毛利（72%）+ 高销售费用（门店租金+人员）+ 轻研发</td></tr>
+      <tr><td>盈利驱动</td><td>IP热度→产品售罄率→毛利率提升→规模效应放大利润</td></tr>
+      <tr><td>品类演变</td><td>2023年手办为主 → 2025年毛绒超越手办成第一大品类（收入187亿，+560%）</td></tr>
+      <tr><td>全球化进程</td><td>海外收入162.7亿（占比43.8%），覆盖20+国家，美洲区增速最高+748%</td></tr>
+    </table>
+
+    <h3>1.3 这个生意是好生意吗？</h3>
+    <table>
+      <tr><th>好生意特征</th><th>泡泡玛特</th><th>判定</th></tr>
+      <tr><td>高毛利率（>50%）</td><td>72.1%，且持续提升</td><td><span class="tag tag-green">✓ 通过</span></td></tr>
+      <tr><td>轻资产</td><td>自营门店为主，但无工厂，供应链外包</td><td><span class="tag tag-green">✓ 通过</span></td></tr>
+      <tr><td>强定价权</td><td>IP品牌溢价，消费者为情绪付费，价格敏感度低</td><td><span class="tag tag-green">✓ 通过</span></td></tr>
+      <tr><td>客户粘性</td><td>会员复购率55.7%，会员贡献93.7%销售</td><td><span class="tag tag-green">✓ 通过</span></td></tr>
+      <tr><td>可复制性</td><td>IP孵化能力已平台化，6个IP收入超20亿</td><td><span class="tag tag-green">✓ 通过</span></td></tr>
+      <tr><td>护城河宽度</td><td>"工业化IP平台"全球无直接对标</td><td><span class="tag tag-green">✓ 宽</span></td></tr>
+    </table>
+    <div class="fn">* 六项全优，这是非常罕见的"好生意"</div>
+
+    <h3>1.4 这个生意10年后还在吗？</h3>
+    <div class="key-insight" style="border-left-color:var(--green);">
+      <strong>90%概率在，而且可能更强。</strong><br>
+      <strong>底层逻辑：</strong>人类对陪伴感、收集欲、审美消费的需求不会消失。泡泡玛特已经验证了"不依赖内容/IP自孵化"的模式可行性，建立了全球最大的潮玩IP平台。<br><br>
+      <strong>10年后的样子：</strong>可能已是一个覆盖玩具/乐园/影视/游戏的IP生态集团，类似"迪士尼 × 乐高"的结合体。LABUBU可能像米老鼠一样成为全球性文化符号。<br><br>
+      <span style="font-size:0.9em;">⚠ 最大不确定性：IP的生命周期和持续孵化能力。但公司已证明自己有6个20亿+IP，不是一锤子买卖。</span>
+    </div>
+
+    <h3>1.5 护城河详细评估</h3>
+    <div class="ip-row">
+      <span class="ip-name">工业化IP孵化平台</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:90%;background:var(--green);"></div></div>
+      <span class="ip-rev"><strong style="color:var(--green);">9</strong>/10</span>
+    </div>
+    <div class="fn" style="margin:0 0 4px 152px;">签约艺术家+工业化量产+产品迭代体系，17个IP收入过亿，6个过20亿</div>
+
+    <div class="ip-row">
+      <span class="ip-name">全球直营渠道网络</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:85%;background:var(--green);"></div></div>
+      <span class="ip-rev"><strong style="color:var(--green);">8.5</strong>/10</span>
+    </div>
+    <div class="fn" style="margin:0 0 4px 152px;">630+直营门店覆盖20+国家，海外收入占比43.8%，美区增长748%</div>
+
+    <div class="ip-row">
+      <span class="ip-name">品牌与情绪价值</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:90%;background:var(--green);"></div></div>
+      <span class="ip-rev"><strong style="color:var(--green);">9</strong>/10</span>
+    </div>
+    <div class="fn" style="margin:0 0 4px 152px;">物理陪伴的不可替代性，会员复购率55.7%，7,258万会员</div>
+
+    <div class="ip-row">
+      <span class="ip-name">供应链壁垒</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:75%;background:var(--accent);"></div></div>
+      <span class="ip-rev"><strong>7.5</strong>/10</span>
+    </div>
+    <div class="fn" style="margin:0 0 4px 152px;">高规格开模标准，间接培训了中国玩具供应链，但非独家排他</div>
+
+    <div class="ip-row">
+      <span class="ip-name">规模/成本优势</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:70%;background:var(--accent);"></div></div>
+      <span class="ip-rev"><strong>7</strong>/10</span>
+    </div>
+    <div class="fn" style="margin:0 0 4px 152px;">全球采购+集中生产降本，但规模优势不如科技平台型公司明显</div>
+
+    <div style="margin-top:14px; padding:12px 16px; background:var(--accent-light); border-radius:8px; text-align:center;">
+      <strong>综合护城河评级：<span style="color:var(--green);">★★★★★</span> 极宽护城河</strong>
+      <span style="color:var(--text2);"> — 全球无直接对标的"情绪消费IP平台"模式</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 二、管理层 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">👥 二、管理层评估</h2>
+  <div class="section-body">
+    <h3>2.1 创始人王宁：从创业者到商业哲学家</h3>
+    <div class="grid-2">
+      <div class="stat-tile" style="text-align:left; padding:16px 20px;">
+        <div style="font-size:1.2em; font-weight:700;">🎪 王宁</div>
+        <div style="font-size:0.85em; color:var(--text2); margin:4px 0 8px;">创始人 / 董事长 / CEO</div>
+        <ul style="font-size:0.88em; padding-left:16px;">
+          <li>1987年出生，郑州西亚斯学院毕业</li>
+          <li>2010年创立泡泡玛特，时年23岁</li>
+          <li>2020年港交所上市，市值一度超2,000亿</li>
+          <li>风格：务实、低调、长期主义</li>
+          <li>名言："尊重时间，尊重经营"</li>
+        </ul>
+      </div>
+      <div class="stat-tile" style="text-align:left; padding:16px 20px;">
+        <div style="font-size:1.2em; font-weight:700;">🧑‍🤝‍🧑 核心团队</div>
+        <div style="font-size:0.85em; color:var(--text2); margin:4px 0 8px;">同学创业，关系紧密</div>
+        <ul style="font-size:0.88em; padding-left:16px;">
+          <li><strong>司德</strong> — COO兼中国区总裁</li>
+          <li><strong>文德一</strong> — 国际业务总裁（韩国人）</li>
+          <li><strong>杨镜冰</strong> — CFO</li>
+          <li><strong>胡健</strong> — 乐园负责人</li>
+          <li>团队多为王宁大学同学或北大光华MBA同学</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>2.2 管理哲学</h3>
+    <table>
+      <tr><th>理念</th><th>具体表现</th></tr>
+      <tr><td>"尊重时间，尊重经营"</td><td>该十年做成的事不要急于一两年，拒绝短期流量透支</td></tr>
+      <tr><td>"七分饱"理论</td><td>一套IP系列需求10万套，只做7万套。保护IP生命周期</td></tr>
+      <tr><td>"Say No远多于Say Yes"</td><td>控制LABUBU占收比在35%以内，严格筛选联名合作</td></tr>
+      <tr><td>自我反思文化</td><td>给2025业绩打90-95分，但组织管理仅打70分</td></tr>
+      <tr><td>亲力亲为</td><td>每年约40%时间用于海外巡店，亲自抓一线</td></tr>
+    </table>
+
+    <h3>2.3 段永平式管理判断</h3>
+    <ul class="checklist" style="list-style:none;padding:0;">
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        <strong>是否诚信务实？</strong> 15年专注潮玩，从零售小店做到全球龙头，财务透明，历史无负面
+      </li>
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        <strong>是否股东导向？</strong> 0负债+现金充裕+近期启动回购，重视股东回报
+      </li>
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        <strong>是否专注？</strong> 15年围绕IP做深做宽，从手办→毛绒→乐园→电影，核心都是IP
+      </li>
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        <strong>企业文化？</strong> 长期主义+克制运营，在狂热增长中选择"降温"，极少公司能做到
+      </li>
+    </ul>
+
+    <div class="key-insight">
+      <strong>综合判断：王宁是段永平会欣赏的那类创始人</strong> —— 务实、专注、长期主义、拒绝短期诱惑。管理层团队稳定（多为同学），文化渗透力强。给2026年指引"不低于20%"的保守态度，反而比画大饼更值得信任。<br>
+      <span style="font-size:0.9em;">—— 段永平增持，本质上是投给了王宁这个人。</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 三、财务分析 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">💰 三、财务深度分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 三年财务演进</h3>
+    <table>
+      <tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>2026Q1</th></tr>
+      <tr>
+        <td>营收（亿元）</td><td>63.0</td><td>130.4</td><td><strong>371.2</strong></td><td>同比+75~80%</td>
+      </tr>
+      <tr>
+        <td>营收增速</td><td>+36%</td><td><span class="tag tag-green">+107%</span></td><td><span class="tag tag-green">+184.7%</span></td><td><span class="tag tag-green">+75~80%</span></td>
+      </tr>
+      <tr>
+        <td>归母净利（亿）</td><td>10.8</td><td>31.3</td><td><strong>127.8</strong></td><td>—</td>
+      </tr>
+      <tr>
+        <td>净利增速</td><td>+129%</td><td><span class="tag tag-green">+189%</span></td><td><span class="tag tag-green">+308.8%</span></td><td>—</td>
+      </tr>
+      <tr>
+        <td>毛利率</td><td>61.3%</td><td>66.8%</td><td><strong>72.1%</strong></td><td>—</td>
+      </tr>
+      <tr>
+        <td>净利率</td><td>17.1%</td><td>24.0%</td><td><strong>34.4%</strong></td><td>—</td>
+      </tr>
+      <tr>
+        <td>ROE</td><td>14.7%</td><td>33.9%</td><td><strong>78.1%</strong></td><td>—</td>
+      </tr>
+      <tr>
+        <td>经营现金流（亿）</td><td>14.4</td><td>37.0</td><td><strong>108.7</strong></td><td>—</td>
+      </tr>
+    </table>
+
+    <div class="key-insight" style="border-left-color:var(--green);">
+      <strong>✅ 财务质量极高：</strong>三年来毛利率从61%→72%持续提升（量价齐升），净利率从17%→34%翻倍。经营现金流/净利润=1.62倍，利润含金量极高。<br>
+      <strong>最亮眼的是：0银行借款、0有息负债，现金及等价物137.75亿</strong>。在增长184%的年份还能做到0负债，极其罕见。
+    </div>
+
+    <h3>3.2 IP收入矩阵（2025年）</h3>
+    <div class="ip-row">
+      <span class="ip-name" style="color:var(--accent);">🔵 THE MONSTERS (LABUBU)</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:100%;background:var(--accent);"></div></div>
+      <span class="ip-rev"><strong>141.6亿</strong> (38.1%)</span>
+    </div>
+    <div class="ip-row">
+      <span class="ip-name">SKULLPANDA</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:25%;background:var(--green);"></div></div>
+      <span class="ip-rev">35.4亿</span>
+    </div>
+    <div class="ip-row">
+      <span class="ip-name">CRYBABY</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:21%;background:var(--green);"></div></div>
+      <span class="ip-rev">29.3亿</span>
+    </div>
+    <div class="ip-row">
+      <span class="ip-name">MOLLY</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:20%;background:var(--green);"></div></div>
+      <span class="ip-rev">29.0亿</span>
+    </div>
+    <div class="ip-row">
+      <span class="ip-name">DIMOO</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:20%;background:var(--green);"></div></div>
+      <span class="ip-rev">27.8亿</span>
+    </div>
+    <div class="ip-row">
+      <span class="ip-name">⭐ 星星人</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:15%;background:var(--yellow);"></div></div>
+      <span class="ip-rev">20.6亿 <span style="font-size:0.8em;color:var(--green);">(+1602%)</span></span>
+    </div>
+    <div class="ip-row">
+      <span class="ip-name">HIRONO (小野)</span>
+      <div class="ip-bar bar-wrap"><div class="bar-fill" style="width:13%;background:var(--yellow);"></div></div>
+      <span class="ip-rev">17.4亿</span>
+    </div>
+    <div class="fn" style="margin-top:8px;">* 共有17个艺术家IP收入过亿。LABUBU占比38.1%，公司主动控制目标35%以内</div>
+
+    <h3>3.3 海外收入拆解</h3>
+    <details>
+      <summary>📌 分区域数据</summary>
+      <div class="detail-body">
+        <table>
+          <tr><th>区域</th><th>2025年收入</th><th>增速</th><th>占比</th></tr>
+          <tr><td>中国（含港澳台）</td><td>208.5亿</td><td><span class="tag tag-green">+134.6%</span></td><td>56.2%</td></tr>
+          <tr><td>亚太（不含中国）</td><td>80.1亿</td><td><span class="tag tag-green">+157.6%</span></td><td>21.6%</td></tr>
+          <tr><td>美洲</td><td>68.1亿</td><td><span class="tag tag-green">+748.4%</span></td><td>18.3%</td></tr>
+          <tr><td>欧洲及其他</td><td>14.5亿</td><td><span class="tag tag-green">+506.3%</span></td><td>3.9%</td></tr>
+          <tr style="background:var(--card2);"><td><strong>海外合计</strong></td><td><strong>162.7亿</strong></td><td><strong>+291.9%</strong></td><td><strong>43.8%</strong></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <h3>3.4 财务健康度评分</h3>
+    <div class="score-row">
+      <span class="label">盈利能力</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">9.5/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label">现金流质量</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">9.5/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label">资产负债安全</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">10/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label">成长质量</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:70%;background:var(--accent);"></div></div>
+      <span class="val">7/10</span>
+    </div>
+    <div class="fn" style="margin-top:4px;">* 成长质量扣分原因：2025年增速184%不可持续，2026指引仅"不低于20%"，增速换挡期</div>
+  </div>
+</div>
+
+<!-- ═══════ 四、竞争格局 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚔️ 四、竞争格局分析</h2>
+  <div class="section-body">
+
+    <h3>4.1 潮玩行业格局</h3>
+    <p>泡泡玛特所处的"IP潮流玩具"行业全球尚无同等体量的上市公司直接对标。可将竞争分为三个层次：</p>
+
+    <table>
+      <tr><th>层次</th><th>竞争者</th><th>与泡泡玛特的关系</th></tr>
+      <tr>
+        <td><strong>直接竞品</strong></td>
+        <td>52TOYS、TOP TOY（名创优品旗下）、寻找独角兽等</td>
+        <td>规模差距巨大（泡泡玛特是第二名的10倍+），暂不构成实质威胁</td>
+      </tr>
+      <tr>
+        <td><strong>间接竞品</strong></td>
+        <td>万代南梦宫（日本）、Funko（美国）、乐高</td>
+        <td>IP逻辑类似但品类不同。万代有高达/龙珠，乐高有积木壁垒</td>
+      </tr>
+      <tr>
+        <td><strong>IP内容巨头</strong></td>
+        <td>迪士尼、三丽鸥、宝可梦</td>
+        <td>先有内容再有商品。泡泡玛特是反过来的——先有商品再补内容</td>
+      </tr>
+    </table>
+
+    <h3>4.2 泡泡玛特的独特位置</h3>
+    <div class="key-insight" style="border-left-color:var(--green);">
+      <strong>全球"情绪消费IP平台"这个赛道上，泡泡玛特没有对标。</strong><br>
+      迪士尼路径：内容→IP→商品<br>
+      泡泡玛特路径：商品→IP→内容（乐园/电影）<br><br>
+      这意味着：<strong>在"不依赖影视内容、直接把设计师IP工业化"这个模式上，泡泡玛特是全球开创者和领先者。</strong>竞争对手想要追赶，需要同时建立：艺术家网络 + 供应链体系 + 全球直营渠道 + 品牌认知，短期内几乎不可能。
+    </div>
+
+    <h3>4.3 核心竞争壁垒</h3>
+    <div class="grid-2">
+      <div style="background:var(--green-bg);padding:14px;border-radius:8px;">
+        <h4 style="margin:0 0 6px;color:var(--green);">✅ 先发优势</h4>
+        <ul style="font-size:0.88em;padding-left:16px;">
+          <li>最早批量签约全球头部艺术家</li>
+          <li>130+合作艺术家网络是10年积累</li>
+          <li>供应链磨合了10年的"工业标准"</li>
+          <li>全球630+直营门店，自建非加盟</li>
+        </ul>
+      </div>
+      <div style="background:var(--accent-light);padding:14px;border-radius:8px;">
+        <h4 style="margin:0 0 6px;color:var(--accent);">✅ 规模效应</h4>
+        <ul style="font-size:0.88em;padding-left:16px;">
+          <li>年营收371亿，是第二名10倍以上</li>
+          <li>17个IP过亿，6个过20亿</li>
+          <li>7,258万会员，复购率55.7%</li>
+          <li>全球供应链集中采购降本</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>4.4 竞争风险</h3>
+    <table>
+      <tr><th>风险</th><th>概率</th><th>影响</th><th>说明</th></tr>
+      <tr>
+        <td>名创优品TOP TOY追赶</td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td>名创有渠道优势，但IP孵化能力和品牌心智差距明显</td>
+      </tr>
+      <tr>
+        <td>IP生命周期衰竭</td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td><span class="tag tag-red">高</span></td>
+        <td>LABUBU火了3年，能否持续10年+是关键。但公司已证明有6个20亿+IP</td>
+      </tr>
+      <tr>
+        <td>海外本土竞品出现</td>
+        <td><span class="tag tag-blue">低</span></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td>海外模式复制需要时间，泡泡玛特有先发+供应链优势</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════ 五、估值 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📈 五、估值分析</h2>
+  <div class="section-body">
+
+    <h3>5.1 当前估值速览</h3>
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num green">~14.7x</div><div class="label">PE(TTM)</div></div>
+      <div class="stat-tile"><div class="num green">~12x</div><div class="label">PE(2026E)</div></div>
+      <div class="stat-tile"><div class="num green">~5.6x</div><div class="label">PS(2025)</div></div>
+      <div class="stat-tile"><div class="num green">~7.8x</div><div class="label">EV/EBITDA(2025)</div></div>
+    </div>
+    <div class="fn">* 对比：全球消费品牌公司PE一般在20-30x，成长型公司30-40x。泡泡玛特14.7x PE在消费板块中属于偏低水平。</div>
+
+    <h3>5.2 PE估值法</h3>
+    <table>
+      <tr><th>情景</th><th>2026E净利</th><th>PE倍数</th><th>目标市值</th><th>目标股价(HK$)</th><th>较当前</th></tr>
+      <tr style="background:#f0fdf4;">
+        <td>保守（增速20%）</td>
+        <td>153亿</td>
+        <td>15x</td>
+        <td>2,295亿</td>
+        <td><strong>HK$172</strong></td>
+        <td><span style="color:var(--green);">+10%</span></td>
+      </tr>
+      <tr style="background:var(--card2);">
+        <td><strong>中性</strong></td>
+        <td><strong>165亿</strong></td>
+        <td><strong>18x</strong></td>
+        <td><strong>2,970亿</strong></td>
+        <td><strong style="color:var(--green);">HK$223</strong></td>
+        <td><span style="color:var(--green);">+42%</span></td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td>乐观（超预期+海外加速）</td>
+        <td>180亿</td>
+        <td>20x</td>
+        <td>3,600亿</td>
+        <td><strong>HK$270</strong></td>
+        <td><span style="color:var(--green);">+72%</span></td>
+      </tr>
+    </table>
+    <div class="fn">* 18x PE对增速20%+的消费平台公司属于合理偏低估值。泡泡玛特在港股市场被低估，若在A股同等级公司通常30x+</div>
+
+    <h3>5.3 PS估值法</h3>
+    <table>
+      <tr><th>情景</th><th>2026E营收</th><th>PS倍数</th><th>目标市值</th><th>目标股价(HK$)</th></tr>
+      <tr style="background:#f0fdf4;">
+        <td>保守</td>
+        <td>445亿</td>
+        <td>4x</td>
+        <td>1,780亿</td>
+        <td><strong>HK$134</strong></td>
+      </tr>
+      <tr style="background:var(--card2);">
+        <td><strong>中性</strong></td>
+        <td><strong>470亿</strong></td>
+        <td><strong>5x</strong></td>
+        <td><strong>2,350亿</strong></td>
+        <td><strong style="color:var(--green);">HK$177</strong></td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td>乐观</td>
+        <td>500亿</td>
+        <td>6x</td>
+        <td>3,000亿</td>
+        <td><strong>HK$225</strong></td>
+      </tr>
+    </table>
+
+    <h3>5.4 历史估值分位</h3>
+    <table>
+      <tr><th>指标</th><th>当前</th><th>历史最低</th><th>历史最高</th><th>当前分位</th></tr>
+      <tr><td>PE(TTM)</td><td>14.7x</td><td>~12x</td><td>~80x</td><td><span class="tag tag-green">~15%分位</span></td></tr>
+      <tr><td>PS(TTM)</td><td>5.6x</td><td>~2x</td><td>~30x</td><td><span class="tag tag-green">~20%分位</span></td></tr>
+    </table>
+    <div class="fn">* 当前估值处于历史低位区间，主要原因是市场对增速放缓的担忧已充分反映在价格中</div>
+
+    <div class="key-insight" style="border-left-color:var(--green);">
+      <strong>综合估值结论：</strong>泡泡玛特当前14.7x PE处于历史低位，对于一家ROE 78%、净利率34%、增速75%+的公司来说，<strong style="color:var(--red);">明显被低估</strong>。即使保守假设2026年增速降至20%，15x PE对应HK$172仍有10%上行空间。中性预期18x PE对应HK$223，潜在回报42%。安全边际充足。
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 六、投资决策 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🎯 六、投资决策方案</h2>
+  <div class="section-body">
+
+    <h3>6.1 综合评分</h3>
+    <div class="score-row">
+      <span class="label">生意质量</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:90%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">9/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label">管理层</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:90%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">9/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label">财务状况</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:95%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">9.5/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label">竞争格局</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:80%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);">8/10</span>
+    </div>
+    <div class="score-row">
+      <span class="label" style="font-weight:700;">当前价格</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:80%;background:var(--green);"></div></div>
+      <span class="val" style="color:var(--green);font-weight:700;">8/10</span>
+    </div>
+    <div class="score-row" style="border-top:2px solid var(--border); padding-top:10px; margin-top:6px;">
+      <span class="label" style="font-weight:700;">综合得分</span>
+      <div class="bar-wrap"><div class="bar-fill" style="width:87%;background:linear-gradient(90deg,var(--green),var(--accent));"></div></div>
+      <span class="val" style="font-weight:700;color:var(--green);">8.7/10</span>
+    </div>
+
+    <h3>6.2 操作区间</h3>
+    <table>
+      <tr><th>区间</th><th>价格</th><th>操作</th></tr>
+      <tr style="background:#f0fdf4;">
+        <td><span class="tag tag-green">💰 价值区</span></td>
+        <td>HK$150以下</td>
+        <td><strong>强力买入。</strong>段永平在此区间增持。大胆建仓。</td>
+      </tr>
+      <tr style="background:var(--card2);">
+        <td><span class="tag tag-green">🌱 合理区</span></td>
+        <td><strong>HK$150~180</strong></td>
+        <td><strong>当前在此区间（HK$156.8）。适合分批建仓。</strong></td>
+      </tr>
+      <tr style="background:var(--yellow-bg);">
+        <td><span class="tag tag-yellow">⚡ 观察区</span></td>
+        <td>HK$180~220</td>
+        <td>持有为主，小量加仓，不再追高</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><span class="tag tag-red">🔥 高估区</span></td>
+        <td>HK$220+</td>
+        <td>持有观望，考虑分批减仓</td>
+      </tr>
+    </table>
+
+    <h3>6.3 仓位与建仓计划</h3>
+    <table>
+      <tr><th>步骤</th><th>价格</th><th>买入比例</th><th>累计仓位</th></tr>
+      <tr><td>① 首次建仓</td><td>HK$150~160</td><td>30%</td><td>5~6%</td></tr>
+      <tr><td>② 加仓</td><td>HK$140~150</td><td>30%</td><td>10~12%</td></tr>
+      <tr><td>③ 加仓完毕</td><td>HK$130~140</td><td>40%</td><td>18~20%</td></tr>
+    </table>
+    <div class="fn">* 当前HK$156.8处于首次建仓区间内，可按计划执行</div>
+
+    <h3>6.4 卖出条件</h3>
+    <ul class="checklist" style="list-style:none;padding:0;">
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        LABUBU收入占比持续超过40%且其他IP没有接棒（IP矩阵失衡）
+      </li>
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        海外市场连续两个季度增速低于20%
+      </li>
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        毛利率连续两个季度下滑（跌破65%）
+      </li>
+      <li style="padding:7px 0 7px 28px;position:relative;border-bottom:1px solid rgba(0,0,0,0.04);font-size:0.92em;">
+        <span style="position:absolute;left:0;color:var(--green);font-weight:bold;">✓</span>
+        股价进入HK$220+高估区且增速未超预期
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══════ 七、风险 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚠️ 七、风险提示</h2>
+  <div class="section-body">
+
+    <div class="risk-item">
+      <span class="prob" style="background:var(--yellow-bg);color:var(--yellow);">中概率·高影响</span>
+      <div>
+        <strong>LABUBU热潮降温</strong>
+        <div style="font-size:0.88em; color:var(--text2); margin-top:4px;">
+          LABUBU贡献38%收入，若其热度快速下降而其他IP未能接棒，将出现营收缺口。但公司已证明有6个20亿+IP矩阵，且主动控制LABUBU占比在35%以内。<br>
+          <strong>缓解因素：</strong>LABUBU十周年来临，电影+世界杯联名催化密集。
+        </div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <span class="prob" style="background:var(--yellow-bg);color:var(--yellow);">中概率·中影响</span>
+      <div>
+        <strong>海外增长持续放缓</strong>
+        <div style="font-size:0.88em; color:var(--text2); margin-top:4px;">
+          2025年海外增速292%，2026Q1降至~40%。管理层指引全年"不低于20%"。若海外增长失速，市场将下调估值中枢。<br>
+          <strong>缓解因素：</strong>海外门店运营水平仍在提升中（王宁自评落后国内2-3年），改善空间大。
+        </div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <span class="prob" style="background:var(--green-bg);color:var(--green);">中概率·低影响</span>
+      <div>
+        <strong>原材料+运费成本上升</strong>
+        <div style="font-size:0.88em; color:var(--text2); margin-top:4px;">
+          原材料成本上涨3-5个百分点，国际航运燃油走高。但公司毛利率72%+，有足够缓冲空间。
+        </div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <span class="prob" style="background:var(--green-bg);color:var(--green);">低概率·高影响</span>
+      <div>
+        <strong>核心IP人才流失</strong>
+        <div style="font-size:0.88em; color:var(--text2); margin-top:4px;">
+          如果LABUBU创作者龙家升或核心设计师离开，可能影响IP持续产出能力。
+        </div>
+      </div>
+    </div>
+
+    <div class="risk-item">
+      <span class="prob" style="background:var(--green-bg);color:var(--green);">低概率·高影响</span>
+      <div>
+        <strong>政策风险（盲盒监管）</strong>
+        <div style="font-size:0.88em; color:var(--text2); margin-top:4px;">
+          针对盲盒的监管政策已在2023-2024年落地（上海盲盒经营合规指引），泡泡玛特已主动降低盲盒占比，毛绒2025年已超越手办成为第一大品类。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 八、催化时间线 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📅 八、未来12个月关键催化</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026年暑期</div>
+      <div class="tl-body">
+        <div class="tl-title">泡泡玛特城市乐园1.5期开放</div>
+        <div class="tl-desc">新增跳楼机、海盗船等大型游乐设施，提升乐园体验和复购率。</div>
+        <span class="tag tag-green">利好催化</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">2026下半年</div>
+      <div class="tl-body">
+        <div class="tl-title">LABUBU 4.0系列上市</div>
+        <div class="tl-desc">王宁对其表现乐观。LABUBU十周年重磅产品，有望推动新一轮销售高峰。</div>
+        <span class="tag tag-green">利好催化</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">2026年</div>
+      <div class="tl-body">
+        <div class="tl-title">LABUBU × FIFA世界杯联名</div>
+        <div class="tl-desc">全球瞩目的联名合作，有望大幅提升LABUBU和泡泡玛特的全球品牌知名度。</div>
+        <span class="tag tag-green">重磅催化</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">2026-2027</div>
+      <div class="tl-body">
+        <div class="tl-title">LABUBU真人动画电影（索尼影业合作）</div>
+        <div class="tl-desc">保罗·金导演，龙家升执行制片。如果成功，将是泡泡玛特"内容化"战略的关键里程碑。</div>
+        <span class="tag tag-green">战略级催化</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">2026下半年</div>
+      <div class="tl-body">
+        <div class="tl-title">股份回购持续进行</div>
+        <div class="tl-desc">公司已启动回购计划，展现管理层对当前价值的认可。</div>
+        <span class="tag tag-green">信心信号</span>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-time">2026年8月</div>
+      <div class="tl-body">
+        <div class="tl-title">2026年中期业绩发布</div>
+        <div class="tl-desc">验证上半年增速能否达到全年指引。中国区+海外增速是关键看点。</div>
+        <span class="tag tag-yellow">重要验证</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 九、跟踪要点 ═══════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📋 九、跟踪要点</h2>
+  <div class="section-body">
+
+    <h3>核心观测指标</h3>
+    <table>
+      <tr><th>#</th><th>指标</th><th>频率</th><th>关注阈值</th></tr>
+      <tr><td>1</td><td><strong>LABUBU收入占比</strong></td><td>每季度</td><td>超过40%需关注IP矩阵失衡</td></tr>
+      <tr><td>2</td><td><strong>海外收入增速</strong></td><td>每季度</td><td>低于20%需警惕</td></tr>
+      <tr><td>3</td><td><strong>毛利率</strong></td><td>每季度</td><td>低于68%关注，低于65%红旗</td></tr>
+      <tr><td>4</td><td><strong>会员增速+复购率</strong></td><td>每季度</td><td>会员增速低于30%关注，复购率低于50%警惕</td></tr>
+      <tr><td>5</td><td><strong>海外门店运营质量</strong></td><td>持续</td><td>单店收入、坪效是否持续提升</td></tr>
+      <tr><td>6</td><td><strong>新IP表现</strong></td><td>持续</td><td>年度内是否出现新的10亿级IP</td></tr>
+    </table>
+
+    <h3>段永平"三问"测试</h3>
+
+    <details>
+      <summary><strong>Q1：我是否真的理解这个生意？</strong></summary>
+      <div class="detail-body">
+        ✅ 能。泡泡玛特本质上做的是一门"情绪生意"——签约艺术家把IP形象做成玩具，通过全球门店卖给年轻人，消费者买的不是玩具，是陪伴感、收集欲和社交货币。商业模式类似于"艺术家经纪+工业化制造+品牌零售"的三合一。
+      </div>
+    </details>
+
+    <details>
+      <summary><strong>Q2：这个生意10年后还会存在吗？</strong></summary>
+      <div class="detail-body">
+        ✅ 大概率在，且可能更强。人类对陪伴、收集、审美的需求是永恒的。泡泡玛特已经建立了全球最大的潮玩IP平台和供应链体系。10年后的泡泡玛特可能已成为涵盖玩具/乐园/影视/游戏的IP生态集团。关键前提是IP孵化能力能持续。<br>
+        <strong>对标：</strong>日本的万代南梦宫（高达/GUNDAM）和Sanrio（三丽鸥/Hello Kitty）都走了50年以上，IP生意可以做很久。
+      </div>
+    </details>
+
+    <details>
+      <summary><strong>Q3：如果现在买入，跌了30%慌不慌？</strong></summary>
+      <div class="detail-body">
+        ✅ 不慌。当前PE 14.7x，公司ROE 78%、0负债、现金充裕。即使跌30%到HK$110，PE也才10x左右——对于一个年增长20%+、净利率34%的消费IP平台来说，这是极度低估的水平。届时反而是加仓机会。<br>
+        <strong style="color:var(--accent);">结论：当前价格安全边际充足，段永平已经在HK$150用15.9亿真金白银给出了他的答案。</strong>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ═══ FINAL ═══ -->
+<div class="card" style="border: 2px solid var(--green);">
+  <h2 onclick="toggleSection(this)" style="border-bottom-color:var(--green);">📝 最终结论</h2>
+  <div class="section-body">
+
+    <div class="key-insight" style="border-left-color:var(--green); font-size:1em;">
+      <strong>泡泡玛特是一个罕见的"三好公司"——好生意、好管理、好价格。</strong> 其"情绪消费IP平台"模式在全球独一无二，ROE 78%、毛利率72%、0负债的财务数据堪称教科书级别。<br>
+      当前14.7x PE处于历史低位，<strong style="color:var(--red);">明显被低估</strong>。段永平已用15.9亿增持给出了价值投资者的判断。
+    </div>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div style="background:var(--green-bg); padding:16px 20px; border-radius:8px;">
+        <h4 style="margin:0 0 8px;color:var(--green);">✅ 核心理由</h4>
+        <ul style="font-size:0.9em; padding-left:16px;">
+          <li>全球独一无二的"情绪消费IP平台"</li>
+          <li>财务质量顶级：ROE 78%、毛利率72%、0负债</li>
+          <li>管理层长期主义，王宁是优秀创始人</li>
+          <li>17个IP过亿，6个过20亿，IP矩阵已经跑通</li>
+          <li>海外占比43.8%，全球化正在加速</li>
+          <li>段永平HK$150增持，安全边际充足</li>
+        </ul>
+      </div>
+      <div style="background:var(--yellow-bg); padding:16px 20px; border-radius:8px;">
+        <h4 style="margin:0 0 8px;color:var(--yellow);">⚠️ 需跟踪的隐忧</h4>
+        <ul style="font-size:0.9em; padding-left:16px;">
+          <li>2025年184%增速不可持续，2026指引仅"不低于20%"</li>
+          <li>LABUBU占比38%，需持续关注IP矩阵健康度</li>
+          <li>海外Q1增速降至~40%，有放缓趋势</li>
+          <li>市场对增速放缓的担忧尚未完全消化</li>
+          <li>港股流动性偏低，可能影响估值修复速度</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:24px;">
+      <div class="rating-badge rating-buy" style="font-size:1.4em;">✅ 买入评级</div>
+      <p style="margin-top:12px; color:var(--text2); font-size:0.92em;">
+        合理估值区间：<strong style="color:var(--accent);">HK$200~250</strong>（中性18x PE）<br>
+        当前价格：<strong style="color:var(--green);">HK$156.8</strong> — 低于合理区间下限约20%，安全边际充足<br>
+        建议：<strong>在当前价格区间开始分批建仓，目标仓位15~20%</strong>
+      </p>
+      <div style="margin-top:16px; padding:12px; background:var(--accent-light); border-radius:8px; display:inline-block;">
+        🎯 <strong>潜在回报：</strong>12个月目标 HK$200~250（+27%~+59%）
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>本报告为个人投资研究，不构成任何投资建议。数据来源：泡泡玛特公告、券商研报、公开媒体报道。</p>
+  <p>分析框架：价值投资（巴菲特/段永平思想）· 项目：investment-notebook · 生成时间：2026-07-15</p>
+</div>
+
+</div><!-- /container -->
+
+<script>
+function toggleSection(heading) {
+  const body = heading.nextElementSibling;
+  if (!body || !body.classList) return;
+  body.classList.toggle('collapsed');
+  heading.classList.toggle('collapsed');
+}
+function toggleAll() {
+  const allHeads = document.querySelectorAll('.card h2');
+  let anyOpen = false;
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (body && body.classList && !body.classList.contains('collapsed')) { anyOpen = true; break; }
+  }
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (!body || !body.classList) continue;
+    if (anyOpen) { body.classList.add('collapsed'); h.classList.add('collapsed'); }
+    else { body.classList.remove('collapsed'); h.classList.remove('collapsed'); }
+  }
+}
+</script>
+</body>
+</html>
