@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>片仔癀 (600436.SH) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+
+  /* ── Collapsible ── */
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  /* ── Details / Summary ── */
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  /* ── Verdict box ── */
+  .verdict-box {
+    background: linear-gradient(135deg, var(--yellow-bg), #fff);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  /* ── Stat tile ── */
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  /* ── Key insight ── */
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  /* ── Timeline ── */
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  /* ── Three questions ── */
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  /* ── Progress bar ── */
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  /* ── Misc ── */
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>片仔癀 <span>价值投资分析</span></h1>
+  <div class="subtitle">Pien Tze Huang — 国家双绝密配方加持的"药中茅台"，正经历上市22年来首次业绩双降</div>
+  <div class="codes">
+    <span>600436.SH</span><span>中药·肝病用药</span><span>国家绝密级配方</span>
+  </div>
+  <div class="meta-bar">
+    <span>📅 2026-07-16</span>
+    <span>💰 ¥128.32</span>
+    <span>🏢 市值 ¥774亿</span>
+    <span>📊 数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ TOGGLE ALL ═══ -->
+<div class="toggle-bar">
+  <button onclick="toggleAll()">📂 全部展开 / 全部折叠</button>
+</div>
+
+<!-- ═══ VERDICT ═══ -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">📌 综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    护城河极深（双绝密配方 + 麝香配额垄断），但需求端正经历历史性下滑，估值（~36x PE）尚未充分反映不确定性。<br>
+    牛黄成本暴跌是确定性利好，但需等待需求企稳信号。好公司，但不是好价格。
+  </div>
+  <div class="v-details">
+    <span>🎯 买入区间：<strong style="color:var(--green);">¥90~110</strong></span>
+    <span>💹 当前价：<strong style="color:var(--yellow);">¥128.32</strong></span>
+    <span>📊 合理价值：<strong>¥110~140</strong></span>
+    <span>🏆 仓位：<strong>3~5%（试探性）</strong></span>
+  </div>
+</div>
+
+<!-- ═══ SNAPSHOT ═══ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📊 核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥128.32</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num">¥774亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num yellow">~35.9x</div><div class="label">静态PE（2025）</div></div>
+      <div class="stat-tile"><div class="num">5.09x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num red">¥90.01亿</div><div class="label">2025年营收（-16.6%）</div></div>
+      <div class="stat-tile"><div class="num red">¥21.59亿</div><div class="label">2025年净利（-27.5%）</div></div>
+      <div class="stat-tile"><div class="num red">36.43%</div><div class="label">2025年毛利率（-6.3pct）</div></div>
+      <div class="stat-tile"><div class="num green">14.3%</div><div class="label">资产负债率（极低）</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥12.9亿</div><div class="label">2026Q1经营现金流（恢复）</div></div>
+      <div class="stat-tile"><div class="num green">42.18%</div><div class="label">2026Q1毛利率（+5.8pct QoQ）</div></div>
+      <div class="stat-tile"><div class="num yellow">~14%</div><div class="label">ROE（2025）</div></div>
+      <div class="stat-tile"><div class="num">¥22~24亿</div><div class="label">2026E机构一致预期净利</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 1 : 生意理解                                    -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🏛️ 一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>片仔癀（漳州片仔癀药业股份有限公司）成立于 1999 年，2003 年在上交所上市（600436.SH），总部位于福建漳州。公司是 <strong>中国仅有的两家拥有"国家绝密级"配方</strong> 的中药企业之一（另一家是云南白药），其核心产品片仔癀锭剂的配方和工艺受到法律永久保护，无法被仿制。</p>
+    <p>片仔癀的历史可追溯至明朝嘉靖年间（1555年），原为宫廷秘方，后流传至福建漳州。其名称意为"一片即可退癀（消炎）"，核心成分为 <strong>天然牛黄、天然麝香、三七、蛇胆</strong> 四味药材，具体配方比例和炮制工艺至今保密。2011年，"片仔癀制作技艺"被列入国家级非物质文化遗产。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>📌 一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          靠国家法律保护的<strong>独家配方</strong>和<strong>行政垄断的天然麝香配额</strong>，以极高毛利率（~75%）卖片仔癀锭剂（760元/粒，一粒3g）；<br>
+          同时用低毛利的医药流通业务（~41%营收，~7.6%毛利）走量铺渠道。<br>
+          <strong>核心逻辑：行政垄断的定价权 + 稀缺原材料的资源壁垒 = 中药界的"茅台"生意。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>📌 核心护城河</h4>
+        <div class="key-insight" style="border-left-color:var(--yellow);">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          片仔癀的护城河是 <strong>"法律保护（绝密配方）+ 行政垄断（麝香配额）+ 品牌心智"</strong> 三层叠加，是中国最宽的消费品牌护城河之一。但2025年需求下滑表明：<strong>护城河保护的是"不被别人抢走"，不是"永远有人买"。</strong>
+        </div>
+      </div>
+    </div>
+
+    <details>
+      <summary>📖 深度理解：为什么双绝密配方这么重要？</summary>
+      <div class="detail-body">
+        <p>中国中药配方保护分为几个等级：<strong>国家绝密级（永久保密）> 国家机密级（长期保密）> 国家秘密级 > 专利保护（20年）</strong>。绝密级是最高级别的法律保护，目前只有片仔癀和云南白药两家拥有，这意味着：</p>
+        <ul style="margin-left:16px;font-size:0.92em;color:var(--text2);">
+          <li>任何企业仿制片仔癀都属于<strong>违法行为</strong>，会受到国家法律制裁</li>
+          <li>配方和工艺的保护是<strong>永久性</strong>的，不存在专利到期后仿制药涌入的情况</li>
+          <li>即使竞争对手知道四味主要成分，也无法知晓确切比例和炮制工艺——而这恰恰是药效的关键</li>
+          <li>这使得片仔癀锭剂的竞争格局在理论上<strong>100%垄断</strong>——没有竞品，没有替代品</li>
+        </ul>
+        <p>但请注意：法律保护的是"不被仿制"，不等于"永远有人愿意高价买"。这正是当前片仔癀面临的核心挑战——需求端的问题，护城河帮不上忙。</p>
+      </div>
+    </details>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>医药制造 49%（肝病用药 96% → 片仔癀锭剂绝对主导）+ 医药流通 42% + 化妆品 6% + 其他 3%</td></tr>
+      <tr><td>核心客户</td><td>高净值人群（保肝护肝需求）+ 礼品消费（商务送礼）+ 中老年患者（肝炎治疗）</td></tr>
+      <tr><td>成本结构</td><td>天然牛黄占比 ~40%（最大变量）+ 天然麝香 ~15%（配额制，稳定上涨）+ 三七/蛇胆 ~5% + 制造费用 ~10%</td></tr>
+      <tr><td>利润驱动</td><td>锭剂提价（历史 20 年提价 15 次，从 100→760 元/粒）+ 销量增长（近年承压）+ 原材料成本（牛黄价格暴跌是当前最大利好）</td></tr>
+      <tr><td>盈利杠杆</td><td>毛利率极高（~75%，锭剂层面）；成本端牛黄每降 10 万/公斤 → 利润弹性约 1.3 亿</td></tr>
+      <tr><td>品类依赖</td><td>极高——肝病用药（核心是片仔癀锭剂）占医药制造营收 96%，占公司总毛利的 ~80%。安宫牛黄丸、化妆品均未形成第二增长曲线</td></tr>
+    </table>
+
+    <h3>1.3 这生意赚钱吗？—— 关键财务特征</h3>
+    <p>片仔癀生意的核心财务特征：<strong>极高毛利、极轻资产、极低负债、赚钱能力取决于定价权</strong>。这意味着：</p>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>垄断性毛利</strong>——锭剂毛利率 75%+，几乎没有竞争对手，定价权理应极强</li>
+      <li><strong>成本刚性但可逆</strong>——牛黄/麝香是天然资源品，价格有周期。牛黄从 170 万暴跌至 50 万/公斤 = 利润巨大弹性</li>
+      <li><strong>轻资产运营</strong>——负债率仅 14.3%，几乎无有息负债，资产质量极优</li>
+      <li><strong>类奢侈品消费属性</strong>——部分需求来自送礼和身份象征，经济下行期这部分需求收缩最明显</li>
+      <li><strong>提价是把双刃剑</strong>——过去 20 年靠提价驱动增长，但 760 元/粒后消费者承受能力可能已到极限。终端价格倒挂（官方 760 → 市场 500~590）是危险信号</li>
+    </ul>
+
+    <h3>1.4 主营业务构成（2025 年年报）</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025 营收</th><th>占比</th><th>同比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>肝病用药（片仔癀系列）</strong></td><td>¥42.68 亿</td><td>47.4%</td><td>-19.6%</td><td><strong>61.29%</strong></td><td>绝对核心，利润引擎</td></tr>
+      <tr><td><strong>医药流通</strong></td><td>¥37.55 亿</td><td>41.7%</td><td>-8.1%</td><td>7.62%</td><td>走量铺渠道，低毛利</td></tr>
+      <tr><td><strong>化妆品</strong></td><td>¥5.67 亿</td><td>6.3%</td><td>-24.6%</td><td>57.54%</td><td>第二曲线尝试，体量尚小</td></tr>
+      <tr><td><strong>心脑血管用药</strong></td><td>¥1.15 亿</td><td>1.3%</td><td>-59.4%</td><td>7.95%</td><td>安宫牛黄丸，竞争激烈</td></tr>
+      <tr><td>其他</td><td>~¥2.6 亿</td><td>2.9%</td><td>—</td><td>—</td><td>食品、日化等</td></tr>
+    </table>
+
+    <div class="key-insight" style="margin-top:12px;">
+      <strong>商业模式本质</strong>：片仔癀做的是 <strong>"行政垄断 + 品牌溢价"</strong> 的生意。绝密配方保证不被仿制，麝香配额保证别人进不来，品牌保证消费者愿意付高价。但故事的另一面是：当你 96% 的制药收入依赖一款产品，而这款产品的终端需求正在下滑时，这种"极致专注"就变成了"极致脆弱"。
+    </div>
+
+    <h3>1.5 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>法律保护（绝密配方）</td><td>⭐⭐⭐⭐⭐</td><td>国家永久保密，中国仅两家企业拥有。这是最深、最不可复制的一层</td></tr>
+      <tr><td>资源垄断（麝香配额）</td><td>⭐⭐⭐⭐⭐</td><td>占全国天然麝香配额 30~50%，自建养麝基地。行政壁垒几乎不可突破</td></tr>
+      <tr><td>品牌心智</td><td>⭐⭐⭐⭐☆</td><td>500 年历史 + "药中茅台"认知，在高端中药领域品牌力仅次于同仁堂</td></tr>
+      <tr><td>定价权</td><td>⭐⭐⭐☆☆</td><td>历史上极强（20年提价15次），但760元后终端出现价格倒挂——定价权在松动</td></tr>
+      <tr><td>产品矩阵</td><td>⭐⭐☆☆☆</td><td>过度依赖单一产品。化妆品/安宫牛黄丸未形成规模，第二曲线缺失</td></tr>
+      <tr><td>转换成本</td><td>⭐⭐⭐☆☆</td><td>依赖片仔癀治肝病的患者有一定粘性，但价格敏感型消费者可能转向替代方案</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合护城河评级：极宽（但正在经受考验）</strong> — 双绝密配方和麝香配额垄断这两层护城河几乎不可摧毁，在可见的未来不会有竞争对手。但护城河保护的是"不被别人抢"，不解决"产品需求下滑"的问题。当前最关键的观察点是：定价权是否在永久性衰减？
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 2 : 管理层                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">👥 二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th>人物</th><th>职位</th><th>亮点</th></tr>
+      <tr><td><strong>林志辉</strong></td><td>党委书记、董事长</td><td>1974年生，2023年8月上任。此前长期在漳州市纪委系统工作（县纪委书记、市纪委常委），无医药行业从业背景。政府官员转型国企管理者</td></tr>
+      <tr><td><strong>王富济</strong></td><td>第二大股东（持股4.51%）</td><td>知名个人投资者，长期重仓片仔癀逾10年，被称为"片仔癀最坚定的价值投资者"</td></tr>
+      <tr><td><strong>控股股东</strong></td><td>漳州九龙江集团（51.27%）</td><td>漳州市国资委全资控股，典型的国有控股架构</td></tr>
+    </table>
+
+    <h3>2.2 管理层评估</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+      <tr><td>诚信务实</td><td><span class="tag tag-yellow">中等</span></td><td>国有控股企业，治理规范性尚可，但2025年管理层集体降薪51%——业绩下滑时共担责任，这一点值得肯定</td></tr>
+      <tr><td>股东导向</td><td><span class="tag tag-yellow">中等</span></td><td>2024年10派18.2元，股息率约1.4%（以128元计），偏低。经营现金流暴跌94%的2025年仍保持分红，但金额会大幅下降</td></tr>
+      <tr><td>专注能力圈</td><td><span class="tag tag-green">良好</span></td><td>始终围绕"中药+大健康"，未跨界。化妆品、日化等延伸尚属合理</td></tr>
+      <tr><td>行业经验</td><td><span class="tag tag-yellow">中等偏弱</span></td><td>董事长林志辉为纪委系统出身，缺少医药行业背景。这对于需要专业判断力的中药企业是一个隐忧</td></tr>
+      <tr><td>企业文化</td><td><span class="tag tag-yellow">中等</span></td><td>国企通病——稳健有余，锐气不足。面对业绩下滑，2026年股东会提出"守正创新"但缺乏具体突破性举措</td></tr>
+    </table>
+
+    <details>
+      <summary>📖 管理层深度分析：国企体制下的"守成者"</summary>
+      <div class="detail-body">
+        <p>片仔癀的管理层需要放在国企体制下来理解。林志辉的任命是典型的行政调动——从纪委系统到国企一把手，这种安排在漳州这样的地市级国企很常见。</p>
+        <p><strong>优势面</strong>：国企体制下管理层不会做太"离谱"的事（如盲目跨界、过度杠杆），公司治理有底线。王富济作为长期股东发挥了"压舱石"作用。</p>
+        <p><strong>劣势面</strong>：缺乏创业型管理者的锐气和创新能力。面对需求下滑、价格倒挂的困境，管理层似乎更多在"等待成本下降"而非主动破局。2026年股东会虽有近600名股东出席，反映出关注度极高，但管理层给出的"一超多强"产品矩阵战略仍是老调重弹。</p>
+        <p><strong>评分 6.5/10</strong>。对比华新建材李叶青（9分）这样的企业家型管理者，片仔癀的管理层更多是"守成者"而非"开拓者"。好在片仔癀的生意本身不需要太多管理创新——护城河够深，管理层只要不犯错就行。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 3 : 财务分析                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📈 三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿）</td><td>80.23</td><td>86.94</td><td>100.58</td><td>107.88</td><td><strong>90.01</strong></td><td>📉 首次下滑</td></tr>
+      <tr><td>归母净利（亿）</td><td>24.34</td><td>24.72</td><td>27.97</td><td>29.77</td><td><strong>21.59</strong></td><td>📉 大幅下滑</td></tr>
+      <tr><td>毛利率</td><td>50.71%</td><td>45.64%</td><td>46.76%</td><td>42.74%</td><td><strong>36.43%</strong></td><td>📉 持续下降</td></tr>
+      <tr><td>净利率</td><td>30.35%</td><td>28.42%</td><td>27.80%</td><td>27.59%</td><td><strong>23.98%</strong></td><td>📉 加速下降</td></tr>
+      <tr><td>ROE</td><td>25.04%</td><td>23.50%</td><td>22.64%</td><td>21.36%</td><td><strong>~14.2%</strong></td><td>📉 显著下降</td></tr>
+      <tr><td>负债率</td><td>18.87%</td><td>19.03%</td><td>18.50%</td><td>15.40%</td><td><strong>14.30%</strong></td><td>✅ 极低</td></tr>
+      <tr><td>经营现金流/净利</td><td>—</td><td>—</td><td>—</td><td>0.45x</td><td><strong>0.036x</strong></td><td>🚩 极度恶化</td></tr>
+    </table>
+
+    <h3>3.2 2026 年最新季度</h3>
+    <table>
+      <tr><th>指标</th><th>2025Q1</th><th>2025Q2</th><th>2025Q3</th><th>2025Q4</th><th>2026Q1</th><th>同比</th></tr>
+      <tr><td>营收（亿）</td><td>31.42</td><td>22.55</td><td>20.45</td><td>15.59</td><td><strong>27.41</strong></td><td>-12.7%</td></tr>
+      <tr><td>归母净利（亿）</td><td>10.00</td><td>5.68</td><td>5.61</td><td>0.29</td><td><strong>7.43</strong></td><td><strong>-25.6%</strong></td></tr>
+      <tr><td>毛利率</td><td>38.17%</td><td>—</td><td>—</td><td>~30%</td><td><strong>42.18%</strong></td><td>+4.0pct</td></tr>
+      <tr><td>经营现金流（亿）</td><td>4.89</td><td>—</td><td>—</td><td>—</td><td><strong>12.90</strong></td><td><strong>+164%</strong></td></tr>
+      <tr><td>净利率</td><td>31.8%</td><td>25.2%</td><td>27.4%</td><td>1.9%</td><td><strong>27.1%</strong></td><td>-4.7pct</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>财务核心判断</strong>：2025年是从"增长神话"到"首次衰退"的转折年。毛利率从 50.7%（2021）一路下滑至 36.4%（2025），净利率从 30.4% 降至 24%，ROE 从 25% 降至 14%。经营现金流在 2025 年几乎归零（仅 7700 万）——这是最危险的信号。<br><br>
+      <strong>好的一面</strong>：2026Q1 经营现金流强劲回升至 12.9 亿，毛利率回升至 42.18%，说明最坏的时候可能正在过去。2025Q4 净利仅 0.29 亿是异常值（可能有大额计提），不宜过度解读。核心观察点是 2026Q2 能否确认业绩触底。
+    </div>
+
+    <h3>3.3 资产质量</h3>
+    <table>
+      <tr><th>指标</th><th>数值</th><th>评价</th></tr>
+      <tr><td>资产负债率</td><td>14.3%</td><td><span class="tag tag-green">极优</span> 几乎无债务风险</td></tr>
+      <tr><td>有息负债</td><td>近零</td><td><span class="tag tag-green">极优</span> 财务费用为负</td></tr>
+      <tr><td>应收账款</td><td>8.91亿（2026Q1）</td><td><span class="tag tag-yellow">上升中</span> 相比2024年的6.5亿明显增加</td></tr>
+      <tr><td>存货</td><td>~61.6亿（2025年）</td><td><span class="tag tag-red">偏高</span> 库存量大增265%，去库存压力大</td></tr>
+      <tr><td>每股净资产</td><td>25.21元</td><td>安全垫尚可，当前PB 5.09x</td></tr>
+      <tr><td>商誉</td><td>~0.2亿</td><td><span class="tag tag-green">极低</span> 无并购后遗症风险</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 4 : 竞争格局                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚔️ 四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 核心赛道分析：肝病用药</h3>
+    <p>这是片仔癀的核心战场。在片仔癀锭剂所处的"高端保肝护肝中药"细分市场，片仔癀处于 <strong>事实上的垄断地位</strong>——没有直接竞品。但在更广泛的肝病用药市场，存在间接竞争：</p>
+
+    <h3>4.2 中药龙头横向对比</h3>
+    <table>
+      <tr><th>企业</th><th>市值（亿）</th><th>2025营收（亿）</th><th>净利（亿）</th><th>毛利率</th><th>ROE</th><th>负债率</th><th>核心护城河</th></tr>
+      <tr><td><strong>片仔癀</strong></td><td>774</td><td>90.0</td><td>21.6</td><td>36.4%</td><td>~14.2%</td><td><strong>14.3%</strong></td><td>双绝密配方+麝香配额</td></tr>
+      <tr><td><strong>云南白药</strong></td><td>~980</td><td>~380</td><td>~42</td><td>~27%</td><td>~12%</td><td>~27%</td><td>绝密配方+消费品牌</td></tr>
+      <tr><td><strong>同仁堂</strong></td><td>~650</td><td>~185</td><td>~18</td><td>~44%</td><td>~13%</td><td>~33%</td><td>356年品牌+御药背书</td></tr>
+      <tr><td><strong>广誉远</strong></td><td>~80</td><td>~10</td><td>~0.5</td><td>~70%</td><td>~3%</td><td>~40%</td><td>龟龄集/定坤丹保密配方</td></tr>
+    </table>
+
+    <h3>4.3 核心差异化分析</h3>
+    <table>
+      <tr><th>维度</th><th>片仔癀</th><th>同仁堂</th><th>云南白药</th></tr>
+      <tr><td>配方保护级别</td><td><strong>国家绝密（永久）</strong></td><td>国家级非遗</td><td><strong>国家绝密（永久）</strong></td></tr>
+      <tr><td>核心产品</td><td>片仔癀锭剂（肝病）</td><td>安宫牛黄丸（心脑血管）</td><td>白药气雾剂+牙膏</td></tr>
+      <tr><td>产品单一度</td><td><span class="tag tag-red">极高（96%）</span></td><td><span class="tag tag-yellow">中等</span></td><td><span class="tag tag-green">低（品类多元）</span></td></tr>
+      <tr><td>消费品化程度</td><td>低（以药品为主）</td><td>中（有健康消费品）</td><td><strong>高（牙膏市占率第一）</strong></td></tr>
+      <tr><td>集采风险</td><td><span class="tag tag-green">极低</span></td><td><span class="tag tag-yellow">中等</span></td><td><span class="tag tag-yellow">中等</span></td></tr>
+      <tr><td>当前增长态势</td><td><span class="tag tag-red">营收净利双降</span></td><td><span class="tag tag-yellow">低速增长</span></td><td><span class="tag tag-green">稳健增长</span></td></tr>
+      <tr><td>估值（PE）</td><td>~36x（静态）</td><td>~36x</td><td>~23x</td></tr>
+    </table>
+    <div class="key-insight">
+      <strong>竞争格局判断</strong>：片仔癀在"护城河深度"上位居中药板块第一梯队（和云南白药并列），但"产品多元化"排名靠后。与同仁堂相比，片仔癀的护城河更多来自法律/行政保护（刚性强），同仁堂更多来自品牌心智（韧性好）。云南白药是消费品化最成功的中药企业，为片仔癀的化妆品业务提供了参照——但片仔癀化妆品的表现目前远不如云南白药牙膏。
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 5 : 段永平三问                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🤔 五、段永平"三问"测试</h2>
+  <div class="section-body">
+
+    <div class="q-item">
+      <div class="q">第一问：这家公司我能理解吗？</div>
+      <div class="a"><span class="green">✅ 可以理解。</span> 片仔癀的生意本质上就是：靠国家法律保护的独家配方，卖一种高毛利的中药产品。它的护城河来源（绝密配方+麝香配额）清晰易懂，商业模式简单——高价卖药，赚取垄断利润。但当前面临的困境也不难理解：价格涨到一定程度后，消费者买不起了，加上经济下行送礼需求减少，导致需求和价格双杀。这就像茅台在2013-2014年的困境，本质上是一个品牌溢价在周期波动中的正常收缩。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第二问：这家公司有强大的护城河吗？</div>
+      <div class="a"><span class="green">✅ 护城河极深，中国最顶级之一。</span> 双绝密配方的法律保护+天然麝香配额的行政垄断，这在中国消费品牌中是独一无二的两层壁垒。10年后、20年后，片仔癀仍然会是肝病中药的绝对王者——不会有竞争对手。但需要区分两点：<span class="yellow">护城河保护的是"不被别人抢走生意"，不保证"生意本身不会变小"。</span>如果肝病用药的整体需求持续萎缩，再宽的护城河也没有意义。目前来看，需求萎缩更多是周期性的（经济下行+价格过高）而非结构性的（人们不再需要保肝护肝），但需要持续观察。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第三问：现在的价格有安全边际吗？</div>
+      <div class="a"><span class="red">❌ 安全边际不足。</span> 当前 ¥128.32 对应 2025 年净利 ~36x PE，即使按 2026 年机构一致预期净利 22.6 亿计算也有 ~34x PE。对于一个营收和利润双降、经营现金流一年前几乎归零的公司来说，这个估值并不便宜。以段永平的标准，好公司需要好价格——片仔癀是好公司，但当前价格只反映了"最坏时期可能过去"的预期修复，尚未提供真正的安全边际。如果业绩不能如愿恢复，35x+ PE 的"价值陷阱"风险是存在的。<br><br>
+      <strong>什么价位有安全边际？</strong> 如果按 2025 年净利润 ¥21.59 亿为基准，给予 25~30x PE（优质消费品牌的合理估值），对应市值 540~648 亿，对应股价 <strong>¥90~107</strong>。如果考虑牛黄成本下降带来的利润恢复（2027E 净利 28~30 亿），当前价位就有一定吸引力——但这个"如果"需要需求端的配合。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6 : 估值分析                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">💰 六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值</h3>
+    <table>
+      <tr><th>指标</th><th>片仔癀</th><th>历史均值</th><th>同仁堂</th><th>云南白药</th></tr>
+      <tr><td>静态 PE（2025）</td><td><strong>35.9x</strong></td><td>~50-60x</td><td>~36x</td><td>~23x</td></tr>
+      <tr><td>动态 PE（2026E）</td><td><strong>~26x</strong></td><td>—</td><td>~32x</td><td>~21x</td></tr>
+      <tr><td>PB</td><td>5.09x</td><td>~8-12x</td><td>~4.5x</td><td>~2.5x</td></tr>
+      <tr><td>股息率</td><td>~1.4%</td><td>~0.8-1.5%</td><td>~1.8%</td><td>~3.5%</td></tr>
+      <tr><td>EV/EBITDA</td><td>~28x</td><td>—</td><td>~22x</td><td>~15x</td></tr>
+    </table>
+    <p class="fn">注：动态PE 26x 来自东方财富口径，可能基于较乐观的盈利预期；静态PE 35.9x 基于2025年实际净利 21.59亿。TTM PE 约 40.7x（截至2026Q1+2025Q2-Q4）。不同口径差异较大，需注意甄别。</p>
+
+    <h3>6.2 多种估值方法</h3>
+    <table>
+      <tr><th>方法</th><th>基准假设</th><th>合理股价</th></tr>
+      <tr><td>PE 估值（保守）</td><td>2026E 净利 22 亿 × 25~30x PE（增速放缓，估值中枢下移）</td><td><strong>¥91~109</strong></td></tr>
+      <tr><td>PE 估值（乐观）</td><td>2027E 净利 28 亿 × 30~35x PE（成本下降+需求恢复）</td><td><strong>¥139~162</strong></td></tr>
+      <tr><td>PB 估值</td><td>每股净资产 25.2 × 4.0~5.5x</td><td><strong>¥101~139</strong></td></tr>
+      <tr><td>DCF 毛估</td><td>WACC 9%，初始 FCF 20 亿，5~8% 长期增长</td><td><strong>¥95~125</strong></td></tr>
+      <tr><td>历史估值参照</td><td>历史 PE 中枢 50~55x——但增长已减速，不适用</td><td>—</td></tr>
+      <tr><td>机构目标价</td><td>华泰 220.91（56x 2026E）/ 华创 169.5（45x）/ 长城（44.5x）</td><td><strong>¥169~221</strong></td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>估值结论</strong>：合理价值区间 <strong>¥100~140 元</strong>，当前 ¥128 处于合理区间中上沿。机构目标价（¥169~221）普遍偏高，基于牛市估值体系（45~56x PE）——在增长放缓的环境下，这些目标价可能难以实现。<br><br>
+      悲观情景（需求继续恶化）：2027 年净利 18~20 亿 × 20~25x PE → 股价 <strong>¥60~83</strong>（下行 ~35~53%）<br>
+      乐观情景（成本下降+需求恢复）：2027 年净利 30~32 亿 × 30~35x PE → 股价 <strong>¥149~186</strong>（上行 ~16~45%）<br>
+      <strong>赔率大致 1:1</strong>——在当前价位，风险与机会大致平衡，没有足够安全边际。
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 7 : 催化剂时间线                                    -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📅 七、催化剂时间线</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026 年 8 月</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 年中报披露</div>
+        <div class="tl-desc">最关键的验证节点。观察：①营收降幅是否收窄（Q1 -12.7%，期待 Q2 进一步收窄）；②毛利率能否维持 42%+；③库存是否开始下降；④经营现金流是否持续改善。中报将是判断"最坏时期是否已过"的决定性证据</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 H2</div>
+      <div class="tl-body">
+        <div class="tl-title">牛黄成本下降的利润传导</div>
+        <div class="tl-desc">天然牛黄已从 170 万元/公斤暴跌至 ~50 万元/公斤，进口牛黄（阿根廷）通道已打通。公司前期高成本库存消化完毕后，2026H2 起毛利率有望加速回升至 45~50% 区间</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 H2</div>
+      <div class="tl-body">
+        <div class="tl-title">进口牛黄批量采购</div>
+        <div class="tl-desc">2026年1月首批阿根廷进口牛黄（200克）已入境，若后续批量采购顺利，将进一步压低原料成本并缓解对国产天然牛黄的依赖</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年末 ~ 2027 年初</div>
+      <div class="tl-body">
+        <div class="tl-title">渠道去库存完成 + 需求恢复</div>
+        <div class="tl-desc">若渠道库存从当前高位（+265%）回落至正常水平，配合经济缓慢复苏带来的消费需求回暖，2027 年有望实现营收转正。这是决定"观察→买入"的关键信号</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027 年</div>
+      <div class="tl-body">
+        <div class="tl-title">化妆品/大健康第二曲线是否成形</div>
+        <div class="tl-desc">化妆品业务2025年营收5.67亿（-24.6%），距离成为"第二增长曲线"仍有较大差距。密切关注公司品牌运营和渠道建设进展</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 8 : 操作区间                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🎯 八、操作区间与仓位</h2>
+  <div class="section-body">
+
+    <h3>8.1 操作区间</h3>
+    <table>
+      <tr><th>区间</th><th>价格</th><th>操作</th><th>依据</th></tr>
+      <tr><td style="color:var(--green);font-weight:700;">✅ 低估</td><td>¥90~110</td><td><strong>积极买入</strong></td><td>对应 2025 年净利 24~30x PE，或 2027E 恢复净利 18~22x PE。优质资产+低估价格=安全边际</td></tr>
+      <tr><td style="color:var(--text);font-weight:700;">💰 合理偏低</td><td>¥110~130</td><td><strong>试探性建仓</strong></td><td>当前 ¥128 在此区间上沿，可建仓目标仓位的 1/3，等待进一步信号</td></tr>
+      <tr><td style="color:var(--yellow);font-weight:700;">👀 合理偏高</td><td>¥130~150</td><td>持有不动，不追加</td><td>已反映成本下降预期但未考虑需求风险，性价比一般</td></tr>
+      <tr><td style="color:var(--red);font-weight:700;">🔴 高估</td><td>¥170+</td><td>考虑逐步减仓</td><td>对应 2027E 净利 35x+ PE，除非需求超预期恢复否则偏贵</td></tr>
+    </table>
+
+    <h3>8.2 仓位与建仓节奏</h3>
+    <table>
+      <tr><th>指标</th><th>建议</th></tr>
+      <tr><td>总仓位上限</td><td><strong>5~8%</strong>（当前处于观察期，不宜重仓）</td></tr>
+      <tr><td>首次试探</td><td>当前价位可建仓 <strong>1~2%</strong>（总仓位的 1/3），目的是"有了仓位才会认真跟踪"</td></tr>
+      <tr><td>加仓条件 1</td><td>回调至 ¥110 以下（PE < 30x），加仓至总仓位的 50%</td></tr>
+      <tr><td>加仓条件 2</td><td>2026 年中报确认：营收降幅收窄至个位数 + 毛利率 > 45% + 库存下降，可加仓至满仓</td></tr>
+      <tr><td>加仓条件 3</td><td>回调至 ¥90~100（极度低估），直接加仓至满仓，不需等待中报</td></tr>
+    </table>
+
+    <h3>8.3 卖出条件</h3>
+    <table>
+      <tr><th>条件</th><th>操作</th></tr>
+      <tr><td>涨至 ¥170+（PE > 35x on 2027E）</td><td>减仓 50%，回收成本</td></tr>
+      <tr><td>2026 年中报显示需求继续恶化（营收降幅 > 15%）</td><td>减仓至 2% 以下或清仓</td></tr>
+      <tr><td>绝密配方被降级或天然麝香配额被取消（极低概率）</td><td>清仓——这是生意逻辑的根本性破坏</td></tr>
+      <tr><td>渠道库存持续攀升（再增 50%+）且终端价格进一步走低</td><td>减仓 50%+</td></tr>
+      <tr><td>发现更好的投资机会</td><td>机会成本是价值投资中被低估的考量</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 9 : 风险提示                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚠️ 九、风险提示</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>风险</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td>需求持续萎缩</td><td>中高</td><td>大</td><td>经济下行 + 高价策略失效可能导致"量价齐杀"。关注渠道库存和终端实际售价</td></tr>
+      <tr><td>估值中枢下移</td><td>中高</td><td>大</td><td>若增长神话被打破，市场可能将片仔癀从"成长股估值"（50x+）下调至"消费股估值"（20~30x），仅估值收缩就可能导致 30~50% 跌幅</td></tr>
+      <tr><td>品牌投资属性消退</td><td>中</td><td>中</td><td>2021年片仔癀被炒至1600元/粒时存在大量投机性购买。若"越存越值钱"的信仰破灭，需求可能永久性减少 15~25%</td></tr>
+      <tr><td>牛黄成本不降反升</td><td>低</td><td>中</td><td>若进口牛黄政策再次收紧或国际牛黄供应不足，成本红利可能落空。目前趋势向好</td></tr>
+      <tr><td>麝香资源瓶颈</td><td>低</td><td>大</td><td>天然麝香年缺口约300~400公斤。若养麝基地产量不达预期且配额收紧，可能被迫使用人工麝香——将大幅削弱品牌价值</td></tr>
+      <tr><td>单一产品过度依赖</td><td>已兑现</td><td>大</td><td>片仔癀锭剂一荣俱荣一损俱损。化妆品/安宫牛黄丸目前都无法有效对冲核心产品下滑</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>最大风险情景</strong>：品牌信仰破灭 + 需求结构性萎缩 + 估值中枢下移的"三杀"。2021年的1600元/粒本质上是泡沫——大量购买不是因为治病需要，而是因为"越存越值钱"的投机预期。如果这个信仰彻底破灭，片仔癀可能从"类茅台"退化为"普通高端药品"，合理估值从 50x PE 降至 20~25x PE——对应股价 <strong>¥70~85</strong>（较当前下跌 34~45%）。<br><br>
+      这个情景虽然极端，但并不荒诞——茅台在2013-2014年也经历了类似的"信仰危机"。片仔癀的品牌力不如茅台（茅台是社交货币，片仔癀更多是保健品/药品），但护城河的法律属性更强。
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 10 : 跟踪要点                                     -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📋 十、跟踪要点</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>观测指标</th><th>频率</th><th>正常信号</th><th>预警</th></tr>
+      <tr><td>肝病用药营收增速</td><td>季</td><td>降幅收窄至 -5% 以内</td><td>降幅 > -15%</td></tr>
+      <tr><td>综合毛利率</td><td>季</td><td>回升至 45%+</td><td>< 40%</td></tr>
+      <tr><td>经营现金流/净利</td><td>季</td><td>> 0.8x</td><td>< 0.5x</td></tr>
+      <tr><td>存货周转天数</td><td>季</td><td>下降至 250 天以内</td><td>继续上升 > 350 天</td></tr>
+      <tr><td>终端实际售价（电商/药店）</td><td>月</td><td>稳定在 550~650 元/粒</td><td>跌破 500 元/粒</td></tr>
+      <tr><td>天然牛黄市场价</td><td>月</td><td>维持在 50~60 万元/公斤</td><td>反弹至 80 万+</td></tr>
+      <tr><td>应收账款</td><td>季</td><td>不高于 8 亿</td><td>> 10 亿</td></tr>
+    </table>
+    <p style="margin-top:12px;font-size:0.9em;color:var(--text2);">
+      <strong>一句话跟踪逻辑</strong>：片仔癀的投资价值 = 护城河（不变）× 需求（待观察）× 估值（当前偏高）。跟踪的重点是需求端能否企稳 + 成本下降能否兑现为利润。在需求确认触底之前，维持"观察"评级；需求触底 + 毛利率持续回升 = 升级为"买入"。
+    </p>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <p>本报告仅为个人投资分析记录，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p style="margin-top:6px;">数据来源：公司公告、东方财富、同花顺、华泰证券/华创证券/长城证券研报</p>
+  <p style="margin-top:12px;">— 段永平："买股票就是买公司，买公司就是买其未来现金流。"</p>
+</div>
+
+<script>
+// ── Section fold/unfold ──
+function toggleSection(heading) {
+  const body = heading.nextElementSibling;
+  if (!body || !body.classList) return;
+  body.classList.toggle('collapsed');
+  heading.classList.toggle('collapsed');
+}
+// ── Toggle all ──
+function toggleAll() {
+  const allHeads = document.querySelectorAll('.card h2');
+  let anyOpen = false;
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (body && body.classList && !body.classList.contains('collapsed')) {
+      anyOpen = true;
+      break;
+    }
+  }
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (!body || !body.classList) continue;
+    if (anyOpen) {
+      body.classList.add('collapsed');
+      h.classList.add('collapsed');
+    } else {
+      body.classList.remove('collapsed');
+      h.classList.remove('collapsed');
+    }
+  }
+}
+</script>
+
+</body>
+</html>
