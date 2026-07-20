@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>中国电信（601728）价值投资分析报告</title>
+<style>
+:root {
+  --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8;
+  --accent: #2563eb; --accent-light: #dbeafe;
+  --green: #16a34a; --green-bg: #dcfce7;
+  --red: #dc2626; --red-bg: #fee2e2;
+  --yellow: #d97706; --yellow-bg: #fef3c7;
+  --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.75; padding: 2rem 1rem 4rem; }
+.container { max-width: 900px; margin: 0 auto; }
+
+/* Header */
+.header { text-align: center; margin-bottom: 2rem; }
+.header h1 { font-size: 2rem; font-weight: 800; }
+.header h1 span { color: var(--accent); }
+.header .subtitle { color: var(--text2); font-size: 1rem; margin-top: 0.5rem; }
+.header .codes { display: flex; justify-content: center; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.header .codes span { background: var(--card); border: 1px solid var(--border); padding: 4px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; color: var(--text2); }
+.header .meta-bar { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; color: var(--muted); font-size: 0.85rem; flex-wrap: wrap; }
+
+/* Verdict */
+.verdict-box { background: linear-gradient(135deg, #fef3c7 0%, #fff7ed 100%); border: 2px solid #fbbf24; border-radius: 14px; padding: 1.5rem 2rem; margin-bottom: 2rem; text-align: center; }
+.verdict-box .v-big { font-size: 1.6rem; font-weight: 800; }
+.verdict-box .v-big.watch { color: #d97706; }
+.verdict-box .v-detail { margin-top: 0.5rem; color: var(--text2); font-size: 0.9rem; line-height: 1.6; }
+
+/* Cards */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 1.75rem; margin-bottom: 1rem; }
+.card h2 { font-size: 1.15rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; user-select: none; }
+.card h2 .icon { font-size: 1rem; transition: transform 0.2s; }
+.card h2.collapsed .icon { transform: rotate(-90deg); }
+.section-body { margin-top: 1rem; }
+.section-body.collapsed { display: none; }
+
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.75rem; }
+@media(max-width:768px) { .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .grid-2,.grid-3,.grid-4 { grid-template-columns: 1fr; } }
+
+.stat-tile { background: var(--card2); border-radius: 10px; padding: 1rem; text-align: center; }
+.stat-tile .val { font-size: 1.3rem; font-weight: 800; color: var(--accent); }
+.stat-tile .val.green { color: var(--green); }
+.stat-tile .val.red { color: var(--red); }
+.stat-tile .val.yellow { color: var(--yellow); }
+.stat-tile .lbl { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background: var(--card2); font-weight: 700; color: var(--text2); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+tr:last-child td { border-bottom: none; }
+
+/* Key insight */
+.key-insight { border-radius: 10px; padding: 1rem 1.25rem; margin: 0.75rem 0; font-size: 0.9rem; line-height: 1.7; }
+.key-insight.blue { background: var(--accent-light); border-left: 4px solid var(--accent); }
+.key-insight.green { background: var(--green-bg); border-left: 4px solid var(--green); }
+.key-insight.yellow { background: var(--yellow-bg); border-left: 4px solid var(--yellow); }
+.key-insight.red { background: var(--red-bg); border-left: 4px solid var(--red); }
+.key-insight strong { display: block; margin-bottom: 2px; }
+
+/* Tags */
+.tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+.tag-green { background: var(--green-bg); color: var(--green); }
+.tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+.tag-red { background: var(--red-bg); color: var(--red); }
+.tag-blue { background: var(--accent-light); color: var(--accent); }
+
+/* Timeline */
+.tl-item { display: flex; gap: 1rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.tl-item:last-child { border-bottom: none; }
+.tl-date { flex: 0 0 100px; font-weight: 700; color: var(--accent); font-size: 0.82rem; }
+.tl-text { flex: 1; color: var(--text2); }
+
+/* Q items */
+.q-item { background: var(--card2); border-radius: 10px; padding: 1rem 1.25rem; margin: 0.6rem 0; }
+.q-item .q-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.3rem; }
+.q-item .q-answer { color: var(--text2); font-size: 0.88rem; line-height: 1.7; }
+
+/* Toggle bar */
+.toggle-bar { text-align: right; margin-bottom: 0.75rem; }
+.toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 16px; border-radius: 8px; cursor: pointer; font-size: 0.82rem; color: var(--text2); transition: all 0.15s; }
+.toggle-bar button:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+/* Rating pill */
+.rating-pill { display: inline-block; padding: 6px 16px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
+.rating-pill.buy { background: var(--green-bg); color: var(--green); border: 1px solid var(--green); }
+.rating-pill.watch { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow); }
+
+footer { text-align: center; padding: 2rem 0 0; color: var(--muted); font-size: 0.82rem; }
+footer .disclaimer { color: var(--red); font-weight: 600; margin-top: 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ═══════════ HEADER ═══════════ -->
+<div class="header">
+  <h1>中国电信 <span>价值投资分析</span></h1>
+  <div class="subtitle">从"管道商"到"智能云服务商"——一场尚未完成的转型</div>
+  <div class="codes">
+    <span>601728.SH</span><span>0728.HK</span>
+    <span>行业：电信运营</span><span>央企</span>
+  </div>
+  <div class="meta-bar">
+    <span>📅 报告日期：2026-07-20</span>
+    <span>💰 A股：6.24 元</span>
+    <span>🇭🇰 H股：4.72 港元</span>
+    <span>🏛️ 总市值：5710 亿</span>
+  </div>
+</div>
+
+<!-- ═══════════ VERDICT ═══════════ -->
+<div class="verdict-box">
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-detail">
+    <strong>H股具备价值吸引力（PE 11-12x, PB 0.8x, 股息率 6.5%），A股估值合理偏高。</strong><br>
+    传统电信业务见顶承压（2026Q1 利润 -17%），AI/Token/云计算转型方向正确但尚需时间验证。<br>
+    作为"高股息+AI期权"组合配置有一定价值，但当前缺乏足够安全边际触发买入。
+  </div>
+</div>
+
+<!-- ═══════════ TOGGLE ═══════════ -->
+<div class="toggle-bar">
+  <button onclick="toggleAll()">📂 全部展开 / 全部折叠</button>
+</div>
+
+<!-- ═══════════ 1. 核心速览 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 1️⃣ 核心速览</h2>
+  <div class="section-body">
+
+<div class="grid-4">
+  <div class="stat-tile"><div class="val">5239亿</div><div class="lbl">2025年营收 (+0.07%)</div></div>
+  <div class="stat-tile"><div class="val yellow">332亿</div><div class="lbl">2025年归母净利润 (+0.5%)</div></div>
+  <div class="stat-tile"><div class="val">7.20%</div><div class="lbl">ROE（加权）</div></div>
+  <div class="stat-tile"><div class="val green">75%</div><div class="lbl">派息率（2025年）</div></div>
+</div>
+
+<div class="grid-4" style="margin-top:0.75rem">
+  <div class="stat-tile"><div class="val">4.39亿</div><div class="lbl">移动用户总数</div></div>
+  <div class="stat-tile"><div class="val green">1207亿</div><div class="lbl">天翼云收入 (+6.8%)</div></div>
+  <div class="stat-tile"><div class="val green">123亿</div><div class="lbl">智能收入 (+38%)</div></div>
+  <div class="stat-tile"><div class="val red">-17%</div><div class="lbl">2026Q1 净利润同比</div></div>
+</div>
+
+<div class="grid-4" style="margin-top:0.75rem">
+  <div class="stat-tile"><div class="lbl">A股 PE(TTM)</div><div class="val">17.36x</div></div>
+  <div class="stat-tile"><div class="lbl">A股 PB</div><div class="val">1.22x</div></div>
+  <div class="stat-tile"><div class="lbl">H股 PE</div><div class="val green">~11.5x</div></div>
+  <div class="stat-tile"><div class="lbl">H股 股息率</div><div class="val green">~6.5%</div></div>
+</div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 2. 生意理解 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 2️⃣ 生意理解</h2>
+  <div class="section-body">
+
+<div class="key-insight blue"><strong>一句话怎么赚钱</strong>中国电信通过运营通信网络基础设施，向个人、家庭、企业提供移动通信、固网宽带、云计算、AI算力及数字化解决方案来获取收入。本质上是"网络基础设施收租+云服务增值"的商业模式。</div>
+
+<h3 style="margin-top:1.5rem">🏰 核心护城河</h3>
+
+<div class="q-item">
+  <div class="q-title">1. 基础设施垄断性（强）</div>
+  <div class="q-answer">覆盖全国的固网骨干网 + 900+数据中心 + 超100 EFLOPS智算资源，物理网络无法复制。IDC资源国内数量最多、分布最广，AIDC为全国最大服务商。</div>
+</div>
+<div class="q-item">
+  <div class="q-title">2. 云网融合差异化（中强）</div>
+  <div class="q-answer">天翼云公有云IaaS国内第二（仅次于阿里云）、全球运营商第一，政务云第一。"网络+云"的捆绑能力是纯云厂商不具备的。</div>
+</div>
+<div class="q-item">
+  <div class="q-title">3. 政企客户深度绑定（中）</div>
+  <div class="q-answer">央企AI渗透率85%，服务3.7万+行业客户、12家央企。政企客户的迁移成本高，形成一定锁定效应。但政策变化可能是双刃剑。</div>
+</div>
+<div class="q-item">
+  <div class="q-title">4. 牌照与频谱壁垒（强）</div>
+  <div class="q-answer">中国仅三家基础电信运营商，5G频谱和运营牌照构成法定垄断。新进入者不可能出现。</div>
+</div>
+
+<h3 style="margin-top:1.5rem">📊 商业模式拆解</h3>
+<table>
+  <tr><th>业务板块</th><th>2025年收入</th><th>占服务收入</th><th>增速</th><th>特征</th></tr>
+  <tr><td>移动通信</td><td>~2000亿</td><td>~41%</td><td>持平/微降</td><td><span class="tag tag-yellow">成熟现金牛</span></td></tr>
+  <tr><td>固网宽带</td><td>~1000亿</td><td>~21%</td><td>低个位数增长</td><td><span class="tag tag-yellow">稳定现金流</span></td></tr>
+  <tr><td>天翼云</td><td>1207亿</td><td>~25%</td><td>+6.8%</td><td><span class="tag tag-green">核心增长引擎</span></td></tr>
+  <tr><td>AIDC</td><td>345亿</td><td>~7%</td><td>高双位数</td><td><span class="tag tag-green">高速扩张</span></td></tr>
+  <tr><td>智能/AI</td><td>123亿</td><td>~2.5%</td><td>+38%</td><td><span class="tag tag-blue">未来期权</span></td></tr>
+  <tr><td>其他数字化</td><td>~600亿</td><td>~12%</td><td>中高个位数</td><td>安全/量子/卫星等</td></tr>
+</table>
+
+<div class="key-insight yellow" style="margin-top:1rem"><strong>⚠️ 核心矛盾</strong>传统业务（移动+宽带）占服务收入 ~62%，增长已停滞甚至下滑。新业务（云+AI）虽然增速快但体量尚小，短期无法完全对冲传统业务的下滑。2026Q1 净利润 -17% 正是这一矛盾的集中体现。</div>
+
+<h3 style="margin-top:1.5rem">💰 关键财务特征（5年趋势）</h3>
+<table>
+  <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+  <tr><td>营收（亿）</td><td>4342</td><td>4750</td><td>5078</td><td>5236</td><td>5239</td></tr>
+  <tr><td>营收增速</td><td>11.3%</td><td>9.4%</td><td>6.9%</td><td>3.1%</td><td>0.07%</td></tr>
+  <tr><td>归母净利润（亿）</td><td>260</td><td>276</td><td>304</td><td>330</td><td>332</td></tr>
+  <tr><td>ROE</td><td>6.8%</td><td>6.4%</td><td>6.9%</td><td>7.3%</td><td>7.2%</td></tr>
+  <tr><td>毛利率</td><td>—</td><td>27.1%</td><td>28.0%</td><td>28.8%</td><td>29.1%</td></tr>
+  <tr><td>经营现金流（亿）</td><td>1392</td><td>1365</td><td>1386</td><td>1453</td><td>1245</td></tr>
+  <tr><td>资产负债率</td><td>—</td><td>—</td><td>48.0%</td><td>47.3%</td><td>46.2%</td></tr>
+  <tr><td>派息率</td><td>40%</td><td>65%</td><td>70%</td><td>72%</td><td>75%</td></tr>
+</table>
+
+<div class="key-insight blue" style="margin-top:1rem"><strong>📈 核心趋势</strong>营收增速从 11.3% 逐年下降到接近零增长——"管道化"困境清晰可见。但 ROE 持续改善（6.8%→7.2%）、派息率不断提升（40%→75%），公司正从"成长股"向"现金牛+分红股"转型。负债率稳步下降，财务健康度改善。</div>
+
+<h3 style="margin-top:1.5rem">🛡️ 护城河量化评估</h3>
+<table>
+  <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+  <tr><td>行业准入壁垒</td><td>⭐⭐⭐⭐⭐</td><td>仅三家基础电信牌照，法定垄断，不可复制</td></tr>
+  <tr><td>网络效应</td><td>⭐⭐⭐⭐</td><td>4.39亿用户基础 + 2亿宽带用户，规模效应明显</td></tr>
+  <tr><td>转换成本</td><td>⭐⭐⭐</td><td>政企客户有迁移成本，但个人用户转网成本低</td></tr>
+  <tr><td>成本优势</td><td>⭐⭐⭐</td><td>不如中国移动（10亿用户）的规模效应，但共建共享降本</td></tr>
+  <tr><td>品牌/无形资产</td><td>⭐⭐⭐</td><td>央企品牌在政企市场有信任优势，但消费端品牌溢价有限</td></tr>
+  <tr><td>技术壁垒</td><td>⭐⭐⭐⭐</td><td>云网融合 + 全国IDC布局 + 自研星辰大模型，技术储备深厚</td></tr>
+</table>
+
+  </div>
+</div>
+
+<!-- ═══════════ 3. 管理层评估 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 3️⃣ 管理层评估</h2>
+  <div class="section-body">
+
+<table>
+  <tr><th>姓名</th><th>职位</th><th>背景</th></tr>
+  <tr><td>柯瑞文</td><td>董事长、党组书记</td><td>1963年生，长期在电信体系内工作，历任江西电信、中国电信集团高管</td></tr>
+  <tr><td>梁宝俊</td><td>总经理、党组副书记</td><td>曾任中国联通副总经理，2024年调任中国电信</td></tr>
+</table>
+
+<h3 style="margin-top:1.5rem">📋 管理层评估维度</h3>
+<table>
+  <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+  <tr><td>战略眼光</td><td>⭐⭐⭐⭐</td><td>率先提出"云改数转"和"Token经营"战略，在运营商中转型最早、最坚决</td></tr>
+  <tr><td>执行力</td><td>⭐⭐⭐⭐</td><td>天翼云从0做到1207亿、国内第二，AIDC做到全球运营商第一，执行有成果</td></tr>
+  <tr><td>股东回报意识</td><td>⭐⭐⭐⭐</td><td>派息率从40%提升至75%，提前完成2026年目标，明确承诺维持75%以上</td></tr>
+  <tr><td>资本配置能力</td><td>⭐⭐⭐</td><td>2026年资本开支下降9.2%但智能投资增26%，结构优化方向正确。ROE仍偏低（7.2%）</td></tr>
+  <tr><td>诚信/利益一致性</td><td>⭐⭐⭐⭐</td><td>央企背景，管理层利益与国家/股东较为一致，无重大诚信风险</td></tr>
+</table>
+
+<div class="key-insight yellow"><strong>⚠️ 管理层判断</strong>在国企体制下属于优秀水平——战略清晰、执行力较强、重视股东回报。但本质上仍是行政任命制，管理层变动可能影响战略连续性。柯瑞文的"Token经营"战略方向正确，但能否落地兑现仍需观察。</div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 4. 财务分析 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 4️⃣ 财务分析</h2>
+  <div class="section-body">
+
+<h3>📊 最新季度数据（2026Q1）</h3>
+<div class="grid-4">
+  <div class="stat-tile"><div class="val">1314亿</div><div class="lbl">营收 (-2.3%)</div></div>
+  <div class="stat-tile"><div class="val red">73.5亿</div><div class="lbl">净利润 (-17.1%)</div></div>
+  <div class="stat-tile"><div class="val">1.58%</div><div class="lbl">ROE（季度）</div></div>
+  <div class="stat-tile"><div class="val green">232亿</div><div class="lbl">经营现金流 (+114%)</div></div>
+</div>
+
+<div class="key-insight red" style="margin-top:1rem"><strong>🚨 2026Q1 利润下滑分析</strong>净利润同比下降 17.1%，主要原因：① 增值税政策调整影响约 10 亿+；② 传统移动/宽带业务收入增速趋零甚至负增长；③ 云计算增速放缓至个位数（+6.8%）；④ 新业务（AI/Token）尚在投入期，增量不足以弥补存量下滑。同期经营现金流大幅改善（+114%），说明公司加强了应收账款管理和成本控制。</div>
+
+<h3 style="margin-top:1.5rem">💵 现金流与分红</h3>
+<table>
+  <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+  <tr><td>经营现金流（亿）</td><td>1392</td><td>1365</td><td>1386</td><td>1453</td><td>1245</td></tr>
+  <tr><td>自由现金流（亿）</td><td>~520</td><td>~440</td><td>~398</td><td>~478</td><td>~515</td></tr>
+  <tr><td>每股分红（元）</td><td>0.170</td><td>0.196</td><td>0.233</td><td>0.260</td><td>0.272</td></tr>
+  <tr><td>分红总额（亿）</td><td>156</td><td>179</td><td>213</td><td>238</td><td>249</td></tr>
+  <tr><td>派息率</td><td>60%</td><td>65%</td><td>70%</td><td>72%</td><td>75%</td></tr>
+  <tr><td>A股股息率</td><td>—</td><td>—</td><td>4.0%</td><td>4.3%</td><td>4.4%</td></tr>
+  <tr><td>H股股息率</td><td>—</td><td>—</td><td>5.5%</td><td>6.0%</td><td>6.5%</td></tr>
+</table>
+
+<div class="key-insight green"><strong>✅ 分红亮点</strong>连续5年提升派息率（60%→75%），每股分红稳步增长。公司承诺派息率维持75%以上，以当前A股价格计算股息率约4.4%，H股约6.5%。在低利率环境下具有吸引力。但需注意：如果2026年净利润如机构预测下降8.7%至303亿，每股分红可能降至约0.25元。</div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 5. 竞争格局 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 5️⃣ 竞争格局</h2>
+  <div class="section-body">
+
+<h3>📊 三大运营商对比（2025年）</h3>
+<table>
+  <tr><th>指标</th><th style="background:#dbeafe">中国移动</th><th style="background:#fef3c7">中国电信</th><th>中国联通</th></tr>
+  <tr><td>营收</td><td><strong>10,502亿</strong></td><td>5,239亿</td><td>3,922亿</td></tr>
+  <tr><td>净利润</td><td><strong>1,371亿</strong></td><td>332亿</td><td>91亿</td></tr>
+  <tr><td>净利润率</td><td><strong>13.1%</strong></td><td>6.3%</td><td>2.3%</td></tr>
+  <tr><td>ROE</td><td><strong>10.5%</strong></td><td>7.2%</td><td>4.0%</td></tr>
+  <tr><td>移动用户</td><td><strong>10.05亿</strong></td><td>4.39亿</td><td>3.57亿</td></tr>
+  <tr><td>5G渗透率</td><td>63.9%</td><td><strong>68.8%</strong></td><td>—</td></tr>
+  <tr><td>宽带用户</td><td>3.10亿</td><td><strong>2.01亿</strong> (固网第二)</td><td>1.14亿</td></tr>
+  <tr><td>云服务</td><td>移动云 ~800亿</td><td><strong>天翼云 1207亿</strong></td><td>联通云 ~500亿</td></tr>
+  <tr><td>AI/智能收入</td><td>智算增速 279%</td><td>智能收入 123亿 (+38%)</td><td>AI收入增 140%</td></tr>
+  <tr><td>A股市值</td><td><strong>~1.5万亿</strong></td><td>5710亿</td><td>~1800亿</td></tr>
+  <tr><td>A股 PE(TTM)</td><td>~11x</td><td>~17x</td><td>~20x</td></tr>
+  <tr><td>股息率 (A股)</td><td>~4.5%</td><td>~4.4%</td><td>~2.8%</td></tr>
+</table>
+
+<h3 style="margin-top:1.5rem">🎯 核心差异化分析</h3>
+
+<div class="q-item">
+  <div class="q-title">vs 中国移动：规模差距悬殊</div>
+  <div class="q-answer">中国移动营收是电信的2倍、净利润是4倍、用户数是2.3倍——规模效应带来更高的利润率（13.1% vs 6.3%）和ROE（10.5% vs 7.2%）。移动的市值是电信的2.6倍，但PE反而更低（11x vs 17x）。移动是行业绝对的王者，电信只能做"差异化竞争者"。<br><br>
+  <strong>电信的优势在于：</strong>① 天翼云规模领先移动云约50%；② 固网基础设施更强（全国最大固网运营商）；③ AI转型动作更早、更坚决。</div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">vs 中国联通：全面领先</div>
+  <div class="q-answer">电信在各项指标上均优于联通：营收高34%、净利润高265%、云收入高140%。联通在三大运营商中处于弱势地位，但在混改（BATJ股东）和部分垂直领域有特色。</div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">vs 阿里云/华为云：差异化互补</div>
+  <div class="q-answer">天翼云与阿里云并非完全直接竞争。天翼云的核心优势在政务云（第一）、央企私有云、AIDC基础设施；阿里云强在公有云技术能力和互联网生态。天翼云的定位是"国云"，依靠"云网融合+安全可控"获取政企客户。</div>
+</div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 6. 段永平三问 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 6️⃣ 段永平"三问"测试</h2>
+  <div class="section-body">
+
+<div class="q-item">
+  <div class="q-title">❶ 是否在自己的能力圈内？</div>
+  <div class="q-answer"><strong>基本在。</strong>电信运营是相对容易理解的生意——本质是"网络基础设施收费"，商业模式清晰。云服务和AI转型增加了一些复杂度，但核心逻辑（算力需求增长→数据中心和云服务受益）不难理解。需要持续关注的是：传统业务下滑速度 vs 新业务增长速度。不在能力圈的部分：Token经济的定价模型和竞争格局演变尚不明朗。</div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">❷ 这家公司是否有宽阔的护城河？</div>
+  <div class="q-answer"><strong>中等偏宽，但在变窄。</strong>法定牌照垄断 + 全国网络基础设施构成高壁垒，新进入者无法复制。但护城河在"管道化"趋势下正在变窄——用户价值被OTT（微信、抖音等）截取，运营商沦为流量通道。AI/云计算的转型能否重建更宽的护城河，还是仍然被阿里云、华为等压制，是关键问题。天翼云在政务/央企市场初步建立了差异化优势，但在通用公有云市场仍面临激烈竞争。</div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">❸ 当前价格是否有足够的安全边际？</div>
+  <div class="q-answer"><strong>A股：安全边际不足。</strong>PE 17-19x 对于一个增长停滞的传统运营商偏高，即使考虑AI期权也不便宜。按2026E净利润303亿计算，合理PE给12-15x对应市值3636-4545亿，当前5710亿明显偏高。<br><br>
+  <strong>H股：有一定安全边际。</strong>PE 11-12x, PB 0.8x, 股息率 6.5%。对于一家资产负债表健康、派息率75%的央企，H股估值处于合理偏低区间。按2026E EPS 0.33元人民币（约0.36港元），H股合理PE 12-14x对应4.3-5.0港元，当前4.72港元在合理区间上沿。<br><br>
+  <strong>结论：A股偏贵，H股合理偏低。如配置，应优先选择H股。</strong></div>
+</div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 7. 估值分析 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 7️⃣ 估值分析</h2>
+  <div class="section-body">
+
+<h3>📌 当前估值快照</h3>
+<table>
+  <tr><th>市场</th><th>股价</th><th>PE(TTM)</th><th>PE(2026E)</th><th>PB</th><th>股息率</th><th>EV/EBITDA</th></tr>
+  <tr><td>A股 (601728)</td><td>6.24 元</td><td>17.36x</td><td>18.9x</td><td>1.22x</td><td>4.4%</td><td>~3.5x</td></tr>
+  <tr><td>H股 (0728)</td><td>4.72 港元</td><td>~11.5x</td><td>~13x</td><td>0.80x</td><td>6.5%</td><td>~2.5x</td></tr>
+</table>
+
+<h3 style="margin-top:1.5rem">🔢 多方法估值（基于2026E）</h3>
+
+<div class="q-item">
+  <div class="q-title">方法一：PE估值</div>
+  <div class="q-answer">
+    2026E EPS = 0.33 元（机构一致预期）<br>
+    <strong>保守（10x）：</strong>3.30 元 — 传统运营商在低增长环境下合理<br>
+    <strong>中性（13x）：</strong>4.29 元 — 考虑AI转型期权+高分红<br>
+    <strong>乐观（16x）：</strong>5.28 元 — 如果Token/AI开始贡献实质利润<br>
+    <strong>当前A股 6.24 元隐含 PE 18.9x</strong>——在所有情景之上，偏贵<br>
+    <strong>当前H股 4.72 港元（≈4.30 人民币）隐含 PE 13x</strong>——中性水平
+  </div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">方法二：PB估值</div>
+  <div class="q-answer">
+    2026Q1 BVPS = 5.12 元，年末预计约 5.30 元<br>
+    ROE 7.2% 的资产，合理 PB = ROE / 要求回报率 ≈ 7.2% / 8% = 0.9x（如果仅看现有资产回报）<br>
+    考虑AI转型可能提升ROE至8-9%，合理PB可给1.0-1.1x → 5.30-5.83 元<br>
+    <strong>A股 PB 1.22x</strong> — 偏高<br>
+    <strong>H股 PB 0.80x</strong> — 折价，有吸引力
+  </div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">方法三：股息贴现模型（DDM）</div>
+  <div class="q-answer">
+    2026E DPS ≈ 0.25 元（按75%派息 × 0.33 EPS）<br>
+    假设长期股息增速 2%（与GDP同步），要求回报率 8%<br>
+    <strong>合理价值 = 0.25 / (8% - 2%) = 4.17 元</strong><br>
+    如果要求回报率降至 7%（低利率环境），合理价值 = 0.25 / 5% = 5.00 元<br>
+    A股 6.24 元显著高于DDM估值，H股 4.72 港元在合理区间
+  </div>
+</div>
+
+<div class="q-item">
+  <div class="q-title">方法四：分部估值（SOTP）</div>
+  <div class="q-answer">
+    <strong>传统电信业务：</strong>净利润 ~250亿 × 10x PE = 2500亿<br>
+    <strong>天翼云：</strong>收入 1207亿 × 2x PS（参考阿里云估值折价）= 2414亿<br>
+    <strong>AIDC：</strong>收入 345亿 × 3x PS = 1035亿<br>
+    <strong>其他数字化+AI期权：</strong>约 500亿<br>
+    <strong>合计 SOTP：</strong>6449亿<br>
+    但需注意：天翼云和AIDC的利润率远低于阿里云（政务客户利润率低），PS倍数应给折价。<br>
+    <strong>保守SOTP：</strong>2500 + 1810 + 690 + 300 = <strong>5300亿</strong>（≈5.79元/股）
+  </div>
+</div>
+
+<h3 style="margin-top:1.5rem">📊 估值小结</h3>
+<table>
+  <tr><th>方法</th><th>估值范围（元/股）</th><th>vs A股 6.24</th><th>vs H股 ~4.30</th></tr>
+  <tr><td>PE (10-16x)</td><td>3.30 - 5.28</td><td><span class="tag tag-red">高估</span></td><td><span class="tag tag-green">合理偏高</span></td></tr>
+  <tr><td>PB (0.9-1.1x)</td><td>4.77 - 5.83</td><td><span class="tag tag-yellow">略高</span></td><td><span class="tag tag-green">低估</span></td></tr>
+  <tr><td>DDM (7-8%要求回报)</td><td>4.17 - 5.00</td><td><span class="tag tag-red">高估</span></td><td><span class="tag tag-green">合理</span></td></tr>
+  <tr><td>SOTP (保守)</td><td>~5.79</td><td><span class="tag tag-yellow">略高</span></td><td><span class="tag tag-green">低估</span></td></tr>
+</table>
+
+  </div>
+</div>
+
+<!-- ═══════════ 8. 催化剂时间线 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 8️⃣ 催化剂时间线（未来12个月）</h2>
+  <div class="section-body">
+
+<div class="tl-item"><div class="tl-date">2026年7月</div><div class="tl-text"><strong>WAIC 2026 星辰TokenHub平台升级发布</strong> — 已落地。Token经营平台能力大幅升级，日均Token消耗突破2000亿。关注后续商业化进展。</div></div>
+<div class="tl-item"><div class="tl-date">2026年8月</div><div class="tl-text"><strong>2026半年报披露（最关键的短期催化）</strong> — 重点关注：① 营收是否恢复正增长；② 净利润降幅是否收窄（Q1 -17%）；③ 天翼云增速能否回升至双位数；④ AI/Token收入是否有实质放量；⑤ 派息政策是否维持。</div></div>
+<div class="tl-item"><div class="tl-date">2026年Q3</div><div class="tl-text"><strong>TeleAgent企业版发布</strong> — 星辰超级智能体内测已超30万用户，企业版商业化值得关注。如果定价和客户接受度好，可能成为AI收入的重要增量。</div></div>
+<div class="tl-item"><div class="tl-date">2026年Q3-Q4</div><div class="tl-text"><strong>Token套餐正式商用</strong> — 5月已推出试商用Token套餐，正式商用后的用户数和ARPU是验证"Token经济"可行性的关键指标。</div></div>
+<div class="tl-item"><div class="tl-date">2026年10月</div><div class="tl-text"><strong>三季报</strong> — 验证下半年业绩回暖趋势。如果连续两个季度利润下滑，全年机构预测的303亿可能下调。</div></div>
+<div class="tl-item"><div class="tl-date">2026年12月</div><div class="tl-text"><strong>2026年全年业绩指引</strong> — 管理层是否给出2027年展望，尤其是传统业务何时企稳、AI/云增速目标。</div></div>
+<div class="tl-item"><div class="tl-date">2027年3月</div><div class="tl-text"><strong>2026年年报 + 新一期分红预案</strong> — 派息率是否保持75%+、全年净利润是否守住300亿，是最核心的验证点。</div></div>
+<div class="tl-item"><div class="tl-date">持续关注</div><div class="tl-text"><strong>政策催化</strong> — 央企AI推进政策、数据要素市场化、低空经济/量子通信政策等可能带来主题性机会。</div></div>
+
+  </div>
+</div>
+
+<!-- ═══════════ 9. 操作区间与仓位 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 9️⃣ 操作区间与仓位</h2>
+  <div class="section-body">
+
+<h3>A股（601728.SH）操作区间</h3>
+<table>
+  <tr><th>区间</th><th>价格范围</th><th>对应PE</th><th>操作</th></tr>
+  <tr style="background:#dcfce7"><td><strong>✅ 买入区</strong></td><td>≤ 4.80 元</td><td>≤ 14.5x</td><td>安全边际充足，可分批建仓</td></tr>
+  <tr style="background:#fef3c7"><td><strong>⚡ 观察区</strong></td><td>4.80 - 5.50 元</td><td>14.5-16.6x</td><td><strong>当前 6.24 元在此之上</strong>，不建议买入</td></tr>
+  <tr style="background:#fef3c7"><td><strong>📊 合理偏高</strong></td><td>5.50 - 6.50 元</td><td>16.6-19.7x</td><td><strong>当前区域</strong>，持有者可继续持有，不建议加仓</td></tr>
+  <tr style="background:#fee2e2"><td><strong>❌ 高估</strong></td><td>≥ 6.80 元</td><td>≥ 20.6x</td><td>考虑减仓/清仓</td></tr>
+</table>
+
+<h3 style="margin-top:1.5rem">H股（0728.HK）操作区间</h3>
+<table>
+  <tr><th>区间</th><th>价格范围</th><th>对应PE</th><th>操作</th></tr>
+  <tr style="background:#dcfce7"><td><strong>✅ 买入区</strong></td><td>≤ 4.00 港元</td><td>≤ 10x</td><td>深度价值区间，股息率 7%+</td></tr>
+  <tr style="background:#f0fdf4"><td><strong>👍 加仓区</strong></td><td>4.00 - 4.40 港元</td><td>10-11x</td><td>低估区间，股息率 6.5%+</td></tr>
+  <tr style="background:#fef3c7"><td><strong>📊 合理区</strong></td><td>4.40 - 5.20 港元</td><td>11-13x</td><td><strong>当前 4.72 港元在此区间</strong></td></tr>
+  <tr style="background:#fee2e2"><td><strong>❌ 高估</strong></td><td>≥ 5.50 港元</td><td>≥ 14x</td><td>考虑减仓</td></tr>
+</table>
+
+<h3 style="margin-top:1.5rem">💰 建仓节奏建议（H股优先）</h3>
+<table>
+  <tr><th>阶段</th><th>触发条件</th><th>买入比例</th><th>说明</th></tr>
+  <tr><td>第一批</td><td>H股跌至 4.40 港元以下</td><td>30%</td><td>估值合理偏低时开始试探性建仓</td></tr>
+  <tr><td>第二批</td><td>H股跌至 4.00 港元以下</td><td>40%</td><td>深度价值区间，加大仓位</td></tr>
+  <tr><td>第三批</td><td>2026H1业绩确认传统业务企稳 + AI收入高增</td><td>30%</td><td>基本面拐点确认后完成建仓</td></tr>
+</table>
+<div class="key-insight blue" style="margin-top:0.75rem"><strong>📌 仓位上限</strong>不超过总组合的 8%。电信运营商属于防御型资产，高股息提供下行保护，但上涨空间有限（缺乏成长性）。在组合中的角色是"现金替代+AI期权"。</div>
+
+<h3 style="margin-top:1.5rem">🚪 卖出条件</h3>
+<table>
+  <tr><th>卖出条件</th><th>触发信号</th></tr>
+  <tr><td>基本面恶化</td><td>连续两个季度净利润下滑超15%，或派息率下调至70%以下</td></tr>
+  <tr><td>估值过高</td><td>A股 PE > 22x 或 H股 PE > 15x</td></tr>
+  <tr><td>找到更好的机会</td><td>有更优质的标的出现，需要腾出仓位</td></tr>
+  <tr><td>投资逻辑破坏</td><td>AI/Token转型明显失败、传统业务加速恶化、重大政策利空</td></tr>
+</table>
+
+  </div>
+</div>
+
+<!-- ═══════════ 10. 风险提示 ═══════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)"><span class="icon">▼</span> 🔟 风险提示</h2>
+  <div class="section-body">
+
+<table>
+  <tr><th>风险</th><th>严重程度</th><th>概率</th><th>说明</th></tr>
+  <tr><td>传统业务加速下滑</td><td><span class="tag tag-red">高</span></td><td>中等</td><td>2026Q1已是信号。若移动ARPU持续下滑、宽带增速归零，传统业务利润可能加速萎缩</td></tr>
+  <tr><td>AI/Token转型不及预期</td><td><span class="tag tag-red">高</span></td><td>中等</td><td>Token经济是全新概念，商业模式未经验证。如果企业客户不接受Token定价，增长故事将被证伪</td></tr>
+  <tr><td>云计算竞争加剧</td><td><span class="tag tag-yellow">中</span></td><td>较高</td><td>阿里云、华为云、腾讯云持续降价抢市场，天翼云利润率可能进一步受压</td></tr>
+  <tr><td>政策风险</td><td><span class="tag tag-yellow">中</span></td><td>中等</td><td>提速降费政策持续、央企改革影响管理层稳定性、国有资产监管趋严</td></tr>
+  <tr><td>资本开支压力</td><td><span class="tag tag-yellow">中</span></td><td>低</td><td>AI基础设施投资需求大，2026年已计划下降9.2%，但若AI需求超预期可能需要追加投资</td></tr>
+  <tr><td>AH溢价收窄</td><td><span class="tag tag-yellow">中</span></td><td>中等</td><td>A股较H股溢价约35%，若溢价收窄，A股投资者可能承受额外损失（但H股投资者受益）</td></tr>
+  <tr><td>利率上行</td><td><span class="tag tag-green">低</span></td><td>低</td><td>作为高股息标的，利率上行会降低其相对吸引力</td></tr>
+</table>
+
+<div class="key-insight red" style="margin-top:1rem"><strong>🚨 最大风险情景</strong>传统电信业务加速下滑（ARPU持续走低+用户增长见顶）+ AI/Token转型未能如期兑现收入 → 营收和利润双降，股息被迫下调，估值逻辑从"稳定现金牛+AI期权"坍塌为"衰退中的管道商"。此情景下H股可能跌至3.5港元以下（PB < 0.6x），A股可能跌破5元。</div>
+
+<div class="key-insight green" style="margin-top:0.75rem"><strong>✅ 最大机会情景</strong>Token经营被市场接受并形成规模收入（2027年AI/智能收入突破300亿），天翼云保持双位数增长，传统业务企稳。公司从"管道商"成功转型为"AI基础设施服务商"，估值重估至PE 18-20x → H股目标价6.5-7港元。</div>
+
+  </div>
+</div>
+
+<footer>
+  <p class="disclaimer">⚠️ 免责声明：本报告为个人投资研究，不构成任何投资建议。市场有风险，投资需谨慎。</p>
+  <p style="margin-top:0.5rem">分析方法基于巴菲特/段永平价值投资思想 · 2026-07-20</p>
+</footer>
+
+</div>
+
+<script>
+function toggleSection(h2) {
+  h2.classList.toggle('collapsed');
+  var body = h2.nextElementSibling;
+  body.classList.toggle('collapsed');
+}
+function toggleAll() {
+  var all = document.querySelectorAll('.card h2');
+  var bodies = document.querySelectorAll('.section-body');
+  var anyOpen = Array.from(bodies).some(function(b){ return !b.classList.contains('collapsed'); });
+  all.forEach(function(h){ h.classList.toggle('collapsed', anyOpen); });
+  bodies.forEach(function(b){ b.classList.toggle('collapsed', anyOpen); });
+}
+</script>
+</body>
+</html>
