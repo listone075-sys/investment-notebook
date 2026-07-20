@@ -242,19 +242,17 @@ def generate_reports_html(reports: list[dict]) -> str:
 
         # 判断是否本周
         is_current = (iso_year == today_year and iso_week == today_week)
-        current_badge = ' <span class="week-now">本周</span>' if is_current else ""
 
         # 周分组头部
+        section_class = 'week-section is-current' if is_current else 'week-section'
+        now_badge = f'<span class="week-head__now">本周</span>' if is_current else ''
         cards_html += f'''
-  <div class="week-group">
-    <div class="week-divider">
-      <div class="week-divider-line"></div>
-      <div class="week-divider-text">
-        <span class="week-label">第{iso_week}周</span>
-        <span class="week-range">{monday_str} — {sunday_str}</span>
-        <span class="week-count">{n} 篇</span>{current_badge}
-      </div>
-      <div class="week-divider-line"></div>
+  <div class="{section_class}">
+    <div class="week-head">
+      <span class="week-head__num">第{iso_week}周</span>
+      <span class="week-head__range">{monday_str} — {sunday_str}</span>
+      <span class="week-head__count">{n} 篇</span>
+      {now_badge}
     </div>'''
 
         for r in reports_in_week:
@@ -285,7 +283,7 @@ def generate_reports_html(reports: list[dict]) -> str:
       <div class="arrow">→</div>
     </a>'''
 
-        cards_html += '\n  </div>'
+        cards_html += '\n  </div><!-- /.week-section -->'
 
     return f'''<!DOCTYPE html>
 <html lang="zh-CN">
@@ -404,42 +402,52 @@ def generate_reports_html(reports: list[dict]) -> str:
   .section-title {{ font-size: 1.1rem; color: var(--muted); margin: 2rem 0 1rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }}
 
   /* ── 周分组 ── */
-  .week-group {{ margin-bottom: 2.5rem; }}
-  .week-divider {{
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 1rem; padding: 0;
+  .week-section {{
+    margin-bottom: 2.5rem;
   }}
-  .week-divider-line {{
-    flex: 1; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25), transparent);
+  .week-section.is-current {{
+    background: linear-gradient(135deg, rgba(52,211,153,0.04) 0%, rgba(52,211,153,0.01) 100%);
+    border: 1px solid rgba(52,211,153,0.12);
+    border-radius: 14px;
+    padding: 1.25rem 1.25rem 0.25rem;
+    margin-left: -1.25rem; margin-right: -1.25rem;
   }}
-  .week-divider-text {{
-    display: flex; align-items: baseline; gap: 10px;
-    white-space: nowrap; font-size: 0.85rem;
+  .week-head {{
+    display: flex; align-items: baseline; gap: 14px;
+    padding-bottom: 0.75rem; margin-bottom: 0.25rem;
+    border-bottom: 2px solid rgba(99,102,241,0.18);
   }}
-  .week-divider-text .week-label {{
-    font-weight: 700; color: var(--accent-hover);
-    font-size: 0.95rem; letter-spacing: 0.5px;
+  .week-section.is-current .week-head {{
+    border-bottom-color: rgba(52,211,153,0.3);
   }}
-  .week-divider-text .week-range {{
-    color: var(--muted); font-size: 0.82rem;
+  .week-head__num {{
+    font-size: 1.05rem; font-weight: 800; color: var(--accent-hover);
+    letter-spacing: -0.3px;
   }}
-  .week-divider-text .week-count {{
-    color: var(--accent); font-size: 0.78rem;
-    background: rgba(99,102,241,0.12); padding: 1px 10px; border-radius: 20px;
-    font-weight: 600;
+  .week-section.is-current .week-head__num {{
+    color: var(--emerald);
   }}
-  .week-now {{
-    display: inline-block; padding: 1px 8px; border-radius: 4px;
-    font-size: 0.72rem; font-weight: 700;
-    background: rgba(52,211,153,0.18); color: var(--emerald);
-    border: 1px solid rgba(52,211,153,0.35);
+  .week-head__range {{
+    font-size: 0.85rem; color: var(--muted); flex: 1;
+  }}
+  .week-head__count {{
+    font-size: 0.78rem; color: var(--accent);
+    background: rgba(99,102,241,0.14); padding: 3px 12px;
+    border-radius: 20px; font-weight: 600;
+  }}
+  .week-head__now {{
+    font-size: 0.75rem; font-weight: 700; padding: 3px 10px;
+    border-radius: 5px; background: rgba(52,211,153,0.2);
+    color: var(--emerald); border: 1px solid rgba(52,211,153,0.3);
   }}
   @media(max-width:600px) {{
-    .week-divider-text {{ gap: 6px; font-size: 0.78rem; }}
-    .week-divider-text .week-label {{ font-size: 0.85rem; }}
-    .week-divider-text .week-range {{ display: none; }}
-    .week-divider-line {{ display: none; }}
+    .week-section.is-current {{
+      margin-left: -0.5rem; margin-right: -0.5rem;
+      padding: 1rem 0.5rem 0.25rem;
+    }}
+    .week-head {{ gap: 8px; }}
+    .week-head__num {{ font-size: 0.9rem; }}
+    .week-head__range {{ font-size: 0.75rem; }}
   }}
 
   footer {{
