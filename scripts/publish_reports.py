@@ -18,7 +18,7 @@ import re
 import shutil
 import sys
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime, timedelta
 from urllib.parse import quote
 
 # ═══════════════════════════════════════════
@@ -197,46 +197,95 @@ RATING_MAP = {
 TAG_COLOR = ["tag-blue", "tag-green", "tag-yellow"]
 
 
+def _get_week_range(iso_year: int, iso_week: int) -> tuple[str, str]:
+    """返回 ISO 周的周一和周日日期字符串（中文格式）。"""
+    # ISO week 1 = 包含该年第一个周四的那一周
+    jan4 = date(iso_year, 1, 4)
+    # 周一到周日
+    monday = jan4 + timedelta(days=-jan4.isoweekday() + 1 + (iso_week - 1) * 7)
+    sunday = monday + timedelta(days=6)
+
+    def fmt(d: date) -> str:
+        return f"{d.month}月{d.day}日"
+
+    return fmt(monday), fmt(sunday)
+
+
+def _get_today_week() -> tuple[int, int]:
+    """返回今天的 ISO 年份和周数。"""
+    today = date.today()
+    return today.isocalendar()[0], today.isocalendar()[1]
+
+
 def generate_reports_html(reports: list[dict]) -> str:
-    """生成 www/reports.html 内容。"""
-    # 按日期分组
-    reports_by_year: dict[str, list] = {}
+    """生成 www/reports.html 内容（按周分组）。"""
+    # ── 按 ISO 周分组 ──
+    reports_by_week: dict[tuple[int, int], list] = {}  # (iso_year, iso_week) -> [...]
     for r in reports:
-        year = r["date"][:4] if r["date"] else "未知"
-        reports_by_year.setdefault(year, []).append(r)
+        try:
+            d = datetime.strptime(r["date"], "%Y-%m-%d").date()
+            iso = d.isocalendar()
+            key = (iso[0], iso[1])
+        except (ValueError, IndexError):
+            key = (9999, 0)  # 未知日期排最后
+        reports_by_week.setdefault(key, []).append(r)
+
+    today_year, today_week = _get_today_week()
 
     cards_html = ""
-    for year in sorted(reports_by_year.keys(), reverse=True):
-        cards_html += f'\n  <div class="section-title">{year}年</div>\n'
-        for r in reports_by_year[year]:
+    for (iso_year, iso_week) in sorted(reports_by_week.keys(), reverse=True):
+        reports_in_week = reports_by_week[(iso_year, iso_week)]
+        n = len(reports_in_week)
+
+        # 周范围标签
+        monday_str, sunday_str = _get_week_range(iso_year, iso_week)
+
+        # 判断是否本周
+        is_current = (iso_year == today_year and iso_week == today_week)
+        current_badge = ' <span class="week-now">本周</span>' if is_current else ""
+
+        # 周分组头部
+        cards_html += f'''
+  <div class="week-group">
+    <div class="week-divider">
+      <div class="week-divider-line"></div>
+      <div class="week-divider-text">
+        <span class="week-label">第{iso_week}周</span>
+        <span class="week-range">{monday_str} — {sunday_str}</span>
+        <span class="week-count">{n} 篇</span>{current_badge}
+      </div>
+      <div class="week-divider-line"></div>
+    </div>'''
+
+        for r in reports_in_week:
             rating_label, rating_class = RATING_MAP.get(
                 r["rating"], ("⚡ 观察", "rating-watch")
             )
 
-            # 标签
             tags_html = ""
             for i, tag in enumerate(r["tags"][:4]):
                 tc = TAG_COLOR[i % len(TAG_COLOR)]
                 tags_html += f'\n        <span class="tag {tc}">{tag}</span>'
 
-            card = f'''
-  <a class="report-card" href="/reports/{quote(r["filename"], safe="-./")}">
-    <div class="tag-box"><span class="rating {rating_class}">{rating_label}</span></div>
-    <div class="info">
-      <h3>{r["title"]}</h3>
-      <div class="meta">
-        <span>{r["date"]}</span>
-        <span>{r["code"]}</span>
+            cards_html += f'''
+    <a class="report-card" href="/reports/{quote(r["filename"], safe="-./")}">
+      <div class="tag-box"><span class="rating {rating_class}">{rating_label}</span></div>
+      <div class="info">
+        <h3>{r["title"]}</h3>
+        <div class="meta">
+          <span>{r["date"]}</span>
+          <span>{r["code"]}</span>
+        </div>
+        <div class="desc">
+          {r["description"]}
+        </div>
+        <div class="tags">{tags_html}
+        </div>
       </div>
-      <div class="desc">
-        {r["description"]}
-      </div>
-      <div class="tags">{tags_html}
-      </div>
-    </div>
-    <div class="arrow">→</div>
-  </a>'''
-            cards_html += card
+      <div class="arrow">→</div>
+    </a>'''
+
+        cards_html += '\n  </div>'
 
     return f'''<!DOCTYPE html>
 <html lang="zh-CN">
@@ -353,6 +402,45 @@ def generate_reports_html(reports: list[dict]) -> str:
   }}
 
   .section-title {{ font-size: 1.1rem; color: var(--muted); margin: 2rem 0 1rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }}
+
+  /* ── 周分组 ── */
+  .week-group {{ margin-bottom: 2.5rem; }}
+  .week-divider {{
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1rem; padding: 0;
+  }}
+  .week-divider-line {{
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.25), transparent);
+  }}
+  .week-divider-text {{
+    display: flex; align-items: baseline; gap: 10px;
+    white-space: nowrap; font-size: 0.85rem;
+  }}
+  .week-divider-text .week-label {{
+    font-weight: 700; color: var(--accent-hover);
+    font-size: 0.95rem; letter-spacing: 0.5px;
+  }}
+  .week-divider-text .week-range {{
+    color: var(--muted); font-size: 0.82rem;
+  }}
+  .week-divider-text .week-count {{
+    color: var(--accent); font-size: 0.78rem;
+    background: rgba(99,102,241,0.12); padding: 1px 10px; border-radius: 20px;
+    font-weight: 600;
+  }}
+  .week-now {{
+    display: inline-block; padding: 1px 8px; border-radius: 4px;
+    font-size: 0.72rem; font-weight: 700;
+    background: rgba(52,211,153,0.18); color: var(--emerald);
+    border: 1px solid rgba(52,211,153,0.35);
+  }}
+  @media(max-width:600px) {{
+    .week-divider-text {{ gap: 6px; font-size: 0.78rem; }}
+    .week-divider-text .week-label {{ font-size: 0.85rem; }}
+    .week-divider-text .week-range {{ display: none; }}
+    .week-divider-line {{ display: none; }}
+  }}
 
   footer {{
     text-align: center; padding: 2.5rem 0;
