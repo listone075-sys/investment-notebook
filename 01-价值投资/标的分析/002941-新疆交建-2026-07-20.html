@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新疆交建 (002941.SZ) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+
+  /* ── Collapsible ── */
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  /* ── Details / Summary ── */
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  /* ── Verdict box ── */
+  .verdict-box {
+    background: linear-gradient(135deg, var(--yellow-bg), #fff);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  /* ── Stat tile ── */
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  /* ── Key insight ── */
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  /* ── Timeline ── */
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 110px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  /* ── Three questions ── */
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  /* ── Progress bar ── */
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  /* ── Misc ── */
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  ul { margin-left: 20px; font-size: 0.92em; color: var(--text2); }
+  ul li { margin-bottom: 4px; }
+  p { margin: 8px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>新疆交建 <span>价值投资分析</span></h1>
+  <div class="subtitle">Xinjiang Communications Construction — 丝绸之路经济带上的新疆基建龙头</div>
+  <div class="codes">
+    <span>002941.SZ</span><span>建筑·基建</span><span>新疆国资委</span>
+  </div>
+  <div class="meta-bar">
+    <span>📅 2026-07-20</span>
+    <span>💰 ¥9.44</span>
+    <span>🏢 市值 ¥69亿</span>
+    <span>📊 数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ TOGGLE ALL ═══ -->
+<div class="toggle-bar">
+  <button onclick="toggleAll()">📂 全部展开 / 全部折叠</button>
+</div>
+
+<!-- ═══ VERDICT ═══ -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">📌 综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    新疆基建高景气周期 + 2025年业绩大幅反弹（净利+48%）+ 极低融资成本构筑资金护城河。<br>
+    但高负债率（71%）、薄利润率（~5%）、区域高度集中、护城河偏窄——本质是政策驱动型周期股，非优质价值股。
+  </div>
+  <div class="v-details">
+    <span>🎯 观察区间：<strong style="color:var(--yellow);">¥7.5~8.5</strong></span>
+    <span>💹 当前价：<strong>¥9.44</strong></span>
+    <span>📊 合理价值：<strong>¥8~11</strong></span>
+    <span>🏆 仓位：<strong>0~3%（不建议重仓）</strong></span>
+  </div>
+</div>
+
+<!-- ═══ SNAPSHOT ═══ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📊 核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num">¥9.44</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num">¥69亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num green">14.6x</div><div class="label">静态PE（基于2025）</div></div>
+      <div class="stat-tile"><div class="num">1.47x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥94.32亿</div><div class="label">2025年营收（+37.4%）</div></div>
+      <div class="stat-tile"><div class="num green">¥4.72亿</div><div class="label">2025年归母净利（+47.8%）</div></div>
+      <div class="stat-tile"><div class="num green">11.90%</div><div class="label">2025年ROE（加权）</div></div>
+      <div class="stat-tile"><div class="num red">71.16%</div><div class="label">资产负债率</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num">10.99%</div><div class="label">毛利率</div></div>
+      <div class="stat-tile"><div class="num green">¥9.32亿</div><div class="label">经营现金流（+298%）</div></div>
+      <div class="stat-tile"><div class="num green">¥185亿</div><div class="label">未完合同储备</div></div>
+      <div class="stat-tile"><div class="num red">-¥0.16亿</div><div class="label">2026Q1 净利（亏损）</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 1 : 生意理解                                    -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🏗️ 一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>新疆交通建设集团股份有限公司（"新疆交建"）成立于 <strong>1999 年</strong>，2018 年在深交所上市（002941.SZ），是<strong>新疆维吾尔自治区国资委</strong>直接管辖的地方国有路桥施工龙头企业，也是新疆地区施工资质最全、资质等级最高的路桥工程施工企业之一。总部位于乌鲁木齐，员工约 2,800 人。</p>
+    <p>公司以工程施工为核心，业务覆盖公路、桥梁、隧道、市政工程等交通基础设施的施工、勘察设计与试验检测，同时正积极拓展"交通+"板块（科技养护、智能交通、铁路、水利水电、矿山等）。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>📌 一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          新疆交建做的是 <strong>"政府基建承包商"</strong> 的生意：<br>
+          拿政府的修路造桥订单 → 组织施工队和设备 → 建完收钱。<br>
+          利润来源：施工报价减去人材机成本，毛利约 11%，净利约 5%。<br>
+          <strong>核心逻辑：靠政府基建投资驱动，靠区域资质壁垒竞争，靠低息融资赚差价。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>📌 核心护城河</h4>
+        <div class="key-insight yellow">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          新疆交建的护城河主要是 <strong>"资质壁垒 + 国资信用 + 区域经验"</strong> 三层组合。严格来说偏窄——本质上是政府赋予的区域垄断权而非真正的竞争壁垒，一旦市场开放或政策变化，护城河可能被削弱。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>工程施工 > 95%（公路桥梁隧道为主）；勘察设计、试验检测、材料贸易为补充</td></tr>
+      <tr><td>核心客户</td><td>政府交通主管部门（交通厅、公路局、地方政府），高度集中，B2G 模式</td></tr>
+      <tr><td>成本结构</td><td>人工 25~30% + 材料 35~40%（沥青/水泥/钢材）+ 机械 10~15% + 间接费 10~15%</td></tr>
+      <tr><td>利润驱动</td><td>工程量驱动（多做项目）+ 成本控制（低息融资优势）+ 项目质量（避免亏损单）</td></tr>
+      <tr><td>区域分布</td><td>新疆省内 > 80%；省外少量（西藏、青海等西区）；海外（中亚、非洲）刚起步</td></tr>
+      <tr><td>经营模式</td><td>单一工程承包 + PPP/特许经营投融资建设（投资带动总承包）</td></tr>
+    </table>
+
+    <h3>1.3 这生意赚钱吗？—— 关键财务特征</h3>
+    <p>建筑施工生意的核心财务特征：<strong>低毛利、低净利、高杠杆、强周期、现金流波动大</strong>。</p>
+    <ul>
+      <li><strong>天然微利</strong>——行业毛利率常年在 10~12%，净利率 2~5%。赚的是"辛苦钱"，量大利薄</li>
+      <li><strong>资金密集型</strong>——垫资施工是常态，应收账款和合同资产占据大量资金，现金流管理决定生死</li>
+      <li><strong>政府依赖</strong>——收入高度依赖政府基建投资节奏和财政状况，是"看天吃饭"的生意</li>
+      <li><strong>季节性明显</strong>——新疆冬季长达 4~5 个月无法施工，Q1 几乎必然亏损（2025Q1 亏 740 万，2026Q1 亏 1,589 万）</li>
+      <li><strong>唯一亮点：低融资成本</strong>——长期借款利率仅 2.15~3.65%，显著低于市场 LPR，每年节省数千万利息</li>
+    </ul>
+    <p>新疆交建相较一般建筑企业的差异：<strong>国资信用带来的超低融资成本 + 新疆区域基建高景气带来的量增 + 资质壁垒保障的市场份额</strong>。但这三者都不是真正的竞争性壁垒——国资信用属于行政资源，基建景气具有周期性，资质壁垒面临央企和省外企业的渗透压力。</p>
+
+    <details>
+      <summary>📖 深度理解：建筑企业的"规模陷阱"</summary>
+      <div class="detail-body">
+        <p>建筑行业有一个危险的特征——<strong>规模增加不一定带来利润增加</strong>。施工单位每接一个新项目，需要垫付大量资金（保证金、材料款、人工费），而业主付款往往滞后 3~12 个月。营收增长越快，资金压力越大。</p>
+        <p>新疆交建 2025 年营收暴增 37% 至 94 亿，但经营现金流仅 9.3 亿——净利 4.72 亿，现金流/净利比 1.97x。这个数字看起来不错（2024 年是 0.73x，大幅改善），但需要注意：<strong>建筑企业的现金流改善往往是周期性的</strong>，取决于政府付款节奏，而非经营能力的根本提升。</p>
+        <p>更要警惕的是：建筑企业的<strong>利润很大程度停留在应收账款里</strong>。截至 2025 年末，公司应收账款 + 合同资产合计约 50~60 亿，是净利润的 10 倍以上。一旦地方政府财政收紧，坏账风险就会暴露。</p>
+      </div>
+    </details>
+
+    <h3>1.4 主营业务构成</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025 营收估算</th><th>占比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>公路工程施工</strong></td><td>~¥70 亿</td><td>~74%</td><td>10~12%</td><td>绝对核心，区域垄断</td></tr>
+      <tr><td><strong>桥梁/隧道施工</strong></td><td>~¥15 亿</td><td>~16%</td><td>12~15%</td><td>技术含量高，利润略好</td></tr>
+      <tr><td><strong>市政/其他工程</strong></td><td>~¥6 亿</td><td>~6%</td><td>8~10%</td><td>补充业务</td></tr>
+      <tr><td>勘察设计/检测/贸易</td><td>~¥3 亿</td><td>~3%</td><td>较高但体量小</td><td>产业链延伸</td></tr>
+    </table>
+
+    <div class="key-insight" style="margin-top:12px;">
+      <strong>商业模式本质</strong>：新疆交建做的是 <strong>"新疆基建增长红利"</strong> 的生意——靠国资委的信用背书拿到便宜的钱，靠特级资质拿到政府订单，靠区域经验管控施工风险。赚的是"政策饭"而非"能力饭"。在新疆基建投资高景气期能赚钱，一旦投资退潮，利润将快速收缩。
+    </div>
+
+    <h3>1.5 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>资质壁垒</td><td>⭐⭐⭐⭐☆</td><td>特级资质 + 多项甲级/一级资质，新疆最全最高，新进入者需多年积累</td></tr>
+      <tr><td>国资信用/低融资成本</td><td>⭐⭐⭐⭐☆</td><td>长期借款利率 2.15%，显著低于市场 LPR，是重要成本优势</td></tr>
+      <tr><td>区域经验/特殊工艺</td><td>⭐⭐⭐☆☆</td><td>掌握了高寒、沙漠、软基等特殊地质施工工艺，但非独家技术</td></tr>
+      <tr><td>品牌/政商关系</td><td>⭐⭐⭐☆☆</td><td>在新疆区域认知度高，但在全国无品牌影响力</td></tr>
+      <tr><td>规模成本优势</td><td>⭐⭐☆☆☆</td><td>年营收 94 亿在行业中属中小规模（央企千亿级），无显著规模效应</td></tr>
+      <tr><td>转换成本</td><td>⭐☆☆☆☆</td><td>政府招标制度下，业主更换施工单位几乎没有转换成本</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合护城河评级：偏窄</strong> — 核心护城河来自行政性壁垒（资质+国资信用），而非市场性壁垒（品牌/技术/规模/转换成本）。这种护城河在新疆基建高景气期有效，但深度有限。一旦区域市场开放或投资增速放缓，利润将面临竞争侵蚀。
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 2 : 管理层                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">👥 二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th>人物</th><th>职位</th><th>年龄</th><th>年薪</th><th>亮点</th></tr>
+      <tr><td><strong>王彤</strong></td><td>董事长、党委书记</td><td>52</td><td>¥61万</td><td>2024年5月新上任，正高级工程师，此前在新疆交通投资集团任董秘。国资体系内部轮岗</td></tr>
+      <tr><td><strong>王永学</strong></td><td>总经理</td><td>51</td><td>¥78万</td><td>2023年4月起任职，正高级工程师，硕士学历。工程背景扎实</td></tr>
+      <tr><td><strong>张亮</strong></td><td>财务总监、董事</td><td>47</td><td>¥67万</td><td>女，本科学历，负责融资和资金管理，是低融资成本策略的核心执行者</td></tr>
+      <tr><td><strong>马孝波</strong></td><td>副总经理、董秘</td><td>45</td><td>¥56万</td><td>硕士，兼任董秘，信息披露对接人</td></tr>
+    </table>
+
+    <h3>2.2 管理层评估</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>说明</th></tr>
+      <tr><td>诚信务实</td><td><span class="tag tag-yellow">中等</span></td><td>国资体系干部，合规意识强但缺乏市场化激励。董事长 2024 年刚换届，管理层稳定性存疑</td></tr>
+      <tr><td>股东导向</td><td><span class="tag tag-yellow">中等</span></td><td>2024年分红 10 派 1.5 元，对应股息率 ~1.6%。国资考核更注重规模和税收而非股东回报</td></tr>
+      <tr><td>专注能力圈</td><td><span class="tag tag-green">良好</span></td><td>专注公路基建施工，未涉足不相关多元化。"交通+"拓展均为产业链延伸</td></tr>
+      <tr><td>企业文化</td><td><span class="tag tag-yellow">中等</span></td><td>典型的国企文化——稳健但缺乏狼性。市场化程度一般，创新动力不足</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合评价</strong>：典型的<strong>国资体系管理团队</strong>——合规、稳健、专注，但缺乏企业家精神和市场化激励。对价值投资者而言，这是一大减分项：很难指望国资管理层做出超预期的价值创造。<strong>评分 5.5/10</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 3 : 财务分析                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📈 三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿）</td><td>81.6</td><td>67.5</td><td>65.3</td><td>68.63</td><td><strong>94.32</strong></td><td>📈 大幅反弹</td></tr>
+      <tr><td>归母净利（亿）</td><td>3.24</td><td>2.76</td><td>2.45</td><td>3.19</td><td><strong>4.72</strong></td><td>📈 历史新高</td></tr>
+      <tr><td>毛利率</td><td>10.2%</td><td>10.8%</td><td>11.5%</td><td>11.2%</td><td><strong>10.99%</strong></td><td>➡️ 基本稳定</td></tr>
+      <tr><td>净利率</td><td>3.97%</td><td>4.09%</td><td>3.75%</td><td>4.65%</td><td><strong>5.00%</strong></td><td>📈 微幅改善</td></tr>
+      <tr><td>ROE</td><td>7.8%</td><td>6.5%</td><td>5.7%</td><td>7.3%</td><td><strong>11.9%</strong></td><td>📈 显著提升</td></tr>
+      <tr><td>资产负债率</td><td>72.5%</td><td>74.2%</td><td>74.3%</td><td>74.8%</td><td><strong>71.16%</strong></td><td>↘️ 略有下降</td></tr>
+      <tr><td>经营现金流（亿）</td><td>-2.8</td><td>5.1</td><td>-6.2</td><td>2.34</td><td><strong>9.32</strong></td><td>✅ 大幅改善</td></tr>
+    </table>
+
+    <h3>3.2 最新季度数据</h3>
+    <table>
+      <tr><th>指标</th><th>2025Q1</th><th>2025H1</th><th>2025Q3</th><th>2025全年</th><th>2026Q1</th><th>同比</th></tr>
+      <tr><td>营收（亿）</td><td>4.35</td><td>25.33</td><td>57.54</td><td>94.32</td><td><strong>5.19</strong></td><td>+19.5%</td></tr>
+      <tr><td>归母净利（亿）</td><td>-0.074</td><td>2.55</td><td>4.49</td><td>4.72</td><td><strong>-0.159</strong></td><td>-114.6%</td></tr>
+      <tr><td>毛利率</td><td>14.71%</td><td>—</td><td>11.64%</td><td>10.99%</td><td><strong>8.59%</strong></td><td>-6.1pct</td></tr>
+      <tr><td>经营现金流（亿）</td><td>—</td><td>—</td><td>1.25</td><td>9.32</td><td>—</td><td>—</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>财务核心判断</strong>：2025 年是利润和现金流的双重改善年——营收增 37%，利润增 48%，现金流翻正且大幅增长。但<strong>2026Q1 亏损加深（-1,589 万 vs 去年同期 -741 万），毛利率下滑 6.1 个百分点</strong>。Q1 亏损有季节性因素，但毛利率下滑幅度较大值得警惕。建筑行业的高波动性意味着 2025 年的高增长不具持续性。
+    </div>
+
+    <details>
+      <summary>📖 深度分析：资产负债率 71% 意味着什么？</summary>
+      <div class="detail-body">
+        <p>新疆交建 2025 年末资产负债率 71.16%，在建筑施工行业中属于<strong>偏高水平</strong>（行业平均 ~65%，四川路桥 ~72%，央企普遍 72~78%）。</p>
+        <p>关键结构：</p>
+        <ul>
+          <li>总资产 218.61 亿，净资产 63.04 亿</li>
+          <li>付息债务比例 30.92%，即约 68 亿带息债务</li>
+          <li>2025 年财务费用仅 1,893 万元（同比降低 68.48%），利息负担极轻</li>
+        </ul>
+        <p><strong>71% 的负债率在该行业并非致命，但需要关注：</strong></p>
+        <ul>
+          <li>银行贷款为主的融资结构，一旦信贷政策收紧将面临压力</li>
+          <li>2025 年营收大增 37%，但总资产仅增约 10%，资产负债率有所下降——说明增长质量尚可</li>
+          <li>核心风险在应收账款而非负债率——约 50~60 亿应收+合同资产中，有多少能最终收回？</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 4 : 竞争格局                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚔️ 四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 行业对比（2025年度财务数据）</h3>
+    <table>
+      <tr><th>企业</th><th>营收（亿）</th><th>归母净利（亿）</th><th>净利率</th><th>ROE</th><th>负债率</th><th>市值（亿）</th></tr>
+      <tr><td>中国交建</td><td>~7,500</td><td>~250</td><td>~3.3%</td><td>~8%</td><td>~74%</td><td>~1,000</td></tr>
+      <tr><td>中国中铁</td><td>~11,500</td><td>~330</td><td>~2.9%</td><td>~10%</td><td>~75%</td><td>~1,050</td></tr>
+      <tr><td>四川路桥</td><td>~1,100</td><td>~90</td><td>~8%</td><td>~18%</td><td>~72%</td><td>~690</td></tr>
+      <tr><td><strong>新疆交建</strong></td><td><strong>94</strong></td><td><strong>4.72</strong></td><td><strong>5.0%</strong></td><td><strong>11.9%</strong></td><td><strong>71.2%</strong></td><td><strong>69</strong></td></tr>
+      <tr><td>北新路桥</td><td>~80</td><td>~0.3</td><td>~0.4%</td><td>~1%</td><td>~78%</td><td>~48</td></tr>
+    </table>
+    <p>行业呈现清晰的三个梯队：<strong>央企（千亿级营收，2~3% 净利率）→ 省级龙头（百亿级，5~8% 净利率）→ 小企业（低于 5% 净利率）</strong>。新疆交建处于第二梯队偏下位置——净利率 5% 居中游，但 94 亿营收在省级龙头中（相比四川路桥 1,100 亿）体量较小。</p>
+
+    <h3>4.2 区域竞争态势：新疆市场</h3>
+    <table>
+      <tr><th>竞争者</th><th>类型</th><th>优势</th><th>对新疆交建的威胁</th></tr>
+      <tr><td><strong>央企（中铁/铁建/中交）</strong></td><td>全国性</td><td>技术最强、资金最雄厚、资质最全</td><td>大型跨区域项目（铁路、特大桥梁）竞争力碾压</td></tr>
+      <tr><td><strong>四川路桥</strong></td><td>邻省龙头</td><td>规模 10 倍、盈利能力更强、管理更优</td><td>若跨区渗透到新疆，将是降维打击</td></tr>
+      <tr><td><strong>北新路桥</strong></td><td>新疆本地</td><td>兵团背景，中亚市场更早布局</td><td>同区域直接竞争对手，抢夺地方项目</td></tr>
+      <tr><td><strong>省外地方国企</strong></td><td>外省</td><td>各地有自身资源</td><td>陕建股份近期中标新疆 BOT 项目，省外竞争者开始进入</td></tr>
+    </table>
+
+    <h3>4.3 核心差异化分析</h3>
+    <div class="key-insight yellow">
+      <strong>竞争定位</strong>：新疆交建是 <strong>"小而专"的区域龙头</strong>——在新疆公路基建领域有较强话语权，但在全国范围内规模和竞争力均有限。其最大竞争壁垒是资质和地方关系，而非经营效率或技术壁垒。陕建股份等省外企业已开始进入新疆市场，竞争格局面临边际恶化。好在 185 亿未完合同储备提供了 2~3 年的营收可见度。
+    </div>
+
+    <details>
+      <summary>📖 四川路桥的启示：地方基建龙头的上限</summary>
+      <div class="detail-body">
+        <p>四川路桥是中国地方基建企业中最成功的案例之一：2025 年营收 ~1,100 亿，净利 ~90 亿，净利率 ~8%，ROE ~18%，市值 ~690 亿。它比新疆交建大 10 倍以上，盈利能力也明显更强。</p>
+        <p><strong>四川路桥的成功因素</strong>：四川作为"国家战略腹地"的定位带来持续的高基建投入 + 省内高速公路市场半垄断地位 + 较好的管理激励机制。</p>
+        <p><strong>对新疆交建的参考意义</strong>：新疆交建的区位优势（丝绸之路核心区）和四川路桥（战略腹地）有相似之处。最大的差距在<strong>规模和管理</strong>——四川路桥从年营收几十亿发展到千亿的过程中，建立了更高效的成本管控体系和更市场化的激励机制。新疆交建要复制这条路，需要突破国资体制的效率天花板。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 5 : 段永平三问                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🤔 五、段永平"三问"测试</h2>
+  <div class="section-body">
+
+    <div class="q-item">
+      <div class="q">第一问：这家公司我能理解吗？</div>
+      <div class="a"><span class="green">✅ 可以理解。</span> 生意非常简单——帮政府修路造桥，赚 5% 的净利。收入来自政府基建预算，成本来自人工和材料，利润等于收入减去成本。不需要任何复杂的金融工程或技术知识就能理解。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第二问：这家公司有强大的护城河吗？</div>
+      <div class="a"><span class="red">❌ 护城河偏窄，不算"强大"。</span> 资质壁垒有一定保护作用（新进入者需要多年积累资质），但这是<strong>行政性壁垒</strong>而非市场性壁垒。真正的护城河应该是"即便对手来了也打不过你"——新疆交建并不具备这种能力。央企在大型项目上可以轻易碾压，省外国企也在逐步渗透。低融资成本是优势，但这是<strong>国资的信用</strong>，不是公司自己的竞争力。综合来看，护城河评级为"窄"。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">第三问：现在的价格有安全边际吗？</div>
+      <div class="a"><span class="yellow">⚠️ 安全边际不足。</span> 当前 ¥9.44 对应静态 PE ~14.6x（基于 2025 年 EPS 0.70 元），PB ~1.47x。对于一个低毛利（11%）、高负债（71%）、强周期、护城河偏窄的建筑施工企业来说，这个估值<strong>不算便宜</strong>。合理估值应在 8~12x PE（¥5.6~8.4），或 1.0~1.3x PB（¥6.4~8.4）。当前股价已反映了 2025 年业绩反弹的利好，但没有给 2026 年可能的利润回调留出安全边际。<strong>等回调到 ¥7.5~8.5 区间才有买入的安全边际。</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 6 : 估值分析                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">💰 六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值</h3>
+    <table>
+      <tr><th>指标</th><th>新疆交建</th><th>四川路桥</th><th>北新路桥</th><th>行业参考</th></tr>
+      <tr><td>静态 PE（2025）</td><td><strong>14.6x</strong></td><td>~7.7x</td><td>~160x</td><td>8~15x</td></tr>
+      <tr><td>PB</td><td><strong>1.47x</strong></td><td>~1.2x</td><td>~1.1x</td><td>0.8~1.5x</td></tr>
+      <tr><td>股息率</td><td>~1.6%</td><td>~5%</td><td>~0.5%</td><td>1~5%</td></tr>
+      <tr><td>EV/EBITDA</td><td>~8.0x</td><td>~5.0x</td><td>~20x</td><td>5~10x</td></tr>
+    </table>
+
+    <h3>6.2 多种估值方法</h3>
+    <table>
+      <tr><th>方法</th><th>基准假设</th><th>合理股价</th></tr>
+      <tr><td>PE 估值（乐观）</td><td>2026E 净利 5.0 亿（假设全年增 6%），给予行业中枢 12~14x PE</td><td><strong>¥8.2~9.6</strong></td></tr>
+      <tr><td>PE 估值（保守）</td><td>2026E 净利 4.0 亿（Q1 亏损扩大，全年承压），给予 10~12x PE</td><td><strong>¥5.5~6.6</strong></td></tr>
+      <tr><td>PB 估值</td><td>每股净资产 ¥6.45，给予 1.0~1.3x（合理范围）</td><td><strong>¥6.5~8.4</strong></td></tr>
+      <tr><td>DCF 毛估</td><td>WACC 9%，永续 1.5%，FCF 假设保守（5~6 亿/年）</td><td><strong>¥7~10</strong></td></tr>
+      <tr><td>分部估值</td><td>施工业务 4.5 亿 × 10x + 设计等 0.2 亿 × 15x</td><td><strong>¥6.6</strong></td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>估值结论</strong>：多种方法指向合理价值区间 <strong>¥7~10 元</strong>，当前 ¥9.44 处于合理区间上沿。乐观情景下接近公允价，保守情景下偏贵。对于价值投资者而言，<strong>低于 ¥8 才具备有意义的安全边际</strong>。
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 7 : 催化剂时间线                                    -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📅 七、催化剂时间线</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026 年 8 月</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 年中报披露</div>
+        <div class="tl-desc">预计 8 月底披露。重点关注：H1 营收能否延续增长趋势？Q2 单季毛利率是否恢复？新签订单情况？Q1 亏损对全年盈利的影响有多大？</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年下半年</div>
+      <div class="tl-body">
+        <div class="tl-title">新疆交通投资 900 亿项目落地</div>
+        <div class="tl-desc">2026 年新疆交通固投目标 900 亿（+10.8%），Q2~Q3 是施工黄金期。新项目开工带来订单增量，全年营收有望冲击 100 亿+</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 H2</div>
+      <div class="tl-body">
+        <div class="tl-title">中吉乌铁路开工预期</div>
+        <div class="tl-desc">中吉乌铁路是中国-中亚-欧洲的战略通道项目，若正式开工，新疆交建作为本土龙头有望获取部分标段。但需注意主要工程可能被央企拿到</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026 年 Q4</div>
+      <div class="tl-body">
+        <div class="tl-title">化债政策落地效果</div>
+        <div class="tl-desc">地方化债推进有助于改善政府付款节奏，降低应收账款坏账风险。新疆交建作为化债弹性受益标的，若回款加速将显著改善资产负债质量</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027 年初</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 年年报 + 2027 年投资计划</div>
+        <div class="tl-desc">年报验证全年利润 + "十五五"第二年投资计划。新疆基建投资能否维持 800~900 亿规模是关键</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 8 : 操作区间                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">🎯 八、操作区间与仓位</h2>
+  <div class="section-body">
+
+    <h3>8.1 操作区间</h3>
+    <table>
+      <tr><th>区间</th><th>价格</th><th>操作</th><th>依据</th></tr>
+      <tr><td style="color:var(--green);font-weight:700;">✅ 低估</td><td>¥6.5~7.5</td><td><strong>可考虑试探性买入</strong></td><td>PE ~10x 以下，PB ~1.0x，安全边际较充分</td></tr>
+      <tr><td style="color:var(--yellow);font-weight:700;">👀 观察</td><td>¥7.5~8.5</td><td><strong>关注，暂不买入</strong></td><td>估值渐趋合理，但需要有更多业绩确认或催化剂</td></tr>
+      <tr><td style="color:var(--text);font-weight:700;">💰 合理偏高</td><td>¥8.5~11.0</td><td>持有（若有仓位），不买入</td><td>当前 ¥9.44 在此区间，估值面不便宜</td></tr>
+      <tr><td style="color:var(--red);font-weight:700;">🔴 高估</td><td>¥11+</td><td>考虑减仓</td><td>PE > 16x 对于建筑股来说过高</td></tr>
+    </table>
+
+    <h3>8.2 仓位与建仓节奏</h3>
+    <table>
+      <tr><th>指标</th><th>建议</th></tr>
+      <tr><td>总仓位</td><td><strong>0~3%</strong>（不推荐重仓。若对新疆基建主题有强信仰，不超过 3%）</td></tr>
+      <tr><td>买入条件</td><td>回调至 ¥7.5~8.5 区间，且 2026H1 中报验证利润增长趋势未逆转</td></tr>
+      <tr><td>加仓条件</td><td>中吉乌铁路等重大项目公司中标 → 年营收预期上调至 110 亿+ → 可加仓至 3~5%</td></tr>
+      <tr><td>止损条件</td><td>跌破 ¥6.5（PB < 1.0x 且基本面恶化）→ 清仓</td></tr>
+    </table>
+
+    <h3>8.3 卖出条件</h3>
+    <table>
+      <tr><th>条件</th><th>操作</th></tr>
+      <tr><td>涨至 ¥11+（PE > 16x）</td><td>全部卖出，锁定利润</td></tr>
+      <tr><td>新疆基建投资增速降至 < 5%</td><td>减仓 50%+</td></tr>
+      <tr><td>应收账款坏账集中暴露（> 2 亿）</td><td>清仓</td></tr>
+      <tr><td>地方化债政策力度不及预期</td><td>减仓观察</td></tr>
+      <tr><td>竞争格局恶化（央企/省外企业大量中标新疆项目）</td><td>减仓至 0</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>操作纪律提醒</strong>：新疆交建是<strong>典型的"好故事但不一定是好投资"</strong>。新疆基建的高增长故事听起来很诱人——丝绸之路、中吉乌铁路、900 亿投资。但历史上，"主题+周期+高负债"的组合在退潮时杀伤力极大。买它的正确姿势是：<strong>等好价格（¥8 以下），而不是追好故事。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 9 : 风险提示                                        -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">⚠️ 九、风险提示</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>风险</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td>新疆基建投资增速放缓</td><td>中</td><td>大</td><td>核心风险。紧密跟踪每年交通固投预算。若增速降至 < 5%，果断离场</td></tr>
+      <tr><td>应收账款坏账</td><td>中高</td><td>大</td><td>50~60 亿应收+合同资产中可能有 3~5% 坏账。跟踪应收账款周转率和账龄分布</td></tr>
+      <tr><td>工程项目亏损</td><td>中</td><td>中</td><td>个别项目成本失控可能导致利润大幅波动，2026Q1 毛利率骤降需警惕</td></tr>
+      <tr><td>竞争加剧</td><td>中低</td><td>中</td><td>央企和省外企业渗透新疆市场，可能侵蚀市场份额和利润率</td></tr>
+      <tr><td>管理层变动</td><td>中</td><td>中低</td><td>国资体系轮岗频繁，董事长 2024 年刚上任，未来几年可能继续调整</td></tr>
+      <tr><td>财务费用回升</td><td>中低</td><td>中</td><td>当前极低利率是核心优势。若货币政策收紧或信用环境下行，财务费用将显著增加</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>最大风险情景</strong>：新疆基建投资在"十五五"中期见顶回落（从 900 亿降至 600~700 亿）+ 地方政府财政紧张导致回款延迟 + 省外竞争者大量涌入。三重叠加下，营收可能降至 70~80 亿，净利降至 1~2 亿，股价可能跌至 ¥5~6（PE 回到 10x 以下，PB 接近 0.8~0.9x）。<strong>下行风险约 35~47%，上行空间约 15~20%，赔率不具吸引力。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════ -->
+<!-- SECTION 10 : 跟踪要点                                     -->
+<!-- ════════════════════════════════════════════════ -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">📋 十、跟踪要点</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>观测指标</th><th>频率</th><th>正常信号</th><th>预警</th></tr>
+      <tr><td>新疆交通固投完成额</td><td>年/半年</td><td>同比 +10% 以上</td><td>< +5%</td></tr>
+      <tr><td>公司营收增速</td><td>季</td><td>同比 +10~30%</td><td>< 0%</td></tr>
+      <tr><td>毛利率</td><td>季</td><td>维持 10~12%</td><td>跌破 9%</td></tr>
+      <tr><td>净利率</td><td>季</td><td>维持 4~6%</td><td>跌破 3%</td></tr>
+      <tr><td>经营现金流/净利润</td><td>年</td><td>> 1.0x</td><td>< 0.5x 连续两年</td></tr>
+      <tr><td>未完合同金额</td><td>年</td><td>维持 150 亿+</td><td>< 100 亿</td></tr>
+      <tr><td>资产负债率</td><td>季</td><td>68~73%</td><td>> 76%</td></tr>
+      <tr><td>应收账款周转天数</td><td>年</td><td>< 180 天</td><td>> 250 天</td></tr>
+    </table>
+    <p style="margin-top:12px;font-size:0.9em;color:var(--text2);">
+      <strong>一句话跟踪逻辑</strong>：只要新疆年交通投资维持在 800 亿以上且公司毛利率不低于 9%，生意还能维持。反之，任何一个条件恶化，都需要重新评估。
+    </p>
+
+    <h3 style="margin-top:20px;">10.1 与高端价值股的关键差距</h3>
+    <table>
+      <tr><th width="140">维度</th><th>优质价值股<br><small>（茅台/泡泡玛特/华新）</small></th><th>新疆交建</th></tr>
+      <tr><td>定价权</td><td><span class="tag tag-green">有</span></td><td><span class="tag tag-red">无（竞争性招标）</span></td></tr>
+      <tr><td>护城河宽度</td><td><span class="tag tag-green">宽</span></td><td><span class="tag tag-yellow">窄</span></td></tr>
+      <tr><td>自由现金流</td><td><span class="tag tag-green">充沛稳定</span></td><td><span class="tag tag-yellow">波动大</span></td></tr>
+      <tr><td>轻资产/重资产</td><td><span class="tag tag-green">轻资产居多</span></td><td><span class="tag tag-red">重资产+高垫资</span></td></tr>
+      <tr><td>周期性</td><td><span class="tag tag-green">弱/无</span></td><td><span class="tag tag-red">强（政策/投资驱动）</span></td></tr>
+      <tr><td>管理层</td><td><span class="tag tag-green">优秀/长期稳定</span></td><td><span class="tag tag-yellow">国资体系轮岗</span></td></tr>
+    </table>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  <p>本报告仅为个人投资分析记录，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p style="margin-top:6px;">数据来源：公司年报、东方财富、同花顺、证券时报、新浪财经</p>
+  <p style="margin-top:12px;">— 段永平："买股票就是买公司，买公司就是买其未来现金流。如果你不想持有十年，就不要持有十分钟。"<br>新疆交建能持有十年吗？请认真思考这个问题。</p>
+</div>
+
+<script>
+// ── Section fold/unfold ──
+function toggleSection(heading) {
+  const body = heading.nextElementSibling;
+  if (!body || !body.classList) return;
+  body.classList.toggle('collapsed');
+  heading.classList.toggle('collapsed');
+}
+// ── Toggle all ──
+function toggleAll() {
+  const allHeads = document.querySelectorAll('.card h2');
+  let anyOpen = false;
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (body && body.classList && !body.classList.contains('collapsed')) {
+      anyOpen = true;
+      break;
+    }
+  }
+  for (const h of allHeads) {
+    const body = h.nextElementSibling;
+    if (!body || !body.classList) continue;
+    if (anyOpen) {
+      body.classList.add('collapsed');
+      h.classList.add('collapsed');
+    } else {
+      body.classList.remove('collapsed');
+      h.classList.remove('collapsed');
+    }
+  }
+}
+</script>
+
+</body>
+</html>
