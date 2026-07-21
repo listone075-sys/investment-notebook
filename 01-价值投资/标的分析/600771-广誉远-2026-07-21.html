@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>广誉远 (600771.SH) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  .verdict-box {
+    background: linear-gradient(135deg, var(--yellow-bg), #fff);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>广誉远 <span>价值投资分析</span></h1>
+  <div class="subtitle">GuangYuYuan — 480 年无断代传承的"中药活化石"，国资入主后的困境反转故事</div>
+  <div class="codes">
+    <span>600771.SH</span><span>中药·精品国药</span><span>上交所主板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-07-21</span>
+    <span>¥15.09</span>
+    <span>市值 ¥73.86亿</span>
+    <span>数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">全部展开 / 全部折叠</button>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    顶级品牌资产（480 年历史 + 国家保密配方）+ 困境反转故事（国资入主、营收加速），<br>
+    但当前盈利能力极弱（ROE 3.9%、净利率 4.6%），估值昂贵（TTM PE ~117x），无安全边际。
+  </div>
+  <div class="v-details">
+    <span>观察区间：<strong style="color:var(--yellow);">¥10~13</strong></span>
+    <span>当前价：<strong style="color:var(--red);">¥15.09</strong></span>
+    <span>合理价值：<strong>¥9~14</strong></span>
+    <span>仓位：<strong>0~3%（观察仓）</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num">¥15.09</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num">¥73.86亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num red">~117x</div><div class="label">PE（TTM）</div></div>
+      <div class="stat-tile"><div class="num red">4.35x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥13.69亿</div><div class="label">2025年营收（+12.11%）</div></div>
+      <div class="stat-tile"><div class="num red">¥0.63亿</div><div class="label">2025年归母净利（-15.32%）</div></div>
+      <div class="stat-tile"><div class="num red">3.94%</div><div class="label">ROE（极低）</div></div>
+      <div class="stat-tile"><div class="num yellow">67.60%</div><div class="label">毛利率（高但下滑）</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥4.88亿</div><div class="label">2026Q1营收（+17.04%）</div></div>
+      <div class="stat-tile"><div class="num yellow">¥0.67亿</div><div class="label">2026Q1净利（+4.96%）</div></div>
+      <div class="stat-tile"><div class="num green">¥1.98亿</div><div class="label">2025经营现金流（+76%）</div></div>
+      <div class="stat-tile"><div class="num">32.93%</div><div class="label">资产负债率（低）</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: 生意理解 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>广誉远始创于 <strong>明嘉靖二十年（公元 1541 年）</strong>，距今已 <strong>485 年</strong>，是中国现存<strong>无断代传承历史最为悠久</strong>的中药企业与药品品牌，比同仁堂（1669 年）早 128 年，比片仔癀（1555 年）早 14 年。核心产品<strong>龟龄集、定坤丹</strong>拥有国家保密配方，制作技艺入选<strong>国家级非物质文化遗产</strong>。公司 1996 年在上交所上市（600771.SH），2021 年回归<strong>山西国资</strong>体系。</p>
+    <p>公司目前主营中成药的生产与销售，按产品定位分为<strong>传统中药（经典国药）、精品中药、养生酒</strong>三大板块。"四菜一汤"（龟龄集、定坤丹、安宫牛黄丸、牛黄清心丸 + 龟龄集酒）是核心产品矩阵。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          利用<strong>国家保密配方（龟龄集/定坤丹）+ 非物质文化遗产技艺</strong>的品牌背书，生产和销售高端中成药。通过医院（传统中药）和精品门店（精品中药）双渠道触达消费者。<br>
+          <strong>核心逻辑：卖的是"皇家御药"的品牌故事 + 保密配方的独占性。目前的问题：好产品卖不出好利润。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河</h4>
+        <div class="key-insight">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          广誉远的护城河理论上很强——<strong>"国家保密配方 + 480 年历史品牌 + 非遗工艺"</strong>——但问题是这条护城河目前<strong>没有产生相匹配的经济利润</strong>（ROE 仅 3.9%）。品牌很强，生意很弱。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>传统中药 ~62%（¥8.51 亿）+ 精品中药 ~26%（¥3.59 亿）+ 养生酒 ~5%（¥0.62 亿）+ 其他</td></tr>
+      <tr><td>核心客户</td><td>传统中药：医院/药店（B2B 经销）；精品中药：高净值个人（B2C 门店）；养生酒：礼品/保健消费</td></tr>
+      <tr><td>成本结构</td><td>高毛利（67.6%），但销售费用率极高（~46%），管理费用率 ~10%，研发费用率低</td></tr>
+      <tr><td>利润驱动</td><td>营收增长 + 销售费用率下降 = 利润弹性极大。营收每增 10%，若费用不增，利润可翻倍</td></tr>
+      <tr><td>盈利杠杆</td><td>经营杠杆极高：固定成本（销售团队/门店）占比大，收入跨过盈亏平衡点后利润爆发力强</td></tr>
+      <tr><td>核心产品</td><td>龟龄集（补肾抗衰）、定坤丹（妇科）、安宫牛黄丸（急救）、牛黄清心丸（心脑）、龟龄集酒</td></tr>
+    </table>
+
+    <h3>1.3 主营业务构成</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025 营收</th><th>占比</th><th>同比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>传统中药（经典国药）</strong></td><td>¥8.51亿</td><td>~62%</td><td>+9.30%</td><td>68.52%</td><td>基本盘，院内外覆盖</td></tr>
+      <tr><td><strong>精品中药</strong></td><td>¥3.59亿</td><td>~26%</td><td>+2.16%</td><td>78.84%</td><td>高端化，高毛利</td></tr>
+      <tr><td><strong>养生酒</strong></td><td>¥0.62亿</td><td>~5%</td><td>+132.21%</td><td>54.62%</td><td>爆发增长，第二曲线</td></tr>
+      <tr><td>其他业务</td><td>¥0.98亿</td><td>~7%</td><td>—</td><td>—</td><td>补充</td></tr>
+    </table>
+
+    <div class="key-insight yellow" style="margin-top:12px;">
+      <strong>商业模式本质：</strong>广誉远拥有顶级品牌资产（485 年历史 + 保密配方），但商业转化效率极低。毛利率 67.6% 说明产品有强定价权（品牌溢价），但 46% 的销售费用率吃掉了几乎所有毛利润。本质上是 <strong>"好品牌、好产品、烂生意"</strong>——至少目前如此。困境反转的核心看点是：营收增长能否带来费用率的规模效应。
+    </div>
+
+    <details>
+      <summary>深度理解：广誉远的"品牌很好，生意很烂"是怎么回事？</summary>
+      <div class="detail-body">
+        <p>广誉远是一个典型的"品牌资产和商业能力脱节"的案例：</p>
+        <p><strong>品牌端（很强）：</strong></p>
+        <ul style="margin-left:16px;">
+          <li>485 年无断代传承，中国最老的中药品牌</li>
+          <li>龟龄集曾是明清两代宫廷御药，定坤丹是慈禧御笔题名</li>
+          <li>两个国家保密配方 + 三个国家级非遗技艺</li>
+          <li>天然麝香、天然牛黄入药，产品定位高端</li>
+        </ul>
+        <p><strong>商业端（很弱）：</strong></p>
+        <ul style="margin-left:16px;">
+          <li>13.69 亿营收、0.63 亿净利——业内有人戏称"一年卖 13 亿，等于白干"</li>
+          <li>销售费用率 46%：每卖 100 块的药，46 块花在销售上，净赚不到 5 块</li>
+          <li>ROE 3.94%：不如存银行定期</li>
+          <li>2021-2022 年连续两年大亏（-3.16 亿 / -3.98 亿），历史管理混乱</li>
+        </ul>
+        <p><strong>为什么费用这么高？</strong>中药行业普遍销售费用率高（学术推广、渠道维护、品牌宣传），但广誉远的 46% 显著高于行业平均（同仁堂 ~20%，片仔癀 ~8%，云南白药 ~12%）。原因：品牌知名度不如同仁堂/白药，需要更多投入做市场教育；精品中药门店扩张初期，固定成本高。</p>
+        <p><strong>反转的可能路径：</strong>营收继续 15%+ 增长 → 销售费用增速低于营收 → 经营杠杆释放 → 净利率从 4.6% 逐步提升至 10-15% → 利润爆发。这是市场给高估值的原因（预期利润弹性），但时间和幅度都高度不确定。</p>
+      </div>
+    </details>
+
+    <h3>1.4 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>国家保密配方</td><td>⭐⭐⭐⭐⭐</td><td>龟龄集、定坤丹双保密配方，法律壁垒，无法仿制</td></tr>
+      <tr><td>历史品牌</td><td>⭐⭐⭐⭐⭐</td><td>485 年无断代，中国最老中药品牌，文化价值不可复制</td></tr>
+      <tr><td>非遗工艺</td><td>⭐⭐⭐⭐☆</td><td>三项国家级非遗，龟龄集四年炮制周期，工艺壁垒高</td></tr>
+      <tr><td>产品定价权</td><td>⭐⭐⭐⭐☆</td><td>毛利率 67.6% 证明有定价权，精品中药 78.8% 更高</td></tr>
+      <tr><td>渠道网络</td><td>⭐⭐⭐☆☆</td><td>687 家精品门店，覆盖面仍在扩张初期，远不如同仁堂</td></tr>
+      <tr><td>盈利能力（护城河验证）</td><td>⭐⭐☆☆☆</td><td>ROE 3.94%，净利率 4.6%——护城河未转化为经济利润。这是关键扣分项</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合护城河评级：中宽（品牌强 + 经济弱）。</strong> 广誉远的品牌和历史壁垒在中药行业中数一数二，但当前的盈利能力不能验证护城河的宽度。段永平会说："好品牌不等于好生意，关键看能不能持续赚到钱。"
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: 管理层评估 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>李晓军</strong></td><td>党委书记/董事长</td><td>山西国资背景，2021年随国资入主掌舵。提出"1541"战略框架和"三步走"远景</td><td><span class="tag tag-green">战略清晰</span></td></tr>
+      <tr><td><strong>核心管理层</strong></td><td>高管团队</td><td>2026年4月8天内集体增持12万股（耗资205万），释放信心</td><td><span class="tag tag-green">利益一致</span></td></tr>
+    </table>
+
+    <h3>2.2 管理层评估维度</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>战略方向</td><td>⭐⭐⭐⭐☆</td><td>"精品国药"定位清晰，"四足两翼"聚焦核心产品，方向正确</td></tr>
+      <tr><td>执行力</td><td>⭐⭐⭐☆☆</td><td>营收恢复增长（+12%），但利润仍在下滑，费用管控未见明显成效</td></tr>
+      <tr><td>股东利益一致性</td><td>⭐⭐⭐⭐☆</td><td>高管火速增持 + 3000-5000万回购计划，利益捆绑意愿明确</td></tr>
+      <tr><td>财务纪律</td><td>⭐⭐⭐☆☆</td><td>资产负债率降至 32.9%，经营现金流改善，但盈利能力仍然薄弱</td></tr>
+      <tr><td>创新能力</td><td>⭐⭐⭐☆☆</td><td>龟龄集二次开发（阿尔茨海默病方向）、AI 工艺优化等布局中，但规模小</td></tr>
+      <tr><td>诚信度</td><td>⭐⭐⭐⭐☆</td><td>国资背景降低造假风险，信息披露规范性在改善</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>管理层综合评价：方向正确，有待验证。</strong> 山西国资入主后，李晓军团队完成了"止血"（扭亏、降负债、规范治理），正在推进"造血"（营收增长、品牌建设）。但最关键的一步——<strong>让公司真正赚到钱（提升净利率）</strong>——尚未实现。高管增持是积极信号，但真正的考验还在后面。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>8.54</td><td>9.94</td><td>12.84</td><td>12.21</td><td>13.69</td><td><span class="tag tag-green">恢复增长</span></td></tr>
+      <tr><td>归母净利润（亿元）</td><td>-3.16</td><td>-3.98</td><td>0.90</td><td>0.74</td><td>0.63</td><td><span class="tag tag-yellow">扭亏但下滑</span></td></tr>
+      <tr><td>利润总额（亿元）</td><td>—</td><td>—</td><td>—</td><td>0.81</td><td>1.03</td><td><span class="tag tag-green">+27.45%</span></td></tr>
+      <tr><td>ROE（加权）</td><td>-14.03%</td><td>-20.98%</td><td>6.19%</td><td>4.86%</td><td>3.94%</td><td><span class="tag tag-red">持续走低</span></td></tr>
+      <tr><td>综合毛利率</td><td>—</td><td>—</td><td>~74%</td><td>73.62%</td><td>67.60%</td><td><span class="tag tag-yellow">下滑</span></td></tr>
+      <tr><td>经营现金流（亿元）</td><td>—</td><td>—</td><td>—</td><td>1.12</td><td>1.98</td><td><span class="tag tag-green">+76.07%</span></td></tr>
+      <tr><td>资产负债率</td><td>—</td><td>—</td><td>—</td><td>~35%</td><td>32.93%</td><td><span class="tag tag-green">下降</span></td></tr>
+    </table>
+
+    <h3>3.2 2026Q1 最新数据</h3>
+    <div class="grid-3">
+      <div class="stat-tile"><div class="num green">¥4.88亿</div><div class="label">Q1营收（+17.04%）</div></div>
+      <div class="stat-tile"><div class="num yellow">¥0.67亿</div><div class="label">Q1净利（+4.96%）</div></div>
+      <div class="stat-tile"><div class="num green">67.89%</div><div class="label">Q1毛利率</div></div>
+    </div>
+
+    <div class="key-insight yellow" style="margin-top:12px;">
+      <strong>财务健康度：正在改善，但基础薄弱。</strong> 好消息：营收创历史新高（连续两季 +12%/+17%），经营现金流大增 76%，资产负债率下降。坏消息：净利润绝对额极小（6300 万），净利率仅 4.6%，且利润总额增长（+27%）被一次性税务补缴（2967 万）抵消，归母净利反而下滑。毛利率从 74% 降至 67.6%，需要关注是否因产品结构变化还是竞争加剧。
+    </div>
+
+    <details>
+      <summary>财务深度：2025 年净利润下降的真相</summary>
+      <div class="detail-body">
+        <p>2025 年归母净利润 6,304 万元，同比 -15.32%。但利润总额 1.03 亿元，同比 +27.45%。差异来自子公司西藏广誉远补缴以前年度企业所得税 2,397 万元及滞纳金 569 万元，合计 2,967 万元一次性计入当期损益。</p>
+        <p><strong>剔除一次性税务影响：</strong>经营层面利润约 9,200 万元（同比 +14%），经营在改善。但即使 9,200 万利润，对应 13.69 亿营收，净利率也仅 6.7%，仍然偏低。</p>
+        <p><strong>费用结构拆解（估算）：</strong></p>
+        <ul style="margin-left:16px;">
+          <li>毛利润约 9.26 亿（67.6% 毛利率）</li>
+          <li>销售费用约 6.3 亿（46% 费用率）</li>
+          <li>管理费用约 1.4 亿（10% 费用率）</li>
+          <li>研发费用约 0.4 亿</li>
+          <li>营业利润约 1.0 亿（7.3% 利润率）</li>
+        </ul>
+        <p><strong>关键观察：</strong>销售费用 6.3 亿是净利润的 10 倍。如果销售费用率能从 46% 降至 35%（行业偏高但可接受水平），可释放约 1.5 亿利润，EPS 将增至约 0.4 元。这就是"困境反转"的核心逻辑。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 中药老字号对比</h3>
+    <table>
+      <tr><th>指标</th><th>广誉远</th><th>同仁堂</th><th>片仔癀</th><th>达仁堂</th></tr>
+      <tr><td>创立年份</td><td><strong>1541年（485年）</strong></td><td>1669年（357年）</td><td>1555年（471年）</td><td>1522年（504年）</td></tr>
+      <tr><td>2025 营收</td><td>13.69亿</td><td>~180亿</td><td>~100亿</td><td>~80亿</td></tr>
+      <tr><td>2025 净利</td><td>0.63亿</td><td>~12亿</td><td>~32亿</td><td>~10亿</td></tr>
+      <tr><td>ROE</td><td>3.94%</td><td>~12%</td><td>~21%</td><td>~13%</td></tr>
+      <tr><td>毛利率</td><td>67.60%</td><td>~44%</td><td>~42%</td><td>~45%</td></tr>
+      <tr><td>销售费用率</td><td><strong>~46%</strong></td><td>~20%</td><td><strong>~8%</strong></td><td>~25%</td></tr>
+      <tr><td>净利率</td><td>4.6%</td><td>~7%</td><td>~32%</td><td>~13%</td></tr>
+      <tr><td>PE（TTM）</td><td>~117x</td><td>~35x</td><td>~34x</td><td>~25x</td></tr>
+      <tr><td>市值</td><td>74亿</td><td>~420亿</td><td>~1080亿</td><td>~250亿</td></tr>
+      <tr><td>核心壁垒</td><td>保密配方+历史</td><td>品牌+产品矩阵</td><td>绝密配方+稀缺药材</td><td>保密配方+区域</td></tr>
+    </table>
+
+    <h3>4.2 核心差异化</h3>
+    <div class="key-insight yellow">
+      <strong>广誉远 vs 同仁堂 vs 片仔癀 的本质差异：</strong><br>
+      片仔癀是"印钞机"（净利率 32%），同仁堂是"稳健的百年老店"（净利率 7%），广誉远是<strong>"有印钞机配方但还没学会开"的潜在选手</strong>（净利率 4.6%）。<br><br>
+      广誉远的毛利率（67.6%）是三家中<strong>最高</strong>的，但净利率是最低的。这意味着品牌溢价能力极强，但运营效率极差。如果管理改善，利润弹性是最大的。
+    </div>
+
+    <h3>4.3 产品层面竞争</h3>
+    <table>
+      <tr><th>产品</th><th>广誉远定位</th><th>主要竞品</th><th>竞争优势</th></tr>
+      <tr><td>龟龄集（补肾抗衰）</td><td>保密配方，宫廷御药</td><td>同仁堂五子衍宗丸等</td><td><span class="tag tag-green">独家配方</span></td></tr>
+      <tr><td>定坤丹（妇科）</td><td>保密配方，综合调理</td><td>同仁堂乌鸡白凤丸</td><td><span class="tag tag-green">配方差异化</span></td></tr>
+      <tr><td>安宫牛黄丸（急救）</td><td>天然麝香，高端定位</td><td>同仁堂（市占率 ~80%）</td><td><span class="tag tag-red">弱势</span></td></tr>
+      <tr><td>牛黄清心丸（心脑）</td><td>清心化痰</td><td>同仁堂、九芝堂等</td><td><span class="tag tag-yellow">市场辨识度低</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a">
+        <span class="green">通过。</span>
+        广誉远的生意模式是标准的中药企业：掌握保密配方 → 采购药材 → 按古法炮制 → 通过医院/药店/门店卖出。品牌是核心资产，产品是载体。<br>
+        关键理解点：这是一个<strong>高毛利、高费用、低净利</strong>的生意——品牌价值极高，但运营效率极低。投资广誉远的核心假设是：<strong>国资管理改善 → 费用率下降 → 利润爆发。</strong>这个逻辑清晰，但时间和幅度难以判断。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a">
+        <span class="yellow">品牌宽、经济窄。</span>
+        广誉远的品牌护城河极宽：485 年历史、双保密配方、三项国家级非遗——这些不可复制。但经济护城河很窄：ROE 3.94%，几乎没有超额利润，说明当前的护城河<strong>没有有效转化为经济收益</strong>。<br>
+        段永平会问：如果产品这么好，为什么赚不到钱？答案是：品牌知名度不够（需要大量销售费用）、管理效率低（国资前历史遗留问题）。护城河的天花板很高，但地基还不稳。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a">
+        <span class="red">不通过。当前价格没有任何安全边际。</span>
+        TTM PE ~117x，2026E PE ~65x（机构预测），PB 4.35x。即使按最乐观的 2028 年预测（1.74 亿净利），PE 仍有 42x。<br>
+        当前市值 74 亿中，品牌价值可能占了 50-60 亿，实际盈利能力对应的价值可能只有 10-20 亿。这意味着<strong>你支付的绝大部分对价是对"未来会变好"的期权的买单</strong>，而非对当前盈利能力的购买。<br>
+        如果利润增长不及预期（如销售费用率降不下来），估值可能大幅收缩。
+      </div>
+    </div>
+
+    <div class="key-insight red">
+      <strong>三问结论：一绿一黄一红。</strong> 生意能理解，护城河有潜力但未经经济验证，价格完全缺乏安全边际。从段永平框架来看，<strong>当前不是好的买入时机</strong>。值得放入观察列表，等待更好的价格或更清晰的盈利改善信号。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值水平</h3>
+    <table>
+      <tr><th>估值指标</th><th>当前值</th><th>评价</th></tr>
+      <tr><td>PE（2025 TTM）</td><td>~117x</td><td><span class="tag tag-red">极贵</span></td></tr>
+      <tr><td>PE（2026E，¥1.14亿）</td><td>~65x</td><td><span class="tag tag-red">很贵</span></td></tr>
+      <tr><td>PE（2027E，¥1.41亿）</td><td>~52x</td><td><span class="tag tag-red">偏贵</span></td></tr>
+      <tr><td>PE（2028E，¥1.74亿）</td><td>~42x</td><td><span class="tag tag-yellow">偏贵</span></td></tr>
+      <tr><td>PB</td><td>4.35x</td><td><span class="tag tag-red">贵（ROE 3.9% 不支撑）</span></td></tr>
+      <tr><td>PS（TTM）</td><td>~5.4x</td><td><span class="tag tag-yellow">偏高</span></td></tr>
+    </table>
+
+    <h3>6.2 多方法估值</h3>
+
+    <h4>方法一：PE 估值法（基于改善后的盈利能力）</h4>
+    <table>
+      <tr><th>情景</th><th>假设净利率</th><th>2026E 营收</th><th>2026E 净利</th><th>合理 PE</th><th>目标市值</th><th>目标价</th></tr>
+      <tr><td>保守</td><td>6%（微改善）</td><td>¥15亿</td><td>¥0.9亿</td><td>30x</td><td>¥27亿</td><td>¥5.52</td></tr>
+      <tr><td>中性</td><td>10%（显著改善）</td><td>¥16亿</td><td>¥1.6亿</td><td>35x</td><td>¥56亿</td><td>¥11.45</td></tr>
+      <tr><td>乐观</td><td>15%（大幅改善）</td><td>¥18亿</td><td>¥2.7亿</td><td>40x</td><td>¥108亿</td><td>¥22.09</td></tr>
+    </table>
+    <p class="fn">中性情景假设净利率从 4.6% 提升至 10%（仍需低于同仁堂当前的 7%），需要销售费用率从 46% 降至 35% 左右。</p>
+
+    <h4>方法二：PS 估值法</h4>
+    <table>
+      <tr><th>情景</th><th>2026E 营收</th><th>合理 PS</th><th>目标市值</th><th>目标价</th></tr>
+      <tr><td>保守</td><td>¥14亿</td><td>3x</td><td>¥42亿</td><td>¥8.59</td></tr>
+      <tr><td>中性</td><td>¥16亿</td><td>5x</td><td>¥80亿</td><td>¥16.36</td></tr>
+      <tr><td>乐观</td><td>¥18亿</td><td>7x</td><td>¥126亿</td><td>¥25.77</td></tr>
+    </table>
+    <p class="fn">同仁堂 PS ~2.5x，片仔癀 PS ~10x。广誉远品牌力介于两者之间，给予 3-5x PS 相对合理。</p>
+
+    <h4>方法三：品牌价值 + 盈利能力分离估值</h4>
+    <p>品牌资产（保密配方 + 485 年历史）：估算价值 ¥30-50 亿（对比：同仁堂品牌价值 ~200 亿，片仔癀品牌价值 ~500 亿，广誉远品牌知名度和商业转化力均弱于前两者）</p>
+    <p>盈利能力（2026E 净利 ~1 亿 × 20x PE）：¥20 亿</p>
+    <p><strong>分离估值合计：¥50-70 亿（对应股价 ¥10.22-14.31）</strong></p>
+
+    <div class="key-insight red">
+      <strong>估值结论：显著高估。</strong> 无论用哪种方法，当前 ¥15.09（市值 74 亿）都高于合理估值区间。市场在为"困境反转成功"的乐观情景定价，但盈利改善尚未兑现。如果营收增速放缓或费用率居高不下，估值有 30-50% 的下跌空间。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: 催化剂时间线 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来 12 个月关键催化</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026Q2</div>
+      <div class="tl-body">
+        <div class="tl-title">半年报发布（8月）</div>
+        <div class="tl-desc">验证 Q2 营收能否维持 15%+ 增速。重点关注：销售费用率是否开始下降（经营杠杆兑现的先行指标）。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">精品门店"百城千店"推进</div>
+        <div class="tl-desc">2025 年底精品门店 687 家，2026 年目标继续扩张。门店扩张是营收增长的引擎，但也会推高短期费用。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">龟龄集二次开发（阿尔茨海默病）</div>
+        <div class="tl-desc">SCI 论文已发表，AI 工艺优化推进中。若临床试验启动或获得积极数据，将是品牌跃升的重大催化。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">养生酒继续放量</div>
+        <div class="tl-desc">2025 年养生酒 +132%，基数低。关注能否连续高增长，若突破 1.5-2 亿将形成有意义的第二曲线。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026Q4-2027Q1</div>
+      <div class="tl-body">
+        <div class="tl-title">股份回购/股权激励落地</div>
+        <div class="tl-desc">3000-5000 万回购计划已推出。若后续推出更大规模股权激励，将增强管理层与股东利益的一致性。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027+</div>
+      <div class="tl-body">
+        <div class="tl-title">净利率突破 10%</div>
+        <div class="tl-desc">"三步走"第一步的核心指标。如果净利率提升到 10%，利润将达 1.5-2 亿级别，届时估值逻辑将重写。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">持续</div>
+      <div class="tl-body">
+        <div class="tl-title">山西中医药强省政策红利</div>
+        <div class="tl-desc">山西省成立由近 20 个省直厅局组成的"建设中医药强省工作专班"，广誉远作为山西中药龙头将持续受益。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8: 操作区间与仓位 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作区间与仓位</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>区间</th><th>价格</th><th>对应估值</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">低估/买入</span></td><td><strong>¥8~10</strong></td><td>PS ~3x，品牌价值区间</td><td>可积极建仓，目标仓位 5-8%</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏低</span></td><td>¥10~13</td><td>PS 3.5-4.5x</td><td>观察仓 2-3%，等待盈利改善信号</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高</span></td><td>¥13~16</td><td>PS 4.5-5.5x</td><td>仅持有，不加仓</td></tr>
+      <tr><td><span class="tag tag-red">高估/卖出</span></td><td>¥16+</td><td>PS >6x</td><td>逐步减仓</td></tr>
+    </table>
+
+    <h3>观察策略</h3>
+    <div class="key-insight yellow">
+      <strong>当前 ¥15.09 处于"合理偏高"区间上沿，不建议买入。</strong><br>
+      建议：<strong>放入观察列表，不持仓。</strong><br>
+      触发买入的条件（需同时满足 2 项以上）：<br>
+      ① 股价跌至 ¥12 以下<br>
+      ② 连续两个季度销售费用率下降 2pct 以上<br>
+      ③ 单季净利率突破 8%<br>
+      ④ 龟龄集二次开发取得重大进展（如进入临床）
+    </div>
+
+    <h3>仓位定位</h3>
+    <p>广誉远在组合中的定位：<strong>"困境反转期权"</strong>——高风险、高潜在回报。如果困境反转成功（净利率提升至 10-15%），股价可能翻倍。如果失败（费用率居高不下），可能跌 30-50%。这是一个<strong>非对称但不确定性极高</strong>的赌注，不适合作为核心持仓。</p>
+
+    <h3>卖出条件</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>营收增速放缓：</strong>连续两个季度营收增速低于 10%，说明增长动力减弱</li>
+      <li><strong>毛利率继续下滑：</strong>从 67.6% 继续降至 65% 以下，可能反映定价权减弱</li>
+      <li><strong>费用率改善证伪：</strong>连续一年销售费用率未下降，则困境反转逻辑失效</li>
+      <li><strong>管理层动荡：</strong>李晓军离职或国资干预加剧</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 9: 风险提示 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td><strong>费用率长期居高不下</strong></td><td><span class="tag tag-yellow">中高</span></td><td>极高</td><td>这是最大的风险——如果销售费用率无法下降，公司永远赚不到钱。中药企业普遍面临品牌建设期的高费用阶段</td></tr>
+      <tr><td><strong>估值收缩</strong></td><td><span class="tag tag-red">高</span></td><td>高</td><td>100x+ PE 不可持续。如果利润增长不及预期，"戴维斯双杀"风险显著（PE + EPS 同时下降）</td></tr>
+      <tr><td><strong>安宫牛黄丸竞争</strong></td><td><span class="tag tag-red">高</span></td><td>中</td><td>同仁堂市占率 ~80%，广誉远高端定位差异化有限</td></tr>
+      <tr><td><strong>品牌认知度不足</strong></td><td><span class="tag tag-yellow">中</span></td><td>高</td><td>相比同仁堂/白药，广誉远在普通消费者中的知名度低得多，限制了自然动销</td></tr>
+      <tr><td><strong>国资管理效率</strong></td><td><span class="tag tag-yellow">中</span></td><td>中</td><td>国资入主带来规范治理，但也可能带来行政化、效率降低的风险</td></tr>
+      <tr><td><strong>中药材成本</strong></td><td><span class="tag tag-yellow">中低</span></td><td>中</td><td>天然麝香、牛黄等核心药材价格持续上涨，但公司有战略储备</td></tr>
+      <tr><td><strong>历史遗留问题</strong></td><td><span class="tag tag-yellow">中低</span></td><td>中</td><td>2021-2022 年大亏的历史阴影，西藏子公司税务问题，需关注治理是否彻底干净</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>最大风险情景：</strong>营收增速放缓（<10%）+ 费用率降不下来 + 利润持续微利。市场从"困境反转"叙事切换到"价值陷阱"叙事，PE 从 100x+ 收缩至 30-50x，叠加利润低于预期，股价可能跌至 ¥8 以下（跌幅 45%+）。<br><br>
+      <strong>最大机会情景：</strong>营收连续 20%+ 增长 + 销售费用率降至 35% + 净利率突破 15%。利润从 0.63 亿跃升至 2-3 亿，市场给予 40-50x PE（品牌中药成长股估值），市值可达 100-150 亿，股价 ¥20-30（翻倍潜力）。
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>广誉远 (600771.SH) 价值投资分析报告 | 2026-07-21</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报、券商研报、Wind、东方财富、证券时报</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(heading) {
+  heading.classList.toggle('collapsed');
+  var body = heading.nextElementSibling;
+  if (body) {
+    body.classList.toggle('collapsed');
+  }
+}
+function toggleAll() {
+  var headings = document.querySelectorAll('.card h2');
+  var bodies = document.querySelectorAll('.section-body');
+  var anyOpen = false;
+  bodies.forEach(function(b) { if (!b.classList.contains('collapsed')) anyOpen = true; });
+  headings.forEach(function(h) {
+    if (anyOpen) { h.classList.add('collapsed'); } else { h.classList.remove('collapsed'); }
+  });
+  bodies.forEach(function(b) {
+    if (anyOpen) { b.classList.add('collapsed'); } else { b.classList.remove('collapsed'); }
+  });
+}
+</script>
+</body>
+</html>

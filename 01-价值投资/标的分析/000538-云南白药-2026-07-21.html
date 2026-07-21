@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>云南白药 (000538.SZ) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  .verdict-box {
+    background: linear-gradient(135deg, var(--yellow-bg), #fff);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>云南白药 <span>价值投资分析</span></h1>
+  <div class="subtitle">Yunnan Baiyao — 百年国药品牌 + 消费垄断 + 创新药期权</div>
+  <div class="codes">
+    <span>000538.SZ</span><span>中药·大健康</span><span>深交所主板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-07-21</span>
+    <span>¥52.04</span>
+    <span>市值 ¥928.53亿</span>
+    <span>数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">全部展开 / 全部折叠</button>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    百年国药品牌 + 消费垄断（牙膏市占率第一）+ 国家绝密配方，是好生意。<br>
+    但营收增速偏低（2-4%），创新药管线尚在早期，当前估值合理但非显著低估。
+  </div>
+  <div class="v-details">
+    <span>买入区间：<strong style="color:var(--green);">¥40~48</strong></span>
+    <span>当前价：<strong style="color:var(--yellow);">¥52.04</strong></span>
+    <span>合理价值：<strong>¥50~60</strong></span>
+    <span>仓位：<strong>5~8%</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num">¥52.04</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num">¥928.53亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num yellow">~18.0x</div><div class="label">2025 PE（静态）</div></div>
+      <div class="stat-tile"><div class="num">2.21x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num">¥411.87亿</div><div class="label">2025年营收（+2.88%）</div></div>
+      <div class="stat-tile"><div class="num green">¥51.53亿</div><div class="label">2025年归母净利润（+8.51%）</div></div>
+      <div class="stat-tile"><div class="num green">13.02%</div><div class="label">ROE（近5年最高）</div></div>
+      <div class="stat-tile"><div class="num green">90.09%</div><div class="label">分红率（连续3年>90%）</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num">¥116.03亿</div><div class="label">2026Q1营收（+7.02%）</div></div>
+      <div class="stat-tile"><div class="num green">¥20.37亿</div><div class="label">2026Q1净利（+5.31%）</div></div>
+      <div class="stat-tile"><div class="num green">29.51%</div><div class="label">综合毛利率（+1.61pct）</div></div>
+      <div class="stat-tile"><div class="num green">~5.0%</div><div class="label">股息率</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: 生意理解 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>云南白药创制于 <strong>1902 年</strong>，由彝族名医曲焕章发明，原名"曲焕章百宝丹"。1971 年成立云南白药厂，1993 年深交所上市（000538.SZ），是 <strong>A 股第一家上市中药企业</strong>。核心配方属<strong>国家绝密级</strong>（全国仅两家：云南白药 + 片仔癀），受法律永久保护，不可被仿制。</p>
+    <p>公司已从单一的白药粉剂发展为覆盖<strong>药品、健康品、中药资源、医药商业</strong>四大板块的大健康产业集团。2025 年工业收入占比 38.89%（+2.8pct），结构持续优化。旗下云南白药牙膏自 2019 年起稳居<strong>国内全渠道市场份额第一</strong>，是中药企业跨界消费品的标杆案例。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          依托<strong>国家绝密配方</strong>的品牌溢价，向消费者卖出高毛利的白药系列药品（气雾剂、创可贴、牙膏等）；再通过庞大的医药商业网络，做药品流通赚差价。<br>
+          <strong>核心逻辑：用绝密配方的品牌壁垒赚消费品高毛利，用规模渠道赚流通稳定钱，用创新药管线赚未来的成长期权。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河</h4>
+        <div class="key-insight">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          云南白药的护城河是 <strong>"国家绝密配方 × 百年品牌认知 × 消费渠道垄断"</strong> 三位一体。绝密配方是法律壁垒（无法复制），品牌认知是心智壁垒（牙膏市占率第一），渠道是规模壁垒（覆盖全国终端）。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>医药商业 ~58%（低毛利流通）+ 工业 ~39%（高毛利药品+健康品）+ 中药资源 ~4%</td></tr>
+      <tr><td>核心客户</td><td>B2B：医院、药店、经销商；B2C：牙膏/洗护等消费品直接面向消费者</td></tr>
+      <tr><td>成本结构</td><td>药材成本（70%+自给） + 制造成本。因核心药材自给率高，成本波动远小于片仔癀</td></tr>
+      <tr><td>利润驱动</td><td>工业板块贡献约 85% 利润，其中白药系列药品 + 牙膏是利润双引擎</td></tr>
+      <tr><td>盈利杠杆</td><td>工业收入占比每提升 1%，综合毛利率提升约 0.4%。结构升级是最大的内生增长动力</td></tr>
+      <tr><td>品牌矩阵</td><td>云南白药（药品+牙膏）、养元青（洗护）、采之汲（护肤）、泰邦（器械）</td></tr>
+    </table>
+
+    <h3>1.3 主营业务构成</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025 营收</th><th>占比</th><th>同比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>医药商业（省医药）</strong></td><td>¥238.04亿</td><td>~58%</td><td>-3.3%</td><td>~6%</td><td>规模底座，现金流稳定</td></tr>
+      <tr><td><strong>药品事业群（工业）</strong></td><td>¥83.18亿</td><td>~20%</td><td>+12.53%</td><td>~60-65%</td><td>核心利润引擎</td></tr>
+      <tr><td><strong>健康品事业群</strong></td><td>¥67.45亿</td><td>~16%</td><td>平稳</td><td>~55-60%</td><td>消费品牌，稳定现金流</td></tr>
+      <tr><td>中药资源事业群</td><td>¥17.50亿</td><td>~4%</td><td>—</td><td>—</td><td>供应链垂直整合</td></tr>
+    </table>
+
+    <div class="key-insight" style="margin-top:12px;">
+      <strong>商业模式本质</strong>：云南白药做的是 <strong>"品牌中药 + 消费品"</strong> 的双轮驱动生意。药品端靠绝密配方锁定高毛利（气雾剂 25 亿 + 白药膏 12 亿），消费品端靠"止血"核心心智延伸至牙膏/创可贴等高频刚需品类（牙膏市占率第一约 24%）。商业板块虽是低毛利，但提供巨大的规模效应和终端覆盖。
+    </div>
+
+    <details>
+      <summary>深度理解：为什么白药牙膏能打败高露洁/佳洁士？</summary>
+      <div class="detail-body">
+        <p>2005 年云南白药推出牙膏时，市场普遍不看好。但白药牙膏的成功恰恰是"护城河跨界"的经典案例：</p>
+        <p><strong>1. 功能差异化定位：</strong>普通牙膏主打"防蛀/美白"，白药牙膏主打"牙龈止血"——这是白药百年核心心智的自然延伸。消费者天然相信"云南白药=止血"，无需教育成本。</p>
+        <p><strong>2. 定价权：</strong>白药牙膏定价 20-30 元/支，显著高于高露洁/佳洁士的 5-10 元。这不是靠广告砸出来的，而是靠"药企背书 + 功能可信度"建立的溢价。</p>
+        <p><strong>3. 渠道复用：</strong>白药原有的药店渠道 + 医药商业网络，为牙膏提供了天然的铺货优势。药店卖牙膏，白药是第一家也是最强的一家。</p>
+        <p><strong>4. 持续创新：</strong>从最初的止血牙膏，扩展到美白、抗敏、儿童等细分品类，不断抬高竞争门槛。</p>
+        <p>这就是段永平说的"差异化"——别人很难复制的不仅是配方，更是百年积累的消费者心智和渠道能力。</p>
+      </div>
+    </details>
+
+    <h3>1.4 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>国家绝密配方</td><td>⭐⭐⭐⭐⭐</td><td>法律赋予的永久垄断，全国仅两家。无法被仿制、不受专利到期影响、不受集采冲击（独家品种）</td></tr>
+      <tr><td>品牌心智占有</td><td>⭐⭐⭐⭐⭐</td><td>"云南白药=止血"是国人肌肉记忆，品牌价值超千亿。牙膏市占率第一是品牌延伸能力的最好证明</td></tr>
+      <tr><td>渠道网络</td><td>⭐⭐⭐⭐☆</td><td>医药商业覆盖全国，238 亿流通规模形成强大的终端触达和议价能力</td></tr>
+      <tr><td>成本控制</td><td>⭐⭐⭐⭐☆</td><td>核心药材 70%+ 自给，不受天然牛黄/麝香暴涨冲击（对比片仔癀的关键优势）</td></tr>
+      <tr><td>产品矩阵</td><td>⭐⭐⭐⭐☆</td><td>10 个过亿单品、2 个过 10 亿大单品，梯队清晰。气雾剂 22% 增速证明产品力仍在增强</td></tr>
+      <tr><td>转换成本</td><td>⭐⭐⭐☆☆</td><td>牙膏/创可贴是消费品，消费者转换成本不高，但品牌心智惯性极强</td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>综合护城河评级：宽</strong> — 云南白药的护城河在中药企业中属于最宽的一档。绝密配方提供法律壁垒，品牌认知提供心智壁垒，消费品化提供规模壁垒。三重复合护城河使得竞争对手几乎无法正面挑战其核心领地。
+    </div>
+
+    <h3>1.5 关键财务特征</h3>
+    <p>云南白药的财务画像：<strong>高毛利工业 + 低毛利商业 = 中等综合毛利率 + 强现金流的"类消费"中药企业</strong>。</p>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>综合毛利率 29.5%</strong>（被商业板块拉低），但工业毛利率高达 60-65%，与消费品龙头相当</li>
+      <li><strong>ROE 持续改善</strong>：从 2021 年 7.58% → 2025 年 13.02%，改善趋势明确</li>
+      <li><strong>现金牛</strong>：2025 年末货币资金超 100 亿，几乎零有息负债，净现金状态</li>
+      <li><strong>超高分红</strong>：连续 3 年分红率 >90%，近三年累计分红 126 亿，真实回馈股东</li>
+      <li><strong>研发投入低</strong>：研发费用率 0.85%，是潜在短板——但消费品的研发本就不需要太高</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 2: 管理层评估 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>张文学</strong></td><td>董事长（62岁）</td><td>2024年2月出山，此前长期在云天化集团任职。推动公司从多元化扩张回归聚焦主业</td><td><span class="tag tag-green">务实稳健</span></td></tr>
+      <tr><td><strong>董明</strong></td><td>副董事长/CEO（49岁）</td><td>前华为高管，2021年加入白药，主导数字化转型和创新药战略。2026年2月续聘三年</td><td><span class="tag tag-green">战略清晰</span></td></tr>
+      <tr><td><strong>马加</strong></td><td>CFO</td><td>推动公司降本增效、优化资本配置，90%+分红率的执行者</td><td><span class="tag tag-blue">执行力强</span></td></tr>
+    </table>
+
+    <h3>2.2 管理层评估维度</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>聚焦主业</td><td>⭐⭐⭐⭐☆</td><td>张文学上任后明确"3+2"战略，砍掉非核心投资，回归药品+健康品主线</td></tr>
+      <tr><td>股东回报</td><td>⭐⭐⭐⭐⭐</td><td>连续3年将90%+净利润用于分红，近3年累计126亿，A股中药企业第一</td></tr>
+      <tr><td>战略眼光</td><td>⭐⭐⭐⭐☆</td><td>核药+生物药差异化布局避开拥挤赛道；智慧工厂入选全球灯塔工厂</td></tr>
+      <tr><td>执行力</td><td>⭐⭐⭐⭐☆</td><td>核心白药系列 22% 增长，气血康 68% 增长，10个过亿单品，业绩兑现能力强</td></tr>
+      <tr><td>诚信度</td><td>⭐⭐⭐⭐☆</td><td>无重大负面事件，分红承诺兑现，信息披露规范</td></tr>
+      <tr><td>创新能力</td><td>⭐⭐⭐☆☆</td><td>近20年无I类新药上市，研发费用率仅0.85%。核药管线在推进但尚未验证</td></tr>
+    </table>
+
+    <div class="key-insight green">
+      <strong>管理层综合评价：优秀</strong> — 张文学+董明的组合实现了"守正出奇"：守正（聚焦主业、高分红、降本增效），出奇（核药差异化、生物药出海、灯塔工厂）。管理层诚信且股东导向明确，是值得信任的团队。唯一担忧：华为系高管能否在医药创新领域复制成功？
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>363.73</td><td>364.88</td><td>391.11</td><td>400.33</td><td>411.87</td><td><span class="tag tag-green">连续5年增长</span></td></tr>
+      <tr><td>归母净利润（亿元）</td><td>28.03</td><td>30.01</td><td>40.93</td><td>47.49</td><td>51.53</td><td><span class="tag tag-green">持续新高</span></td></tr>
+      <tr><td>扣非净利润（亿元）</td><td>—</td><td>—</td><td>—</td><td>45.23</td><td>48.65</td><td><span class="tag tag-green">+7.55%</span></td></tr>
+      <tr><td>ROE（加权）</td><td>7.58%</td><td>7.87%</td><td>10.51%</td><td>11.99%</td><td>13.02%</td><td><span class="tag tag-green">持续改善</span></td></tr>
+      <tr><td>综合毛利率</td><td>~27%</td><td>~27%</td><td>~28%</td><td>27.9%</td><td>29.51%</td><td><span class="tag tag-green">+1.61pct</span></td></tr>
+      <tr><td>经营现金流（亿元）</td><td>—</td><td>—</td><td>—</td><td>—</td><td>~55</td><td><span class="tag tag-green">充裕</span></td></tr>
+      <tr><td>货币资金（亿元）</td><td>—</td><td>—</td><td>—</td><td>~90</td><td>~108</td><td><span class="tag tag-green">现金牛</span></td></tr>
+    </table>
+
+    <h3>3.2 2026Q1 最新数据</h3>
+    <div class="grid-3">
+      <div class="stat-tile"><div class="num green">¥116.03亿</div><div class="label">Q1营收（+7.02%）</div></div>
+      <div class="stat-tile"><div class="num green">¥20.37亿</div><div class="label">Q1净利（+5.31%）</div></div>
+      <div class="stat-tile"><div class="num green">4.96%</div><div class="label">Q1 ROE（单季）</div></div>
+    </div>
+
+    <div class="key-insight green" style="margin-top:12px;">
+      <strong>财务健康度：极优</strong> — 零有息负债，108 亿现金，经营现金流远超净利润。ROE 从 7.58% 稳步提升至 13.02%，利润增速持续高于营收增速，说明产品结构升级和经营效率改善是真实发生的。2021 年净利润因投资亏损大幅下滑（-49%）是教训，但也促成了后续的"回归主业"。
+    </div>
+
+    <details>
+      <summary>财务深度：ROE 改善的驱动力拆解</summary>
+      <div class="detail-body">
+        <p>ROE 从 7.58%（2021）→ 13.02%（2025），改善幅度达 5.44 个百分点，拆解如下：</p>
+        <p><strong>1. 净利率提升（最大贡献）：</strong>11.62%（2021）→ 12.51%（2025），+0.89pct。主因是高毛利工业占比提升 + 降本增效。工业毛利率 60-65%，远高于商业的 6%，结构效应显著。</p>
+        <p><strong>2. 资产周转率（中性）：</strong>保持稳定，约 0.7-0.8 倍。重资产属性不强，轻资产运营。</p>
+        <p><strong>3. 权益乘数下降（负面抵消）：</strong>资产负债率从约 35% 降至约 26%，财务保守但拉低了杠杆对 ROE 的贡献。不过这是高质量的选择——宁愿低杠杆也要安全。</p>
+        <p><strong>结论：</strong>ROE 改善完全来自内生经营质量提升，而非加杠杆或会计手段，改善质量极高。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 中药龙头对比</h3>
+    <table>
+      <tr><th>指标</th><th>云南白药</th><th>片仔癀</th><th>同仁堂</th><th>白云山</th></tr>
+      <tr><td>2025 营收</td><td>411.87亿</td><td>~100亿</td><td>~180亿</td><td>~770亿</td></tr>
+      <tr><td>2025 净利</td><td><strong>51.53亿</strong></td><td>~32亿</td><td>~12亿</td><td>~40亿</td></tr>
+      <tr><td>ROE</td><td>13.02%</td><td><strong>~21%</strong></td><td>~12%</td><td>~11%</td></tr>
+      <tr><td>综合毛利率</td><td>29.51%</td><td>~42%</td><td>~44%</td><td>~19%</td></tr>
+      <tr><td>工业毛利率</td><td>~65%</td><td>~60%</td><td>~44%</td><td>~38%</td></tr>
+      <tr><td>PE（TTM）</td><td><strong>~18x</strong></td><td>~34x</td><td>~35x</td><td>~14x</td></tr>
+      <tr><td>股息率</td><td><strong>~5%</strong></td><td>~1.5%</td><td>~2.8%</td><td>~3.5%</td></tr>
+      <tr><td>核心壁垒</td><td>绝密配方+消费品牌</td><td>绝密配方+稀缺药材</td><td>百年品牌+产品矩阵</td><td>大商业+大品牌</td></tr>
+      <tr><td>2025 业绩趋势</td><td><span class="tag tag-green">营收净利双增</span></td><td><span class="tag tag-red">双降</span></td><td><span class="tag tag-yellow">增收不增利</span></td><td><span class="tag tag-yellow">承压</span></td></tr>
+      <tr><td>成本风险</td><td><span class="tag tag-green">低（70%自给）</span></td><td><span class="tag tag-red">高（牛黄暴涨）</span></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">中</span></td></tr>
+    </table>
+
+    <h3>4.2 核心差异化优势</h3>
+    <div class="key-insight green">
+      <strong>云南白药 vs 片仔癀的本质差异：</strong>白药是"消费品中药"，片仔癀是"奢侈品中药"。白药的护城河来自品牌心智的广度（人人知道白药止血），片仔癀的护城河来自稀缺性（天然牛黄+麝香）。<br><br>
+      在当前时点，白药的优势更突出：<strong>成本可控（70%药材自给 vs 片仔癀的牛黄从 57 万涨到 170 万/公斤）、业绩确定性高、估值更低、分红更高。</strong>片仔癀的成长性理论上更强，但波动也更大。
+    </div>
+
+    <h3>4.3 消费品竞争格局</h3>
+    <p>白药牙膏面临的竞争：高露洁/佳洁士在美白/防蛀赛道仍是强敌，但白药在"牙龈护理"赛道断层领先。新兴品牌如参半、冰泉通过社交电商切入，但在药店渠道和品牌信任度上远不及白药。</p>
+    <p>养元青洗护：4.6 亿收入体量尚小，洗发水市场竞争激烈（海飞丝/清扬/滋源等），养元青差异化的"中药防脱"定位有一定壁垒，但需要时间验证。</p>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a">
+        <span class="green">通过。</span>
+        白药的生意非常容易理解：<br>
+        ① 药品：靠绝密配方做出独门止血药，医院和药店卖，品牌优势极强，不受集采冲击。<br>
+        ② 消费品：把"止血"心智延伸到牙膏/创可贴，渠道复用，高频刚需，现金流稳定。<br>
+        ③ 商业：药品批发和零售，赚的是规模流通的辛苦钱，但提供了终端覆盖的护城河。<br>
+        核心逻辑就是用品牌垄断赚消费品高毛利 + 用规模渠道赚流通稳定钱。这是段永平最熟悉的"品牌消费品"模型。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a">
+        <span class="green">较宽。</span>
+        三层护城河叠加：<br>
+        ① 法律层：国家绝密级配方，全国仅两家，永久保护，无法仿制。<br>
+        ② 心智层：百年品牌，"白药=止血"深入人心，牙膏跨界证明了品牌势能的强度。<br>
+        ③ 规模层：238 亿商业底盘贡献终端覆盖和议价能力。<br>
+        最大的风险不是竞争，而是品牌老化和创新不足。但只要"止血"心智不死，白药就能持续赚钱。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a">
+        <span class="yellow">勉强通过（安全边际偏薄）。</span>
+        2025 PE 约 18x，2026E PE 约 16.6x。对于一家 ROE 13%、利润增速 8-10%、分红率 90%+ 的消费中药龙头，这个估值是<strong>合理但非低廉</strong>的。<br>
+        如果跌到 15x PE（对应约 ¥45），则安全边际更充分，是较好的买入时机。<br>
+        当前 ¥52 的价格处于"合理偏上"区间，不算贵，但也没有明显低估。
+      </div>
+    </div>
+
+    <div class="key-insight yellow">
+      <strong>三问结论：两绿一黄。</strong> 生意好理解、护城河够宽，但当前价格的安全边际不够充分。适合作为底仓配置（吃股息 + 等待催化），不适合重仓出击。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值水平</h3>
+    <table>
+      <tr><th>估值指标</th><th>当前值</th><th>历史分位</th><th>评价</th></tr>
+      <tr><td>PE（2025 年报）</td><td>~18.0x</td><td>近 5 年中偏低</td><td><span class="tag tag-yellow">合理</span></td></tr>
+      <tr><td>PE（2026E，¥56亿）</td><td>~16.6x</td><td>—</td><td><span class="tag tag-green">偏低</span></td></tr>
+      <tr><td>PB</td><td>2.21x</td><td>近 5 年低位</td><td><span class="tag tag-green">偏低</span></td></tr>
+      <tr><td>股息率</td><td>~5.0%</td><td>历史高位</td><td><span class="tag tag-green">优秀</span></td></tr>
+      <tr><td>EV/EBIT</td><td>~12x</td><td>—</td><td><span class="tag tag-green">偏低（净现金）</span></td></tr>
+    </table>
+
+    <h3>6.2 多方法估值</h3>
+
+    <h4>方法一：PE 估值法</h4>
+    <table>
+      <tr><th>情景</th><th>2026E 净利</th><th>合理 PE</th><th>目标市值</th><th>目标价</th></tr>
+      <tr><td>保守</td><td>¥55亿</td><td>15x</td><td>¥825亿</td><td>¥46.25</td></tr>
+      <tr><td>中性</td><td>¥56亿</td><td>18x</td><td>¥1,008亿</td><td>¥56.50</td></tr>
+      <tr><td>乐观</td><td>¥60亿</td><td>22x</td><td>¥1,320亿</td><td>¥73.99</td></tr>
+    </table>
+    <p class="fn">历史 PE 中枢约 20-25x。给予 18x（略低于中枢）反映低增长 + 高分红特征。</p>
+
+    <h4>方法二：分部估值法（SOTP）</h4>
+    <table>
+      <tr><th>业务板块</th><th>2025 净利润贡献（估算）</th><th>适用 PE</th><th>估值</th></tr>
+      <tr><td>药品工业 + 健康品</td><td>~¥44亿（占 85%）</td><td>20x</td><td>¥880亿</td></tr>
+      <tr><td>医药商业</td><td>~¥6亿（占 12%）</td><td>10x</td><td>¥60亿</td></tr>
+      <tr><td>中药资源 + 其他</td><td>~¥1.5亿</td><td>15x</td><td>¥23亿</td></tr>
+      <tr><td>净现金</td><td colspan="2">~¥108亿 - 0 = ¥108亿</td><td>¥108亿</td></tr>
+      <tr><td><strong>合计</strong></td><td colspan="3"><strong>约 ¥1,071亿（对应股价 ¥60.03）</strong></td></tr>
+    </table>
+
+    <h4>方法三：DCF 毛估估</h4>
+    <p>假设：自由现金流 ≈ 净利润（capex 较轻），未来 5 年 CAGR 8%，永续增长 3%，WACC 8%</p>
+    <p>DCF 毛估价值：约 ¥950-1,100 亿（对应股价 ¥53-62），与当前市值基本匹配。</p>
+
+    <h4>方法四：股息折现</h4>
+    <p>2025 年每股分红 ¥2.60（含特别分红），假设每年增长 5%，要求回报率 8%</p>
+    <p>股息折现价值：约 ¥52/股（股息率 5% + 增长 5% = 10% 总回报，吸引力强）</p>
+
+    <div class="key-insight green">
+      <strong>估值结论：合理偏低。</strong> 综合四种方法，云南白药的合理价值区间为 <strong>¥50-62/股</strong>。当前 ¥52.04 处于合理区间内。如果跌到 ¥45 以下（15x 2026E PE），是明显的低估机会。核心安全边际来自<strong>5% 股息率 + 净现金状态 + 绝密配方永久垄断</strong>。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: 催化剂时间线 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来 12 个月关键催化</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026Q2</div>
+      <div class="tl-body">
+        <div class="tl-title">半年报发布（8月）</div>
+        <div class="tl-desc">验证 Q2 增长能否延续 Q1 的 7% 增速。重点关注工业收入占比是否突破 40%。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">核药 INR101 完成 III 期入组</div>
+        <div class="tl-desc">INR101（前列腺癌诊断核药）预计年内完成超 300 例受试者入组。若数据积极，估值体系可能从"中药消费股"向"创新药平台"切换。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">INB301 美国临床进展</div>
+        <div class="tl-desc">全球首个肿瘤恶病质抗体药 INB301 获 FDA 批准临床。若 I 期数据积极，将打开出海想象。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026Q3-Q4</div>
+      <div class="tl-body">
+        <div class="tl-title">健康品线上渠道突破</div>
+        <div class="tl-desc">2025 年健康品线上销量 +27%，2026 年继续发力抖音/拼多多等新渠道，养元青洗护有望加速。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027Q1</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 年报 + 分红方案</div>
+        <div class="tl-desc">市场预期 2026 年净利 ~56 亿（+8.7%），如果超预期 + 维持 90% 分红率，股息将进一步提升。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027+</div>
+      <div class="tl-body">
+        <div class="tl-title">核药 INR102 治疗性核药 II 期</div>
+        <div class="tl-desc">对标诺华 Pluvicto（年销 20 亿美元），若 II 期成功，将是重磅催化剂。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">持续</div>
+      <div class="tl-body">
+        <div class="tl-title">外延并购</div>
+        <div class="tl-desc">公司已收购聚药堂（中药饮片+配方颗粒），未来三年将投资并购提升至战略高度。关注潜在标的。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8: 操作区间与仓位 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作区间与仓位</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>区间</th><th>价格</th><th>对应 PE（2026E）</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">低估/买入</span></td><td><strong>¥40~48</strong></td><td>12.7x ~ 15.2x</td><td>积极建仓，目标仓位 8-10%</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏低</span></td><td>¥48~55</td><td>15.2x ~ 17.5x</td><td>小额定投，目标仓位 5-8%</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高</span></td><td>¥55~65</td><td>17.5x ~ 20.6x</td><td>持有不动，不加仓</td></tr>
+      <tr><td><span class="tag tag-red">高估/卖出</span></td><td>¥65+</td><td>>20.6x</td><td>分批减仓，先卖一半</td></tr>
+    </table>
+
+    <h3>建仓节奏</h3>
+    <div class="key-insight yellow">
+      <strong>当前 ¥52.04 处于"合理偏低"区间上沿。</strong><br>
+      建议：<strong>先建 3% 底仓</strong>（吃 5% 股息 + 享受品牌中药的确定性），<br>
+      如跌至 ¥48 以下加仓至 5%，跌至 ¥45 以下加仓至 8%。<br>
+      如直接上涨，不加仓——等更好的机会或更高确定性的催化落地。
+    </div>
+
+    <h3>卖出条件</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>基本面恶化：</strong>核心白药系列增速连续两个季度低于 5%，或牙膏市占率明显下滑</li>
+      <li><strong>估值过高：</strong>PE 超过 22x（对应 ¥70+），且无重大催化支撑</li>
+      <li><strong>管理层变化：</strong>张文学/董明离职，且继任者能力存疑</li>
+      <li><strong>发现更好的机会：</strong>换仓到风险回报比更优的标的</li>
+    </ul>
+
+    <h3>仓位定位</h3>
+    <p>云南白药在组合中的定位：<strong>"压舱石"防御型持仓</strong>——高股息 + 品牌壁垒 + 低波动，提供组合的稳定性和现金流回报。不指望它翻倍，但拿着踏实。</p>
+  </div>
+</div>
+
+<!-- SECTION 9: 风险提示 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td><strong>营收增速长期低迷</strong></td><td><span class="tag tag-yellow">中</span></td><td>高</td><td>2-4% 增长是常态，若连续低于 2% 需警惕。核心看工业占比能否持续提升</td></tr>
+      <tr><td><strong>创新药管线失败</strong></td><td><span class="tag tag-yellow">中高</span></td><td>中</td><td>核药 INR101/102 若 III 期失败，创新药期权归零，但不影响基本盘</td></tr>
+      <tr><td><strong>品牌老化</strong></td><td><span class="tag tag-yellow">中低</span></td><td>高</td><td>年轻消费者是否还认"白药"品牌？关注线上渠道和 Z 世代渗透率</td></tr>
+      <tr><td><strong>中药材价格波动</strong></td><td><span class="tag tag-green">低</span></td><td>中</td><td>70%+ 自给率是天然对冲，远优于片仔癀</td></tr>
+      <tr><td><strong>牙膏竞争加剧</strong></td><td><span class="tag tag-yellow">中</span></td><td>中</td><td>新品牌通过社交电商切入，但药店渠道壁垒高。关注牙膏市占率变化</td></tr>
+      <tr><td><strong>分红政策改变</strong></td><td><span class="tag tag-green">低</span></td><td>高</td><td>账上现金超 100 亿，无资本开支压力，改变分红政策的动机不强</td></tr>
+      <tr><td><strong>管理层更迭风险</strong></td><td><span class="tag tag-yellow">中低</span></td><td>中</td><td>董明续聘 3 年，短期稳定。关注云南省国资对管理层的干预</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>最大风险情景：</strong>核心白药系列增速放缓至个位数 + 牙膏市占率被新品牌蚕食 + 创新药管线全军覆没。三重叠加下，公司退化为"低增长现金牛"，估值可能跌至 12-15x PE，对应股价 ¥38-45。概率不高，但需持续跟踪。<br><br>
+      <strong>最大机会情景：</strong>核药 INR101 成功上市 + 健康品线上爆发 + 外延并购落地，估值切换至"创新药 + 消费"混合估值（20-25x PE），对应股价 ¥65-80+。
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>云南白药 (000538.SZ) 价值投资分析报告 | 2026-07-21</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报、券商研报、Wind、东方财富</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(heading) {
+  heading.classList.toggle('collapsed');
+  var body = heading.nextElementSibling;
+  if (body) {
+    body.classList.toggle('collapsed');
+  }
+}
+function toggleAll() {
+  var headings = document.querySelectorAll('.card h2');
+  var bodies = document.querySelectorAll('.section-body');
+  var anyOpen = false;
+  bodies.forEach(function(b) { if (!b.classList.contains('collapsed')) anyOpen = true; });
+  headings.forEach(function(h) {
+    if (anyOpen) { h.classList.add('collapsed'); } else { h.classList.remove('collapsed'); }
+  });
+  bodies.forEach(function(b) {
+    if (anyOpen) { b.classList.add('collapsed'); } else { b.classList.remove('collapsed'); }
+  });
+}
+</script>
+</body>
+</html>
