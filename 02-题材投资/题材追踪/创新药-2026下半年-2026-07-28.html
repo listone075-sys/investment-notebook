@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>创新药 — 2026下半年全景分析</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #6366f1;
+    --accent-light: #eef2ff;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #eef2ff, #f5f6fa);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  .verdict-box {
+    background: linear-gradient(135deg, #eef2ff, #fff);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; color: var(--accent); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 700px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 110px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>创新药 <span>2026下半年全景分析</span></h1>
+  <div class="subtitle">China Innovative Drug Sector — 产业 · 政策 · 临床 · 投资四维深度研判</div>
+  <div class="codes">
+    <span>📊 产业分析</span><span>创新药</span><span>ADC/双抗/小核酸</span><span>2026H2展望</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-07-28</span>
+    <span>创新药指数PE 2.9%分位</span>
+    <span>BD交易 ~1000亿美元（H1）</span>
+    <span>47项ESMO口头报告</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">全部展开 / 全部折叠</button>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">产业研判</div>
+  <div class="v-big">🟢 窗口期（估值修复 → 等待反转确认）</div>
+  <div class="v-desc">
+    创新药处于 <strong>"四重共振"</strong>：估值历史最低 + 出海爆发（H1 BD ~1000亿美元）+ 政策全链条支持 + 盈利拐点确认。<br>
+    当前是超跌修复窗口，全面反转需等待 11月康方FDA审批 + 海外商业化利润兑现（2028-2029）。
+  </div>
+  <div class="v-details">
+    <span>ETF配置区间：<strong style="color:var(--green);">逢低分批</strong></span>
+    <span>核心催化剂：<strong style="color:var(--accent);">11月14日 康方FDA PDUFA</strong></span>
+    <span>仓位建议：<strong>总仓位 10-15%</strong></span>
+    <span>策略：<strong>趁回调建仓，不追涨</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num green">2.9%</div><div class="label">创新药指数PE历史分位</div></div>
+      <div class="stat-tile"><div class="num green">~$1000亿</div><div class="label">2026H1 BD交易总额</div></div>
+      <div class="stat-tile"><div class="num">47项</div><div class="label">ESMO中国口头报告（新高）</div></div>
+      <div class="stat-tile"><div class="num green">+85.64%</div><div class="label">2025行业净利润增速</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num">16款</div><div class="label">创新药首次入基药目录</div></div>
+      <div class="stat-tile"><div class="num green">¥500亿</div><div class="label">集采腾出医保空间</div></div>
+      <div class="stat-tile"><div class="num yellow">3.95%</div><div class="label">公募医药持仓（扣除医药基金）</div></div>
+      <div class="stat-tile"><div class="num">19.9x</div><div class="label">MSCI中国医药前瞻PE</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: 7月重大事件 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、2026年7月 — 最近发生了什么</h2>
+  <div class="section-body">
+
+    <h3>1.1 🔥 政策里程碑：基药目录 + 双支付体系</h3>
+    <table>
+      <tr><th width="200">政策</th><th>核心内容</th><th>影响</th></tr>
+      <tr><td><strong>基药目录2026版</strong></td><td>八年来首次修订，16款创新药首次大规模入围，定位从"保基本"升级为"保基本+促创新"</td><td><span class="tag tag-green">重大利好</span></td></tr>
+      <tr><td><strong>集采第十二批</strong></td><td>预计腾出约500亿元医保资金空间，专项支持创新药支付</td><td><span class="tag tag-green">定向输血</span></td></tr>
+      <tr><td><strong>1类新药保护</strong></td><td>专利期内1类创新药不纳入集采，8年价格锁定机制</td><td><span class="tag tag-green">定价保护</span></td></tr>
+      <tr><td><strong>双支付体系</strong></td><td>"基本医保+商业保险"并行，商保创新药目录独立评审落地，高值新药有第二支付通道</td><td><span class="tag tag-green">商业化痛点打通</span></td></tr>
+      <tr><td><strong>CGT审批加速</strong></td><td>细胞与基因治疗药品审评审批压缩至30个工作日</td><td><span class="tag tag-green">前沿技术催化</span></td></tr>
+    </table>
+
+    <h3>1.2 🔬 FDA 7月审批潮 — 6款新药集中裁决</h3>
+    <table>
+      <tr><th>药物</th><th>公司</th><th>适应症</th><th>结果</th><th>意义</th></tr>
+      <tr><td><strong>Orca-T</strong></td><td>Orca Bio</td><td>血液肿瘤（细胞疗法）</td><td><span class="tag tag-green">✅ 提前获批</span></td><td>细胞治疗范式跃迁：1年生存率94% vs 83%</td></tr>
+      <tr><td><strong>Gedatolisib</strong></td><td>Celcuity</td><td>PIK3CA野生型乳腺癌</td><td>待裁决</td><td>PFS从2.0月→9.3月，PI3K/mTOR全覆盖</td></tr>
+      <tr><td><strong>Rivoceranib+卡瑞利珠</strong></td><td>恒瑞/Elevar</td><td>一线肝癌</td><td><span class="tag tag-red">❌ 第三次CRL</span></td><td>非临床数据问题，cGMP合规是出海隐性门槛</td></tr>
+      <tr><td><strong>Centanafadine</strong></td><td>大冢制药</td><td>ADHD</td><td>待裁决</td><td>三重再摄取抑制剂，填补共病需求</td></tr>
+      <tr><td><strong>Atacicept</strong></td><td>Vera Therapeutics</td><td>IgA肾病</td><td>待裁决</td><td>BAFF/APRIL双靶，UPCR降46%</td></tr>
+    </table>
+
+    <h3>1.3 💊 中国创新药重大数据</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>康方生物依沃西（AK112）🔥：</strong>全球III期HARMONi研究OS HR改善至<strong>0.76</strong>，西方人群同样0.76（此前0.98），东西方获益首次统一。数据已提交FDA，PDUFA 11月14日。这是中国创新药首次在西方人群中系统性验证疗效——如果获批，行业估值体系可能重估。</li>
+      <li><strong>百济神州泽布替尼：</strong>MCL初治III期（MANGROVE）积极结果，计划下半年申报</li>
+      <li><strong>恒瑞医药SHR-4375：</strong>TF ADC获FDA孤儿药资格（胰腺癌），享7年市场独占权</li>
+      <li><strong>ASCO 2026：</strong>中国94项口头报告 + 12项LBA入选，创历史新高。康方HARMONi-6入选全体会议</li>
+      <li><strong>ESMO 2026：</strong>中国47项口头报告，ADC/双抗赛道全球竞争力持续验证</li>
+    </ul>
+
+    <div class="key-insight">
+      <strong>核心信号：恒瑞"双艾"三收CRL的警示</strong> — FDA 2025财年海外突击检查233次（+45%），通过率仅52%。好数据≠能获批，cGMP生产合规是出海的最核心隐性门槛。这是中国创新药出海必须跨越的"成人礼"。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: 未来半年催化剂 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、未来半年关键催化剂时间线</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">7月28日-8月</div>
+      <div class="tl-body">
+        <div class="tl-title">🔵 半年报业绩窗口期</div>
+        <div class="tl-desc">康方生物预计上半年扭亏为盈（净利润~4600万）；百济神州泽布替尼全球放量持续；信达生物PD-1商业化创新高。验证盈利拐点逻辑。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">8月17日</div>
+      <div class="tl-body">
+        <div class="tl-title">🟡 默沙东 KEYTRUDA QLEX PDUFA</div>
+        <div class="tl-desc">K药新剂型审批，影响PD-1赛道情绪，但对国内创新药直接影响有限。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">9月</div>
+      <div class="tl-body">
+        <div class="tl-title">🟡 WCLC（肺癌）+ EASD（糖尿病代谢）</div>
+        <div class="tl-desc">恒瑞GLP-1小分子Safiglipron III期RENEW-CKD数据（CKD合并糖尿病）；科伦博泰sac-TMT NSCLC数据更新。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">10月</div>
+      <div class="tl-body">
+        <div class="tl-title">🔴 ESMO年会（最重要学术会议）</div>
+        <div class="tl-desc">中国47项口头报告创新高。康方依沃西、百济泽布替尼、科伦博泰ADC数据集中读出。<strong>这是验证中国创新药管线质量的最重要窗口。</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">10月10日</div>
+      <div class="tl-body">
+        <div class="tl-title">🟡 默沙东/第一三共 I-DXd PDUFA</div>
+        <div class="tl-desc">ADC赛道重要风向标，影响科伦博泰等国产ADC估值。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">11月14日</div>
+      <div class="tl-body">
+        <div class="tl-title">🔴🔴 康方生物依沃西 FDA PDUFA（年度最重磅！）</div>
+        <div class="tl-desc">中国原创双抗首次冲击FDA批准。若获批：①行业估值体系从"中国故事"升级为"全球资产"；②康方市值可能翻倍；③带动整个创新药板块20-30%+上涨。若被拒：板块短期回调10-15%。<strong>这是2026年创新药投资的核心赌注。</strong></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">Q4</div>
+      <div class="tl-body">
+        <div class="tl-title">🔵 百济神州泽布替尼 MCL III期申报</div>
+        <div class="tl-desc">MANGROVE研究积极结果 → 下半年向FDA/NMPA提交sNDA，拓展泽布替尼第三个大适应症。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">11-12月</div>
+      <div class="tl-body">
+        <div class="tl-title">🔵 2026年国家医保谈判</div>
+        <div class="tl-desc">基药目录后的首次国谈，创新药准入周期大幅压缩。关注新入围品种的降价幅度。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">持续</div>
+      <div class="tl-body">
+        <div class="tl-title">🟢 BD交易/出海授权</div>
+        <div class="tl-desc">H1已达~1000亿美元（2024全年2倍）。下半年继续关注恒瑞、百济、科伦博泰、荣昌等的大额BD。交易模式从license-out向Co-Co全球共研升级。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 投资机会 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、投资机会分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 为什么现在是窗口期？— "四重共振"</h3>
+    <div class="grid-2">
+      <div class="stat-tile" style="text-align:left;padding:20px;">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">① 估值底</div>
+        <div style="font-size:0.88em;color:var(--text2);">创新药指数PE处于历史<strong>2.9%分位</strong>；MSCI中国医药前瞻PE 19.9x，较2021年高点59x降<strong>66%</strong>；公募医药持仓扣除医药基金后仅<strong>3.95%</strong>，历史最低区间</div>
+      </div>
+      <div class="stat-tile" style="text-align:left;padding:20px;">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">② 产业爆发</div>
+        <div style="font-size:0.88em;color:var(--text2);">H1 BD交易~<strong>1000亿美元</strong>（2024全年2倍）；中国贡献全球<strong>70% ADC</strong>、<strong>60%双抗</strong>管线；H1获批38个1类创新药，11个新靶点均为国产</div>
+      </div>
+      <div class="stat-tile" style="text-align:left;padding:20px;">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">③ 政策全链条支持</div>
+        <div style="font-size:0.88em;color:var(--text2);">政府工作报告首提生物医药为<strong>"新兴支柱产业"</strong>；基药目录+双支付体系+8年价格锁定+集采专项输血，政策方向从"控费"全面转向"支持创新"</div>
+      </div>
+      <div class="stat-tile" style="text-align:left;padding:20px;">
+        <div style="font-weight:700;color:var(--accent);margin-bottom:8px;">④ 盈利拐点确认</div>
+        <div style="font-size:0.88em;color:var(--text2);">2025年行业净利<strong>+85.64%</strong>；超70%药企营收正增长；恒瑞、百济、信达等扭亏；产业资本年内回购近<strong>130亿元</strong></div>
+      </div>
+    </div>
+
+    <h3>3.2 五大投资主线</h3>
+    <table>
+      <tr><th width="30">#</th><th>主线</th><th>逻辑</th><th>代表标的</th><th>催化剂</th></tr>
+      <tr>
+        <td>①</td>
+        <td><strong>ADC/双抗/小核酸</strong></td>
+        <td>中国全球竞争力最强的赛道，贡献全球70% ADC管线</td>
+        <td>科伦博泰、康方生物、荣昌生物</td>
+        <td>ESMO数据 + FDA审批</td>
+      </tr>
+      <tr>
+        <td>②</td>
+        <td><strong>头部盈利药企</strong></td>
+        <td>从PS估值切换到PE估值，盈利持续增长的确定性高</td>
+        <td>百济神州、恒瑞医药、信达生物</td>
+        <td>半年报 + 商业化放量</td>
+      </tr>
+      <tr>
+        <td>③</td>
+        <td><strong>BD/出海兑现</strong></td>
+        <td>全球化商业化是行业核心逻辑，交易从license-out升级为Co-Co</td>
+        <td>百济神州（泽布替尼）、康方（依沃西）</td>
+        <td>FDA PDUFA + 新BD公告</td>
+      </tr>
+      <tr>
+        <td>④</td>
+        <td><strong>CXO 卖水人</strong></td>
+        <td>订单能见度高、业绩确定性强，创新药研发的"铲子"生意</td>
+        <td>药明康德、康龙化成、泰格医药</td>
+        <td>订单数据 + 产能利用率</td>
+      </tr>
+      <tr>
+        <td>⑤</td>
+        <td><strong>创新器械</strong></td>
+        <td>关注度低、估值低、基本面转好，存在预期差</td>
+        <td>微创医疗、联影医疗</td>
+        <td>集采边际改善</td>
+      </tr>
+    </table>
+
+    <h3>3.3 投资工具选择</h3>
+    <table>
+      <tr><th>工具</th><th>代码</th><th>特点</th><th>适合场景</th></tr>
+      <tr><td>科创创新药ETF</td><td>589720</td><td>聚焦科创板创新药，纯度高，弹性大</td><td>看好创新药Beta行情</td></tr>
+      <tr><td>港股通创新药ETF</td><td>159570</td><td>港股创新药估值更低（仅为美股1/10），弹性更大</td><td>追求弹性 + 全球化标的</td></tr>
+      <tr><td>创业板医药ETF</td><td>159377</td><td>覆盖面更广，包括器械+CXO+药</td><td>不想赌单一赛道</td></tr>
+      <tr><td>创新药ETF易方达</td><td>516080</td><td>A股创新药龙头集中，流动性好</td><td>稳健配置</td></tr>
+    </table>
+
+    <h3>3.4 已覆盖标的关联</h3>
+    <table>
+      <tr><th>标的</th><th>代码</th><th>已有评级</th><th>创新药关联</th><th>下半年看点</th></tr>
+      <tr>
+        <td><strong>百济神州</strong></td>
+        <td>688235.SH / 6160.HK</td>
+        <td>⚡ 观察</td>
+        <td>最纯正创新药标的，泽布替尼全球放量</td>
+        <td>MCL III期申报 + ESMO数据 + 半年报扭亏确认</td>
+      </tr>
+      <tr>
+        <td><strong>云南白药</strong></td>
+        <td>000538.SZ</td>
+        <td>⚡ 观察</td>
+        <td>核药INR101/INB301（创新药期权，非主线）</td>
+        <td>INR101 III期入组进展</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 4: 风险 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、风险全景</h2>
+  <div class="section-body">
+
+    <h3>4.1 风险矩阵</h3>
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响程度</th><th>详情</th></tr>
+      <tr>
+        <td><strong>FDA海外工厂监管全面收紧</strong></td>
+        <td><span class="tag tag-yellow">中高</span></td>
+        <td><span class="tag tag-red">高</span></td>
+        <td>2025财年FDA海外突击检查233次（+45%），通过率仅52%。恒瑞"双艾"三收CRL是典型案例——cGMP合规是出海最大瓶颈</td>
+      </tr>
+      <tr>
+        <td><strong>11月康方FDA审批结果</strong></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td><span class="tag tag-red">极高</span></td>
+        <td>依沃西若被拒，板块短期回调10-15%；若获批，行业估值重估。这是2026年创新药最大的Binary Event</td>
+      </tr>
+      <tr>
+        <td><strong>BD退货潮 / 里程碑落空</strong></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td>诺诚健华奥布替尼被Biogen退回等案例警示：早期BD交易的部分里程碑付款可能永远无法兑现</td>
+      </tr>
+      <tr>
+        <td><strong>流动性跷跷板</strong></td>
+        <td><span class="tag tag-yellow">中高</span></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td>创新药涨跌高度依赖资金面。若科技/AI板块重新走强，资金可能回流，创新药行情昙花一现</td>
+      </tr>
+      <tr>
+        <td><strong>临床数据不及预期</strong></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td><span class="tag tag-red">高</span></td>
+        <td>ESMO数据若大面积不及预期，将动摇"中国创新药全球竞争力"的核心逻辑</td>
+      </tr>
+      <tr>
+        <td><strong>地缘政治（生物安全法案）</strong></td>
+        <td><span class="tag tag-green">低</span></td>
+        <td><span class="tag tag-red">灾难级</span></td>
+        <td>美国生物安全法案反复，可能限制中国药企在美业务。概率低但一旦发生，板块可能腰斩</td>
+      </tr>
+      <tr>
+        <td><strong>盈利持续性存疑</strong></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td><span class="tag tag-yellow">中</span></td>
+        <td>2025年盈利爆发部分来自一次性BD首付款，剔除非经常性损益后，持续性需半年报验证</td>
+      </tr>
+    </table>
+
+    <h3>4.2 情景分析</h3>
+
+    <div class="key-insight red">
+      <strong>🔴 悲观情景（概率 ~15-20%）："双杀"</strong><br>
+      11月康方依沃西被FDA拒绝（cGMP问题或数据不足）+ 下半年BD交易额环比大幅回落 → 创新药"出海逻辑"被阶段性证伪 → 估值从2.9%分位再下杀20-30%。<br>
+      <strong>信号：</strong>中秋前后BD节奏明显放缓 + ESMO数据平庸 + FDA审批前出现负面消息。
+    </div>
+
+    <div class="key-insight yellow">
+      <strong>🟡 基准情景（概率 ~50-55%）：缓慢修复</strong><br>
+      行业在2026H2-2027H1缓慢企稳，BD交易维持活跃（但增速放缓），ESMO数据基本符合预期，康方FDA审批有波折但最终获批（可能延迟而非拒绝）→ PE从2.9%分位修复至15-20%分位 → 板块温和上涨15-25%。<br>
+      <strong>信号：</strong>BD继续活跃但无超预期大单 + ESMO数据符合预期 + 康方审批按流程推进。
+    </div>
+
+    <div class="key-insight green">
+      <strong>🟢 乐观情景（概率 ~25-30%）："双击"反转</strong><br>
+      依沃西11月获FDA批准 + ESMO数据大超预期 + 下半年BD突破1500亿美元 → 创新药从"超跌修复"升级为"趋势反转" → 估值从2.9%分位修复至40-50%分位 → 板块上涨50%+。<br>
+      <strong>信号：</strong>ESMO出现Best-in-class数据 + 大额BD（单笔>$50亿）频出 + 康方审批前FDA沟通积极。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: 操作建议 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、操作策略</h2>
+  <div class="section-body">
+
+    <h3>5.1 总体策略</h3>
+    <div class="key-insight green">
+      <strong>趁回调建仓，不追涨。</strong> 创新药ETF在6月下旬至7月上旬已单周暴涨15%，短线不宜追高。但估值仍在历史底部区域，任何5-8%的回调都是加仓机会。核心仓位建在港股创新药ETF（估值更低、弹性更大）。
+    </div>
+
+    <h3>5.2 仓位建议</h3>
+    <table>
+      <tr><th>配置</th><th>仓位</th><th>工具</th><th>逻辑</th></tr>
+      <tr><td>创新药ETF（Beta）</td><td><strong>5-8%</strong></td><td>港股通创新药ETF (159570)</td><td>行业Beta + 港股估值折价修复</td></tr>
+      <tr><td>核心标的（Alpha）</td><td><strong>3-5%</strong></td><td>百济神州（已有）+ 可考虑康方生物</td><td>最确定性的出海标的</td></tr>
+      <tr><td>CXO补充</td><td><strong>2-3%</strong></td><td>药明康德 / 康龙化成</td><td>订单能见度高，防御性更强</td></tr>
+      <tr><td><strong>创新药总仓位上限</strong></td><td><strong>10-15%</strong></td><td colspan="2">高风险高回报，严格控制在组合15%以内</td></tr>
+    </table>
+
+    <h3>5.3 建仓节奏</h3>
+    <div class="tl-item">
+      <div class="tl-time">7月底-8月</div>
+      <div class="tl-body">
+        <div class="tl-title">先建3-4%底仓</div>
+        <div class="tl-desc">趁半年报窗口期的震荡回调，先建ETF底仓。不追涨（已涨15%），等回调5-8%再动手。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">9-10月</div>
+      <div class="tl-body">
+        <div class="tl-title">ESMO前加仓至6-8%</div>
+        <div class="tl-desc">在ESMO数据读出前1-2周加仓，博数据超预期。如果9月板块因流动性跷跷板回调，是更好的加仓时机。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">11月初</div>
+      <div class="tl-body">
+        <div class="tl-title">康方FDA审批前评估</div>
+        <div class="tl-desc">这是最大的Binary Event。若ESMO数据好+FDA沟通积极，可适度加仓至10%；若有负面信号，减仓至5%以下。审批结果出来后：获批→持有等涨；被拒→果断减仓。</div>
+      </div>
+    </div>
+
+    <h3>5.4 退出条件</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>估值修复完成：</strong>创新药指数PE回到历史40-50%分位以上（约25-30x PE），开始分批减仓</li>
+      <li><strong>逻辑破坏：</strong>康方FDA被拒 + ESMO数据大面积不及预期 → 出海逻辑阶段性证伪 → 清仓</li>
+      <li><strong>系统性风险：</strong>生物安全法案实质性通过、中美脱钩升级 → 无条件清仓</li>
+      <li><strong>机会成本：</strong>发现风险回报比更优的资产，果断换仓</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>创新药 2026下半年全景分析 | 2026-07-28</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：FDA、CDE、公司公告、券商研报（中信、中金、中泰、银河等）、医药魔方、PhIRDA</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(heading) {
+  heading.classList.toggle('collapsed');
+  var body = heading.nextElementSibling;
+  if (body) {
+    body.classList.toggle('collapsed');
+  }
+}
+function toggleAll() {
+  var headings = document.querySelectorAll('.card h2');
+  var bodies = document.querySelectorAll('.section-body');
+  var anyOpen = false;
+  bodies.forEach(function(b) { if (!b.classList.contains('collapsed')) anyOpen = true; });
+  headings.forEach(function(h) {
+    if (anyOpen) { h.classList.add('collapsed'); } else { h.classList.remove('collapsed'); }
+  });
+  bodies.forEach(function(b) {
+    if (anyOpen) { b.classList.add('collapsed'); } else { b.classList.remove('collapsed'); }
+  });
+}
+</script>
+</body>
+</html>
