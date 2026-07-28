@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泸州老窖 (000568.SZ) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  .verdict-box {
+    background: linear-gradient(135deg, var(--yellow-bg), #fff);
+    border: 2px solid var(--yellow);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 100px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>泸州老窖 <span>价值投资分析</span></h1>
+  <div class="subtitle">Luzhou Laojiao — "浓香鼻祖" 国窖1573 + 双品牌三品系 + 高股息白酒龙头</div>
+  <div class="codes">
+    <span>000568.SZ</span><span>白酒·高端消费</span><span>深交所主板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-07-28</span>
+    <span>¥86.35</span>
+    <span>市值 ¥1,271亿</span>
+    <span>数据截止 2026Q1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">全部展开 / 全部折叠</button>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big watch">⚡ 观察（偏积极）</div>
+  <div class="v-desc">
+    国窖1573稳居高端白酒前三，"控量挺价"保护品牌长期价值。<br>
+    当前 PE ~12x 处于历史低位，85 亿保底分红提供 ~7% 股息率安全垫，下行风险有限。<br>
+    但行业调整尚未见底，2026 年营收/净利仍双位数下滑，需等待复苏信号确认。
+  </div>
+  <div class="v-details">
+    <span>买入区间：<strong style="color:var(--green);">¥70~80</strong></span>
+    <span>当前价：<strong style="color:var(--yellow);">¥86.35</strong></span>
+    <span>合理价值：<strong>¥90~120</strong></span>
+    <span>仓位：<strong>5~8%</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num">¥86.35</div><div class="label">当前股价（2026-07-28）</div></div>
+      <div class="stat-tile"><div class="num">¥1,271亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num green">~12.4x</div><div class="label">PE（TTM）</div></div>
+      <div class="stat-tile"><div class="num">2.39x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num red">¥257.31亿</div><div class="label">2025年营收（-17.52%）</div></div>
+      <div class="stat-tile"><div class="num red">¥108.31亿</div><div class="label">2025年归母净利润（-19.61%）</div></div>
+      <div class="stat-tile"><div class="num green">22.66%</div><div class="label">ROE（加权）</div></div>
+      <div class="stat-tile"><div class="num green">~7.4%</div><div class="label">股息率（85亿/年保底）</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num red">¥80.25亿</div><div class="label">2026Q1营收（-14.19%）</div></div>
+      <div class="stat-tile"><div class="num red">¥37.08亿</div><div class="label">2026Q1净利（-19.25%）</div></div>
+      <div class="stat-tile"><div class="num green">85.82%</div><div class="label">综合毛利率</div></div>
+      <div class="stat-tile"><div class="num green">46.48%</div><div class="label">净利率</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: 生意理解 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>泸州老窖是中国白酒行业的<strong>"浓香鼻祖"</strong>，拥有始建于公元 1573 年的国宝窖池群（持续酿造超 450 年），是行业内唯一同时拥有<strong>"活态双国宝"</strong>（1573 国宝窖池群 + 泸州老窖酒传统酿制技艺）的企业。其核心高端品牌<strong>国窖1573</strong>稳居中国高端白酒前三甲（飞天茅台 > 五粮液普五 > 国窖1573），在千元价格带拥有约 12-15% 的稳固份额。</p>
+    <p>公司以"双品牌（国窖1573 + 泸州老窖）、三品系（国窖系列、特曲系列、窖龄/头曲/黑盖系列）、大单品"为战略架构。2025 年中高档酒营收占比 89.26%，毛利率高达 90.94%，是典型的<strong>品牌消费品公司</strong>——卖的是千年酿酒文化 + 百年品牌心智，而非简单的酒精饮料。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          用<strong>450 年不间断酿造的国宝窖池 + "浓香鼻祖"品牌心智</strong>，卖出高毛利的国窖1573 和泸州老窖系列白酒。核心逻辑：<strong>品牌=定价权，老窖池=稀缺产能，传统文化=消费者不可替代的情感价值。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河</h4>
+        <div class="key-insight">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          泸州老窖的护城河是 <strong>"活态双国宝 × 高端品牌心智 × 百年老窖池不可复制"</strong> 三位一体。1573 国宝窖池群持续酿造 450+ 年，微生物群落无法人工复制；国窖1573 经过 20+ 年品牌建设，已深植"高端浓香白酒"的消费者心智。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 商业模式拆解</h3>
+    <table>
+      <tr><th width="140">维度</th><th>特征</th></tr>
+      <tr><td>收入结构</td><td>中高档酒（国窖1573+特曲+窖龄）占 89.26%，毛利率 90.94%；低档酒（头曲/二曲/黑盖）占 10.25%</td></tr>
+      <tr><td>核心客户</td><td>B2B：经销商体系（传统渠道）；B2C：宴席、商务宴请、礼品、个人消费。近年大众消费占比持续提升</td></tr>
+      <tr><td>成本结构</td><td>高粱/小麦等粮食 + 包装 + 人工。毛利率 ~86%，原材料成本占比极低，品牌溢价是利润核心</td></tr>
+      <tr><td>利润驱动</td><td>① 国窖1573 的"量×价"双轮驱动；② 产品结构升级（中高档占比提升）；③ 渠道精细化带来的费用率优化</td></tr>
+      <tr><td>盈利杠杆</td><td>核心是<strong>定价权</strong>：国窖1573 每提价10%，在其他条件不变下，净利润可增长约15-18%</td></tr>
+      <tr><td>行业特征</td><td>高端白酒 CR3（茅台+五粮液+国窖）超 94%，存量竞争但格局稳定。行业年规模约 6000+ 亿，高端部分约 2000 亿</td></tr>
+    </table>
+
+    <h3>1.3 主营业务构成</h3>
+    <table>
+      <tr><th>产品类别</th><th>2025 营收</th><th>占比</th><th>同比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>中高档酒类</strong></td><td>¥229.68亿</td><td>89.26%</td><td>-16.74%</td><td>90.94%</td><td>核心利润引擎</td></tr>
+      <tr><td>其中：国窖1573（52度+38度）</td><td>~160亿</td><td>~62%</td><td>—</td><td>>92%</td><td>高端标杆，品牌锚</td></tr>
+      <tr><td>其中：泸州老窖特曲/窖龄</td><td>~70亿</td><td>~27%</td><td>—</td><td>~85%</td><td>腰部支撑，百亿系列</td></tr>
+      <tr><td><strong>其他酒类</strong></td><td>¥26.38亿</td><td>10.25%</td><td>-23.93%</td><td>~50%</td><td>大众市场，品牌塔基</td></tr>
+    </table>
+
+    <div class="key-insight" style="margin-top:12px;">
+      <strong>商业模式本质</strong>：泸州老窖做的是 <strong>"文化奢侈品"</strong> 生意。国窖1573 不只是一瓶酒，它是 450 年不间断酿造历史的物质载体，是高端社交场合的"面子货币"。和爱马仕、茅台类似——消费者买的不是产品功能，而是身份信号和文化价值。这种生意的好处是：品牌一旦立住，定价权极强，边际成本极低（一吨酒的成本不到售价的 15%），越老越值钱。
+    </div>
+
+    <details>
+      <summary>深度理解：国窖1573 为什么能站住千元价格带？</summary>
+      <div class="detail-body">
+        <p>在中国白酒行业，千元价格带是高端白酒的"入场券"。国窖1573 能在这个价格带站稳，背后是三重壁垒的叠加：</p>
+        <p><strong>1. 历史不可复制：</strong>1573 国宝窖池群（全国重点文物保护单位）自明朝万历年间持续酿造至今从未间断，窖泥中的微生物群落经过 450+ 年自然驯化，是新窖池永远无法短期复制的。这是"浓香型白酒越老越香"的物质基础。</p>
+        <p><strong>2. "浓香鼻祖"的品牌占位：</strong>1952 年第一届全国评酒会，泸州老窖被评为"中国四大名酒"之一，是浓香型白酒的"标准制定者"。这个历史地位使得国窖1573 天然拥有"高端浓香"的品类话语权。</p>
+        <p><strong>3. 20 年持续品牌投入：</strong>2001 年国窖1573 上市以来，公司在品牌建设上持续投入（高端品鉴会、七星盛宴、文化IP联名），已形成稳定的高端消费认知。在商务宴请场景，"茅台 > 五粮液 > 国窖1573"的认知排序虽居第三，但第三名也是千亿级别的市场空间。</p>
+        <p><strong>4. 低度化的差异化先发优势：</strong>38度国窖1573 已成为行业首个百亿级低度大单品，在河北等核心市场的高端低度份额超 70%。"低度≠低端"的消费者教育，国窖是最早也是最强的一家。</p>
+        <p>段永平说："好生意就是别人很难抢你饭碗的生意。"国窖1573 的历史、窖池、品牌三重壁垒，使得想抢夺它位置的人需要投入数十年——这是一条极宽的时间护城河。</p>
+      </div>
+    </details>
+
+    <h3>1.4 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>老窖池稀缺性</td><td>⭐⭐⭐⭐⭐</td><td>450+ 年持续酿造的国宝窖池群，微生物群落无法人工复制。新进入者即便投入万亿，也买不到时间</td></tr>
+      <tr><td>品牌心智占有</td><td>⭐⭐⭐⭐☆</td><td>"浓香鼻祖"历史地位稳固，国窖1573 稳居高端前三。但在普通消费者心中排序弱于茅台/五粮液</td></tr>
+      <tr><td>高端白酒格局</td><td>⭐⭐⭐⭐⭐</td><td>高端浓香 CR3 >94%，格局极稳。国窖1573 是少数几个能进入高端商务宴请的"安全选择"</td></tr>
+      <tr><td>定价权</td><td>⭐⭐⭐⭐☆</td><td>国窖1573 能挺价 900 元+，毛利率 92%+。但在行业下行期挺价面临份额流失压力</td></tr>
+      <tr><td>渠道掌控力</td><td>⭐⭐⭐⭐☆</td><td>五码合一数字化 + 精细化渠道管理，经销商体系稳定。但当前库存压力主要在经销商端</td></tr>
+      <tr><td>产品矩阵</td><td>⭐⭐⭐⭐☆</td><td>38度国窖（百亿级）+ 特曲系列（百亿级）+ 黑盖（大众探索），高中低布局完整</td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>综合护城河评级：宽</strong> — 泸州老窖的护城河核心是"时间壁垒"（老窖池）+ "心智壁垒"（浓香鼻祖）+ "格局壁垒"（CR3 >94%）。三条护城河叠加，意味着国窖1573 在可见的未来都将是千元价格带的核心玩家。最大的风险不是竞争，而是行业需求结构变化（如年轻人不喝白酒）。
+    </div>
+
+    <h3>1.5 关键财务特征</h3>
+    <p>泸州老窖的财务画像：<strong>超高毛利率 + 轻资产 + 强现金流 + 高分红</strong>，是典型的"经济商誉驱动型"公司。</p>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>毛利率 85.82%</strong>，中高档酒毛利率 90.94%——堪比奢侈品（爱马仕毛利率 ~72%，茅台 ~92%）</li>
+      <li><strong>净利率 46.48%</strong>——即便在行业调整期，每赚 100 元营收，有 46.48 元是纯利</li>
+      <li><strong>ROE 22.66%</strong>（2025，下降中但仍超 20%）——近五年平均 ROE >28%，资本回报率极高</li>
+      <li><strong>资产负债率 23%</strong>——几乎零有息负债，净现金状态</li>
+      <li><strong>2025 年分红 ~85 亿</strong>，占净利润 78.5%，连续三年提升分红比例</li>
+      <li><strong>经营现金流</strong>：2025 年 71.23 亿（同比 -62.86%），主因是营收下降 + 渠道回款放缓，但 2026Q1 已恢复至 45.4 亿（+37.3% YoY），改善明显</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 2: 管理层评估 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>刘淼</strong></td><td>董事长（57岁）</td><td>1991 年加入泸州老窖，从基层做起，2015 年出任董事长。提出"重回行业前三"战略目标</td><td><span class="tag tag-green">战略定力强</span></td></tr>
+      <tr><td><strong>林锋</strong></td><td>总经理（53岁）</td><td>1995 年加入公司，从销售一线成长。主导国窖1573 品牌建设。公开表示自己持有大量公司股票，与股东利益一致</td><td><span class="tag tag-green">务实敢言</span></td></tr>
+      <tr><td><strong>李勇</strong></td><td>董秘/财务负责人</td><td>在 2026 年股东会上明确表态："85 亿保底分红完全没问题"</td><td><span class="tag tag-blue">执行力强</span></td></tr>
+    </table>
+
+    <h3>2.2 管理层评估维度</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>战略定力</td><td>⭐⭐⭐⭐⭐</td><td>在全行业降价冲量时，坚持国窖1573"控量挺价"，宁可牺牲短期业绩也要保护品牌长期价值。林锋明确说"不会复刻上轮周期"</td></tr>
+      <tr><td>股东回报</td><td>⭐⭐⭐⭐⭐</td><td>2024-2026 年分红承诺不低于 85 亿/年，分红率从 65% → 70% → 75%+ 逐年提升。2025 年实际分红率 78.5%，超过承诺</td></tr>
+      <tr><td>战略眼光</td><td>⭐⭐⭐⭐☆</td><td>提前布局低度化赛道，38度国窖1573 已是百亿级大单品；年份酒扩容、数字化五码合一均走在行业前列</td></tr>
+      <tr><td>执行力</td><td>⭐⭐⭐⭐☆</td><td>过去十年完成渠道重构、消费者运营、组织架构升级。在行业下行期坚守价格底线，Q4 宁可收入大幅下滑也不降价放量</td></tr>
+      <tr><td>诚信度</td><td>⭐⭐⭐⭐☆</td><td>无重大负面事件，分红承诺兑现到位。林锋公开谈自己持股亏损，坦诚面对股东</td></tr>
+      <tr><td>创新能力</td><td>⭐⭐⭐⭐☆</td><td>38度国窖1573（百亿低度大单品）、28度高光品牌、数字化五码合一、工业4.0 黄舣园区，创新力在白酒行业中领先</td></tr>
+    </table>
+
+    <div class="key-insight green">
+      <strong>管理层综合评价：优秀</strong> — 刘淼+林锋组合在白酒行业属于第一梯队。他们在行业上行期没有盲目扩产（2020-2023 年克制增长），在下行期敢逆势挺价保护品牌，体现了极强的战略定力和长期主义思维。林锋公开持股表态、李勇承诺 85 亿分红底线，管理层与股东利益高度一致。最大的风险不是管理层能力，而是行业调整的时间和深度超出了管理层的掌控范围。
+    </div>
+
+    <details>
+      <summary>深度：林锋的"挺价"逻辑值得信任吗？</summary>
+      <div class="detail-body">
+        <p>2025-2026 年，当五粮液通过渠道补贴"暗降"抢份额时，林锋坚持国窖1573 不降价。他的逻辑是：</p>
+        <p><strong>1. 本轮调整与上一轮不同：</strong>2012-2014 年是政策冲击（三公消费禁令），是短期的外部冲击，降价等复苏是对的。但本轮是长期的消费结构转型（政企团购退潮 → 个人消费接棒），如果降价，品牌一旦降级就再也回不来了。他引用日本酒类市场 1973-1994 年近二十年的调整来类比。</p>
+        <p><strong>2. "不降价卖不了"已被证伪：</strong>2026 年春节前后，52度国窖1573 在不降价的情况下仍实现了良好动销。说明真正认可国窖品牌的消费者对价格不敏感——这正是品牌力的体现。</p>
+        <p><strong>3. 三年五年维度验证：</strong>林锋自己说，挺价效果需要以三至五年的维度来验证。短期看（2025-2026），确实牺牲了业绩（双位数下滑）；长期看，如果国窖1573 因此稳住了千元价格带的品牌锚定，那就是战略性的胜利。</p>
+        <p><strong>个人判断：</strong>林锋的逻辑是通的，但前提是行业复苏在 2026H2-2027 年如期到来。如果行业低迷再持续 2-3 年，挺价策略下的库存压力可能倒逼公司松动。这是一个"方向对但时间不确定"的赌注。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2020</th><th>2021</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>166.53</td><td>203.84</td><td>302.33</td><td>311.96</td><td>257.31</td><td><span class="tag tag-yellow">首次下滑</span></td></tr>
+      <tr><td>归母净利润（亿元）</td><td>60.06</td><td>78.49</td><td>132.46</td><td>134.73</td><td>108.31</td><td><span class="tag tag-red">-19.61%</span></td></tr>
+      <tr><td>扣非净利润（亿元）</td><td>59.91</td><td>78.05</td><td>131.74</td><td>134.00</td><td>107.60</td><td><span class="tag tag-red">-19.70%</span></td></tr>
+      <tr><td>ROE（加权）</td><td>28.27%</td><td>30.80%</td><td>35.07%</td><td>30.44%</td><td>22.66%</td><td><span class="tag tag-yellow">高位回落</span></td></tr>
+      <tr><td>综合毛利率</td><td>~83%</td><td>~85%</td><td>~87%</td><td>87.54%</td><td>86.62%</td><td><span class="tag tag-green">基本稳定</span></td></tr>
+      <tr><td>净利率</td><td>~36%</td><td>~38.5%</td><td>~43.8%</td><td>43.27%</td><td>42.21%</td><td><span class="tag tag-green">高位微降</span></td></tr>
+      <tr><td>经营现金流（亿元）</td><td>—</td><td>—</td><td>—</td><td>191.82</td><td>71.23</td><td><span class="tag tag-red">大幅下滑</span></td></tr>
+      <tr><td>资产负债率</td><td>—</td><td>—</td><td>—</td><td>30.48%</td><td>23.00%</td><td><span class="tag tag-green">财务更保守</span></td></tr>
+    </table>
+
+    <h3>3.2 2025 年分季度数据（关键！）</h3>
+    <table>
+      <tr><th>季度</th><th>营业收入</th><th>同比</th><th>归母净利润</th><th>同比</th></tr>
+      <tr><td>2025Q1</td><td>93.52亿</td><td>—</td><td>45.93亿</td><td>—</td></tr>
+      <tr><td>2025Q2</td><td>71.02亿</td><td>—</td><td>30.70亿</td><td>—</td></tr>
+      <tr><td>2025Q3</td><td>66.74亿</td><td>—</td><td>30.99亿</td><td>—</td></tr>
+      <tr><td>2025Q4</td><td>26.04亿</td><td><span class="tag tag-red">-62.2%</span></td><td>0.68亿</td><td><span class="tag tag-red">-96.4%</span></td></tr>
+      <tr><td>2026Q1</td><td>80.25亿</td><td><span class="tag tag-red">-14.19%</span></td><td>37.08亿</td><td><span class="tag tag-red">-19.25%</span></td></tr>
+    </table>
+
+    <div class="key-insight yellow" style="margin-top:12px;">
+      <strong>关键观察：2025Q4 的"主动洗澡"</strong> — Q4 单季净利仅 0.68 亿（同比 -96.4%），这几乎不可能是正常的经营波动，而是<strong>主动做低基数 + 渠道去库存的财务洗澡</strong>。管理层在 2026 年 Q1 的交流中也暗示了这一点。这意味着 2025 年的低基数，为 2026 年下半年的"同比改善"创造了条件。如果 2026Q3/Q4 能在低基数上实现正增长，市场情绪可能快速翻转。<br><br>
+      但另一方面，2026Q1 营收仍下滑 14.19%，说明行业需求确实疲软，不能简单归咎于"财务洗澡"。
+    </div>
+
+    <details>
+      <summary>财务深度：经营现金流为什么从 191 亿暴跌到 71 亿？</summary>
+      <div class="detail-body">
+        <p>2025 年经营现金流净额同比暴降 62.86%，这比营收/利润的下滑幅度大得多，需要拆解原因：</p>
+        <p><strong>1. 营收下降（-17.52%）的放大效应：</strong>白酒行业有"预收款"机制（合同负债），经销商先打款后发货。当行业下行时，经销商减少预付款 → 合同负债下降 → 经营现金流比利润下滑更快。</p>
+        <p><strong>2. 主动压货控制：</strong>公司为执行"控量挺价"，主动减少发货量，让渠道消化库存。这直接导致现金回款减少。</p>
+        <p><strong>3. 2024 年基数过高：</strong>2024 年经营现金流 191.82 亿，是反常的高基数（可能是因为 2023-2024 年集中回款），2025 年属于回归正常。</p>
+        <p><strong>好消息：</strong>2026Q1 经营现金流已恢复至 45.4 亿（同比 +37.3%），说明现金流状况正在改善，不必过度担忧。</p>
+        <p><strong>结论：</strong>现金流下滑是行业周期 + 主动策略的叠加结果，不是公司经营能力恶化。泸州老窖的生意本质（先收款后发货）没有改变。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 高端白酒龙头对比</h3>
+    <table>
+      <tr><th>指标</th><th>泸州老窖</th><th>贵州茅台</th><th>五粮液</th><th>山西汾酒</th></tr>
+      <tr><td>2025 营收</td><td>257.31亿</td><td>~1,500亿</td><td>~760亿</td><td>~340亿</td></tr>
+      <tr><td>2025 净利</td><td>108.31亿</td><td>~780亿</td><td>~300亿</td><td>~100亿</td></tr>
+      <tr><td>ROE</td><td>22.66%</td><td>~30%</td><td>~23%</td><td>~28%</td></tr>
+      <tr><td>毛利率</td><td>86.62%</td><td>~92%</td><td>~77%</td><td>~76%</td></tr>
+      <tr><td>净利率</td><td>42.21%</td><td>~52%</td><td>~39%</td><td>~29%</td></tr>
+      <tr><td>PE（TTM）</td><td><strong>~12.4x</strong></td><td>~20x</td><td>~14x</td><td>~18x</td></tr>
+      <tr><td>股息率</td><td><strong>~7.4%</strong></td><td>~3.5%</td><td>~4.5%</td><td>~3%</td></tr>
+      <tr><td>核心单品</td><td>国窖1573</td><td>飞天茅台</td><td>普五</td><td>青花汾酒</td></tr>
+      <tr><td>2025 业绩趋势</td><td><span class="tag tag-red">双降</span></td><td><span class="tag tag-green">稳健增长</span></td><td><span class="tag tag-yellow">微增</span></td><td><span class="tag tag-green">增长</span></td></tr>
+      <tr><td>核心策略</td><td>控量挺价</td><td>稳健提价</td><td>以价换量</td><td>全国化扩张</td></tr>
+    </table>
+
+    <h3>4.2 千元价格带竞争（国窖1573 的主战场）</h3>
+    <p>千元价格带（800-1000 元）是高端白酒中最大的细分市场，国窖1573 在此面临最直接的竞争：</p>
+    <table>
+      <tr><th>竞品</th><th>价格带</th><th>份额</th><th>2025-2026策略</th><th>对国窖的威胁</th></tr>
+      <tr><td><strong>第八代五粮液</strong></td><td>900-1000元</td><td>~22%</td><td>"暗降"：出厂价不动 + 渠道补贴让利，实际成交价低于国窖</td><td><span class="tag tag-red">最大威胁</span></td></tr>
+      <tr><td>飞天茅台</td><td>1499元（建议零售价）</td><td>~60%</td><td>稳价为主，品牌势能碾压</td><td><span class="tag tag-yellow">压制天花板</span></td></tr>
+      <tr><td>青花郎</td><td>800-1000元</td><td>~3-5%</td><td>跟随策略，体量小</td><td><span class="tag tag-green">威胁有限</span></td></tr>
+      <tr><td>洋河梦之蓝M6+</td><td>600-800元</td><td>—</td><td>次高端差异化，价格带低于国窖</td><td><span class="tag tag-green">间接竞争</span></td></tr>
+    </table>
+
+    <h3>4.3 核心差异化优势</h3>
+    <div class="key-insight green">
+      <strong>泸州老窖 vs 五粮液的本质差异：</strong>国窖1573 的差异化在于：<br>
+      ① <strong>"浓香鼻祖"的历史定位：</strong>在浓香型白酒这个品类中，泸州老窖才是"标准制定者"（1952 年第一届评酒会浓香型代表），五粮液是后来的"创新者"。这个历史定位在高端品鉴人群中是重要的品牌资产。<br>
+      ② <strong>低度化的先发优势：</strong>38度国窖1573 是行业首个百亿低度大单品，在低度高端市场断层领先，品牌认知度远超五粮液 39度。<br>
+      ③ <strong>老窖池稀缺性：</strong>1573 国宝窖池群的微生物群落是时间沉淀的结果，五粮液的老窖池虽也有历史，但"449年持续酿造"的故事更完整、更动人。<br><br>
+      但现实是：五粮液在品牌知名度、营收规模、渠道深度上仍全面领先国窖1573。在行业下行期，五粮液"暗降"抢份额是国窖面临的最大挑战。
+    </div>
+
+    <h3>4.4 低度白酒赛道的竞争</h3>
+    <p>低度白酒是行业最大的结构性机会之一（市场预计从 2025 年的 742 亿增长至 2030 年的 1,720 亿，CAGR 14.8%）。泸州老窖在这个赛道占据先手：</p>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>38度国窖1573</strong>：行业首个百亿级低度大单品，2015-2025 年销售额 CAGR >30%，在河北主销区高端低度市场份额超 70%，宴席覆盖率超 80%</li>
+      <li><strong>28度"高光"品牌</strong>：以副品牌探路，避免低度化稀释国窖主品牌的高端锚定。定价 128 元/375ml，卡位中端新消费场景</li>
+      <li><strong>竞品动态：</strong>五粮液 39 度正在组建一体化运营专班，定位"百亿级大单品"；五粮液 29 度专供电商/私域渠道</li>
+      <li><strong>结论：</strong>国窖在低度高端市场的先发优势明显，但五粮液正在全面追赶，未来竞争将加剧</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a">
+        <span class="green">通过。</span>
+        泸州老窖的生意极为简单清晰：<br>
+        ① 酿酒：用高粱/小麦等粮食 + 450 年老窖池发酵蒸馏，做出高端白酒。成本极低（毛利率 86%+），定价取决于品牌力。<br>
+        ② 卖酒：通过经销商体系卖给终端（酒店、烟酒店、商超），消费者在宴席/商务宴请/礼品场景消费。国窖1573 是"面子消费品"，泸州老窖特曲是"品质口粮酒"。<br>
+        ③ 赚钱逻辑：品牌越强 → 定价越高 → 毛利率越高 → 净利率越高。所有努力都是为了维护和提升"国窖1573"这四个字的品牌价值。<br>
+        这是段永平最熟悉的"品牌消费品"模型，和茅台、苹果的底层逻辑高度一致——品牌 = 护城河 = 定价权 = 利润。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a">
+        <span class="green">较宽。</span>
+        三层护城河叠加，且互相强化：<br>
+        ① 时间壁垒（最核心）：450 年持续酿造的老窖池，微生物群落无法复制。想造一个和国窖1573 一模一样的产品？先等 450 年。<br>
+        ② 品牌心智壁垒：经过 20+ 年品牌建设，国窖1573 = "千元浓香标杆"的认知已在高端消费人群中固化。改变这个认知需要天文数字的营销投入。<br>
+        ③ 品类格局壁垒：高端白酒 CR3 >94%，新品牌想进入千元价格带——历史上几乎没有成功案例。<br>
+        最大的风险不是竞争，而是<strong>白酒行业本身的长期需求是否结构性萎缩</strong>（年轻人不喝白酒）。但从日本清酒/威士忌的经验看，高端烈酒的需求不会消失，只会"少喝酒、喝好酒"，这对国窖是有利的。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a">
+        <span class="green">通过（有安全边际）。</span>
+        2025 PE 约 12.4x，2026E PE（按机构预测均值 98 亿净利）约 13x。对于一家 ROE 22%+、毛利率 86%+、净利率 42%+、85 亿保底分红的品牌消费品公司，这个估值处于<strong>近十年最低区间</strong>。<br>
+        历史上泸州老窖 PE 中枢在 20-25x（2019-2023 年平均约 22x），当前 12.4x 的估值隐含了市场对"行业长期衰退"的悲观定价。<br>
+        即便假设公司未来零增长、每年就赚 100-110 亿，7%+ 的股息率也提供了足够的安全边际。如果行业复苏，PE 回到 18-20x，就是 50%+ 的上行空间。<br>
+        <strong>当前 ¥86 的价格，安全边际充足。</strong>
+      </div>
+    </div>
+
+    <div class="key-insight green">
+      <strong>三问结论：三绿全过。</strong> 生意好理解、护城河够宽、价格有安全边际。泸州老窖是当前白酒板块中少有的"好生意 + 低估值 + 高股息"三重共振标的。唯一的变量是行业复苏的时间——但这个不确定性已被 12x PE + 7% 股息率充分定价了。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值水平</h3>
+    <table>
+      <tr><th>估值指标</th><th>当前值</th><th>历史分位</th><th>评价</th></tr>
+      <tr><td>PE（2025 年报）</td><td>~11.7x</td><td>近 10 年最低区间</td><td><span class="tag tag-green">低估</span></td></tr>
+      <tr><td>PE（TTM，截至 2026Q1）</td><td>~12.4x</td><td>近 10 年最低区间</td><td><span class="tag tag-green">低估</span></td></tr>
+      <tr><td>PE（2026E，¥98亿）</td><td>~13.0x</td><td>—</td><td><span class="tag tag-green">合理偏低</span></td></tr>
+      <tr><td>PB</td><td>2.39x</td><td>近 10 年中低位</td><td><span class="tag tag-yellow">合理</span></td></tr>
+      <tr><td>股息率</td><td><strong>~7.4%</strong></td><td>历史最高区间</td><td><span class="tag tag-green">极优</span></td></tr>
+      <tr><td>EV/EBIT</td><td>~9x</td><td>—</td><td><span class="tag tag-green">偏低</span></td></tr>
+    </table>
+
+    <h3>6.2 多方法估值</h3>
+
+    <h4>方法一：PE 估值法</h4>
+    <table>
+      <tr><th>情景</th><th>2026E 净利</th><th>合理 PE</th><th>目标市值</th><th>目标价</th></tr>
+      <tr><td>保守（行业继续下行）</td><td>¥90亿</td><td>12x</td><td>¥1,080亿</td><td>¥73.37</td></tr>
+      <tr><td>中性（行业企稳）</td><td>¥98亿</td><td>17x</td><td>¥1,666亿</td><td>¥113.18</td></tr>
+      <tr><td>乐观（行业复苏）</td><td>¥110亿</td><td>22x</td><td>¥2,420亿</td><td>¥164.40</td></tr>
+    </table>
+    <p class="fn">历史 PE 中枢约 22x。中性情景给 17x（低于中枢，反映行业增长放缓），乐观情景给 22x（行业复苏 + 挺价成功 + 品牌价值重估）。</p>
+
+    <h4>方法二：股息折现模型</h4>
+    <p>假设：2026 年分红 85 亿（保底），2027 年起每年增长 3%，要求回报率 9%</p>
+    <p>股息折现价值 ≈ 85 / (9% - 3%) = <strong>¥1,417 亿</strong>（对应股价 ¥96.26），高于当前市值 ¥1,271 亿。</p>
+    <p class="fn">即使只把泸州老窖当成"每年分 85 亿的永续年金"，当前价格也提供了约 9% 的预期年化回报，吸引力强。</p>
+
+    <h4>方法三：DCF 毛估估</h4>
+    <p>假设：2026-2028 年净利润 98/105/115 亿（机构预测均值），永续增长 2%，WACC 8%</p>
+    <p>DCF 价值约 ¥1,500-1,800 亿（对应股价 ¥102-122），内含 20-40% 上行空间。</p>
+
+    <h4>方法四：历史 PE 回归法</h4>
+    <p>近 10 年 PE 中枢 ~22x，近 5 年 PE 中枢 ~19x。如果 3 年内行业复苏、PE 回到 18x，按 2027E 净利润 105 亿计算：</p>
+    <p>目标市值 = 105 × 18 = <strong>¥1,890 亿</strong>（对应股价 ¥128），3 年潜在回报 +48%。</p>
+
+    <div class="key-insight green">
+      <strong>估值结论：显著低估。</strong> 综合四种方法，泸州老窖的合理价值区间为 <strong>¥96-122/股</strong>。当前 ¥86.35 处于低估区间。<br>
+      核心安全边际来自：<strong>① 7.4% 股息率（85 亿保底分红 ÷ 1,271 亿市值）；② 12.4x 的十年最低 PE；③ 品牌价值远未被净资产充分反映（PB 2.39x 但经济商誉远超账面资产）。</strong><br>
+      最大的下行风险是行业继续恶化，净利跌破 90 亿，但即使如此，在 12x PE 和 85 亿保底分红下，下行空间也相对有限（¥70-75 是硬底）。
+    </div>
+
+    <details>
+      <summary>历史估值参照：泸州老窖的 PE 为什么会跌到 12x？</summary>
+      <div class="detail-body">
+        <p>回顾泸州老窖历史上的 PE 低点：</p>
+        <p><strong>2013-2014 年（白酒危机）：</strong>PE 跌至 6-8x，背景是"三公消费禁令 + 塑化剂事件"双重暴击，行业需求崩溃。当时国窖1573 逆势提价至 1580 元（高于茅台），结果批价崩盘、库存爆仓，被迫降价 50% 清库存。2014 年营收暴跌至 53.53 亿，净利仅 8.80 亿。</p>
+        <p><strong>当前 12.4x PE 的背景完全不同：</strong>① 2025 年公司在行业下行期仍有 108 亿净利（是 2014 年的 12 倍+），基本面远强于上一轮危机；② 本轮是"主动控量挺价"而非"被动崩盘"，公司有选择权；③ 分红从当初的几乎为零提升到 85 亿保底；④ 资产负债率从 40%+ 降至 23%，财务更安全。</p>
+        <p><strong>结论：</strong>12x PE 已经定价了相当的悲观预期。除非行业出现类似 2013 年级别的系统性危机（目前看不到），否则估值进一步压缩的空间有限。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 7: 催化剂时间线 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来 12 个月关键催化</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026年8月</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 半年报发布</div>
+        <div class="tl-desc">验证 Q2 业绩能否在 2025Q2（71 亿营收）基础上收窄降幅。重点关注：国窖1573 批价是否稳定在 840+ 元，合同负债能否止跌回升。如果 Q2 降幅收窄至个位数，是积极信号。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026年9-10月</div>
+      <div class="tl-body">
+        <div class="tl-title">中秋国庆动销旺季（最关键！）</div>
+        <div class="tl-desc">这是验证"挺价策略"是否成功的最重要窗口。如果动销数据良好（消费者→终端→经销商传导通畅），将证明"不降价也能卖"的策略正确，市场信心可能快速修复。如果动销惨淡，挺价策略将面临巨大考验。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026Q3-Q4</div>
+      <div class="tl-body">
+        <div class="tl-title">低基数效应显现</div>
+        <div class="tl-desc">2025Q4 净利仅 0.68 亿，创造了极低的同比基数。2026Q3/Q4 即便经营状况一般，同比数据也会大幅改善。市场可能将"同比改善"解读为"拐点确认"，带来估值修复。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">年份酒系列推出</div>
+        <div class="tl-desc">公司拟择机推出 10 年/15 年/20 年瓶储年份酒，拉升高端天花板。如果定价合理、市场接受度好，将打开国窖1573 之上的价格空间（对标茅台的年份酒体系）。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026年11月</div>
+      <div class="tl-body">
+        <div class="tl-title">2027 年经销商大会</div>
+        <div class="tl-desc">关注管理层对 2027 年的展望和打款政策。如果给出增长指引（而非继续控量），说明公司认为渠道库存已恢复到健康水平。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027年3-4月</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 年年报 + 2027Q1</div>
+        <div class="tl-desc">市场预期 2026 全年净利 96-105 亿。如果实际超预期（>105 亿）+ 2027Q1 恢复正增长，将是"业绩底确认"的强烈信号。同时关注 2026 年分红是否维持 85 亿+。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">持续</div>
+      <div class="tl-body">
+        <div class="tl-title">行业政策与宏观消费</div>
+        <div class="tl-desc">关注白酒消费税改革（如有）、消费刺激政策、商务活动活跃度。白酒是宏观经济的"顺周期"品种，经济回暖是最强的催化剂。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8: 操作区间与仓位 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作区间与仓位</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>区间</th><th>价格</th><th>对应 PE（2026E）</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">低估/积极买入</span></td><td><strong>¥70~80</strong></td><td>10.5x ~ 12.0x</td><td>积极建仓，目标仓位 8-10%</td></tr>
+      <tr><td><span class="tag tag-green">合理偏低/分批建仓</span></td><td><strong>¥80~90</strong></td><td>12.0x ~ 13.5x</td><td>分批买入，目标仓位 5-8%</td></tr>
+      <tr><td><span class="tag tag-yellow">合理/持有</span></td><td>¥90~115</td><td>13.5x ~ 17.3x</td><td>持有不动，不加仓不减仓</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高/观望</span></td><td>¥115~135</td><td>17.3x ~ 20.3x</td><td>不加仓，视催化情况决定</td></tr>
+      <tr><td><span class="tag tag-red">高估/卖出</span></td><td>¥135+</td><td>>20x</td><td>分批减仓，先卖 1/3 到 1/2</td></tr>
+    </table>
+
+    <h3>建仓节奏</h3>
+    <div class="key-insight yellow">
+      <strong>当前 ¥86.35 处于"合理偏低"区间。</strong><br>
+      建议：<strong>先建 3-4% 底仓</strong>（7%+ 股息率是硬安全垫），<br>
+      如有回调至 ¥80 以下，加仓至 5-6%，跌至 ¥75 以下加仓至 8%。<br>
+      如直接上涨超过 ¥100，暂时不加仓——等待中秋国庆动销数据验证后再决策。<br>
+      最理想的建仓节奏：<strong>在中秋国庆前（8-9 月）分批建仓至 5%</strong>，如果动销数据好，再加仓；数据差，则保持底仓吃股息。
+    </div>
+
+    <h3>卖出条件</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>基本面恶化：</strong>国窖1573 批价跌破 800 元且持续下行（挺价失败），或营收连续两个季度下滑超过 20%</li>
+      <li><strong>估值修复完成：</strong>PE 回到 20x+（对应 ¥135+），且无重大正催化支撑更高估值</li>
+      <li><strong>行业长期衰退确认：</strong>连续两年白酒行业整体量价齐跌，且年轻人饮酒率持续大幅下降</li>
+      <li><strong>发现更好的机会：</strong>换仓到风险回报比更优的标的（但低于 15x PE 不轻易换）</li>
+      <li><strong>管理层变化：</strong>刘淼/林锋离职，且继任者能力和战略方向存疑</li>
+    </ul>
+
+    <h3>仓位定位</h3>
+    <p>泸州老窖在组合中的定位：<strong>"顺周期高弹性"进攻型持仓</strong>——受益于消费复苏的弹性标的，同时有高股息保底。与云南白药（防御型）互补：白药是压舱石，老窖是顺风帆。</p>
+  </div>
+</div>
+
+<!-- SECTION 9: 风险提示 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td><strong>行业调整时间长于预期</strong></td><td><span class="tag tag-yellow">中高</span></td><td>高</td><td>如果消费复苏推迟到 2028+，挺价策略下业绩可能继续下滑。底线：7% 股息率 + 85 亿保底分红提供时间换空间的耐力</td></tr>
+      <tr><td><strong>"挺价"策略失败</strong></td><td><span class="tag tag-yellow">中</span></td><td>最高</td><td>如果中秋国庆动销惨淡、国窖1573 批价失守 800 元，公司被迫降价，品牌受损 + 利润大幅下滑。密切关注批价和动销数据</td></tr>
+      <tr><td><strong>五粮液"暗降"抢份额</strong></td><td><span class="tag tag-yellow">中高</span></td><td>高</td><td>五粮液以价换量策略可能在消费疲软环境下更有效，蚕食国窖1573 在商务宴请场景的份额</td></tr>
+      <tr><td><strong>库存堰塞湖</strong></td><td><span class="tag tag-yellow">中</span></td><td>高</td><td>2025 年末存货 154 亿（历史新高），渠道库存消化需要时间。如果动销不达预期，可能爆发"经销商甩货"风险</td></tr>
+      <tr><td><strong>年轻人不喝白酒</strong></td><td><span class="tag tag-green">低</span></td><td>长期高</td><td>长期结构性风险，但短期（5 年内）影响有限。低度白酒 + 新消费场景（微醺、佐餐）是应对方向</td></tr>
+      <tr><td><strong>分红承诺违约</strong></td><td><span class="tag tag-green">极低</span></td><td>最高</td><td>管理层在 2026 年股东会上反复确认 85 亿保底分红，且有三年规划背书。违约概率极低，但如果发生将严重损害管理层信誉</td></tr>
+      <tr><td><strong>食品安全事件</strong></td><td><span class="tag tag-green">极低</span></td><td>灾难级</td><td>白酒行业偶有塑化剂/假酒事件。老窖作为头部企业品控严格，概率低，但一旦发生股价可能腰斩</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>最大风险情景（概率 ~20-30%）：</strong>消费复苏持续推迟至 2028 年以后 → 国窖1573 挺价策略在 2027 年被证伪，批价跌破 800 元 → 公司被迫跟随降价 → 品牌受损 + 渠道信心崩溃 → 2027 年净利跌至 70-80 亿 → PE 跌至 8-10x → 股价跌至 ¥55-65。<br><br>
+      <strong>最大机会情景（概率 ~30-40%）：</strong>2026H2 消费复苏 + 中秋国庆动销超预期 → 市场确认业绩底 → PE 从 12x 修复至 18-20x → 2027 年净利恢复至 110 亿+ → 股价上涨至 ¥135-150（+56% ~ +74%）。<br><br>
+      <strong>基准情景（概率 ~40-50%）：</strong>行业在 2026H2-2027H1 缓慢企稳，公司业绩在 2027 年恢复个位数增长，PE 温和修复至 15-17x，股价在 ¥100-120 区间运行。
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>泸州老窖 (000568.SZ) 价值投资分析报告 | 2026-07-28</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报、券商研报（开源证券、方正证券、申银万国、平安证券等）、东方财富、同花顺</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(heading) {
+  heading.classList.toggle('collapsed');
+  var body = heading.nextElementSibling;
+  if (body) {
+    body.classList.toggle('collapsed');
+  }
+}
+function toggleAll() {
+  var headings = document.querySelectorAll('.card h2');
+  var bodies = document.querySelectorAll('.section-body');
+  var anyOpen = false;
+  bodies.forEach(function(b) { if (!b.classList.contains('collapsed')) anyOpen = true; });
+  headings.forEach(function(h) {
+    if (anyOpen) { h.classList.add('collapsed'); } else { h.classList.remove('collapsed'); }
+  });
+  bodies.forEach(function(b) {
+    if (anyOpen) { b.classList.add('collapsed'); } else { b.classList.remove('collapsed'); }
+  });
+}
+</script>
+</body>
+</html>
