@@ -1,0 +1,4 @@
+interface:
+  display_name: "雪球价值投资日课"
+  short_description: "每日浏览雪球并提炼价值投资线索，生成互动草稿与网站研报"
+  default_prompt: "使用 $xueqiu-value-investor 完成今天的雪球浏览、互动草稿、投资机会整理与网站发布。"

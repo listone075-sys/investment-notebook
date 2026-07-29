@@ -31,6 +31,7 @@ STOCK_THEME_ASSISTANT_DIR = Path(
 )
 # 来源目录（本站点分析报告存放路径）
 SOURCE_DIR = Path(__file__).parent.parent / "01-价值投资" / "标的分析"
+XUEQIU_SOURCE_DIR = Path(__file__).parent.parent / "07-雪球研究" / "每日观察"
 # 目标目录（stock-theme-assistant 中的 www/reports）
 TARGET_DIR = STOCK_THEME_ASSISTANT_DIR / "www" / "reports"
 
@@ -156,6 +157,7 @@ def collect_reports() -> list[dict]:
 
         reports.append({
             "filename": f.name,
+            "source": f,
             "code": code,
             "name": name,
             "title": title,
@@ -165,6 +167,26 @@ def collect_reports() -> list[dict]:
             "tags": tags,
         })
 
+    # 雪球每日观察：作为研究简报进入同一研报列表，不冒充个股深度报告。
+    if XUEQIU_SOURCE_DIR.exists():
+        for f in sorted(XUEQIU_SOURCE_DIR.glob("雪球价值观察-*.html"), reverse=True):
+            m = re.search(r"(\d{4}-\d{2}-\d{2})\.html$", f.name)
+            if not m:
+                continue
+            title, desc, _, _ = parse_title_and_desc(f)
+            reports.append({
+                "filename": f.name,
+                "source": f,
+                "code": "雪球观察",
+                "name": "每日价值投资线索",
+                "title": title,
+                "description": desc,
+                "date": m.group(1),
+                "rating": "watch",
+                "tags": ["雪球", "价值投资", "每日观察"],
+            })
+
+    reports.sort(key=lambda item: (item["date"], item["filename"]), reverse=True)
     return reports
 
 
@@ -177,7 +199,7 @@ def copy_reports(reports: list[dict]) -> list[str]:
     TARGET_DIR.mkdir(parents=True, exist_ok=True)
     copied = []
     for r in reports:
-        src = SOURCE_DIR / r["filename"]
+        src = r.get("source", SOURCE_DIR / r["filename"])
         dst = TARGET_DIR / r["filename"]
         shutil.copy2(src, dst)
         copied.append(r["filename"])
@@ -274,9 +296,7 @@ def generate_reports_html(reports: list[dict]) -> str:
           <span>{r["date"]}</span>
           <span>{r["code"]}</span>
         </div>
-        <div class="desc">
-          {r["description"]}
-        </div>
+        <div class="desc">{r["description"]}</div>
         <div class="tags">{tags_html}
         </div>
       </div>
