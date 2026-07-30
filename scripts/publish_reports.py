@@ -296,7 +296,7 @@ def generate_reports_html(reports: list[dict]) -> str:
           <span>{r["date"]}</span>
           <span>{r["code"]}</span>
         </div>
-        <div class="desc">{r["description"]}</div>
+        {f'<div class="desc">{r["description"]}</div>' if r["description"] else ''}
         <div class="tags">{tags_html}
         </div>
       </div>
