@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>惠城环保 (300779.SZ) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa;
+    --card: #ffffff;
+    --card2: #f0f2f8;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --yellow: #d97706;
+    --yellow-bg: #fef3c7;
+    --text: #1e293b;
+    --text2: #475569;
+    --muted: #94a3b8;
+    --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 15px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+
+  .header {
+    background: linear-gradient(135deg, #ffffff, #f0f2f8);
+    border-bottom: 1px solid var(--border);
+    padding: 36px 0 28px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes {
+    display: flex; justify-content: center; gap: 10px; margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .header .codes span {
+    background: var(--accent-light); color: var(--accent);
+    padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600;
+  }
+  .meta-bar {
+    display: flex; justify-content: center; gap: 24px; margin-top: 14px;
+    font-size: 0.88em; color: var(--text2); flex-wrap: wrap;
+  }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .meta-bar a:hover { text-decoration: underline; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 16px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2 {
+    font-size: 1.25em;
+    color: var(--text);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .card h2::after {
+    content: "▼";
+    font-size: 0.7em;
+    margin-left: auto;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 {
+    font-size: 1.05em;
+    color: var(--accent);
+    margin: 20px 0 10px;
+  }
+  .card h4 {
+    font-size: 0.95em;
+    color: var(--text2);
+    margin: 14px 0 6px;
+    font-weight: 600;
+  }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+
+  details {
+    margin: 10px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  details summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95em;
+    background: var(--card2);
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "▶";
+    font-size: 0.75em;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+
+  .verdict-box {
+    background: linear-gradient(135deg, var(--red-bg), #fff);
+    border: 2px solid var(--red);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); }
+  .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details {
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    margin-top: 16px; font-size: 0.88em;
+  }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.78em;
+    font-weight: 600;
+    margin: 1px;
+  }
+  .tag-green { background: var(--green-bg); color: var(--green); }
+  .tag-yellow { background: var(--yellow-bg); color: var(--yellow); }
+  .tag-red { background: var(--red-bg); color: var(--red); }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  .stat-tile {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); }
+  .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+
+  .key-insight {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92em;
+    color: var(--text2);
+  }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 110px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; }
+  .tl-body .tl-title { font-weight: 600; }
+  .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; }
+  .q-item .a .yellow { color: var(--yellow); font-weight: 600; }
+  .q-item .a .red { color: var(--red); font-weight: 600; }
+
+  .bar-wrap { height: 8px; border-radius: 4px; background: var(--border); margin: 6px 0; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 18px;
+    border-radius: 6px;
+    font-size: 0.85em;
+    color: var(--text2);
+    cursor: pointer;
+  }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.82em;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>惠城环保 <span>价值投资分析</span></h1>
+  <div class="subtitle">Huicheng Environmental — FCC催化剂回收龙头 + 废塑料化学循环期权</div>
+  <div class="codes">
+    <span>300779.SZ</span><span>环保·循环经济</span><span>深交所创业板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-07-31</span>
+    <span>¥72.28</span>
+    <span>市值 ¥214.89亿</span>
+    <span>数据截止 2026Q1</span>
+    <span><a href="https://finance.sina.com.cn/realstock/company/sz300779/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">全部展开 / 全部折叠</button>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big sell">❌ 回避</div>
+  <div class="v-desc">
+    废塑料化学循环技术故事诱人，但当前 ¥72.28（市值 ~215亿）的价格已透支未来 3-5 年预期。<br>
+    PE >2500x、经营现金流为负、ROE 0.13%，完全不符合价值投资的"安全边际"要求。<br>
+    除非废塑料项目实现满产满销且利润能兑现，否则当前股价是纯故事驱动的投机。
+  </div>
+  <div class="v-details">
+    <span>可考虑价格：<strong style="color:var(--green);">¥25~35</strong></span>
+    <span>当前价：<strong style="color:var(--red);">¥72.28</strong></span>
+    <span>合理价值：<strong>¥30~50</strong></span>
+    <span>仓位：<strong>不建议</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num red">¥72.28</div><div class="label">当前股价（2026-07-30）</div></div>
+      <div class="stat-tile"><div class="num red">¥214.89亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num red">>2500x</div><div class="label">PE（动态）</div></div>
+      <div class="stat-tile"><div class="num red">9.65x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num yellow">¥11.36亿</div><div class="label">2025年营收（-1.17%）</div></div>
+      <div class="stat-tile"><div class="num yellow">¥5,847万</div><div class="label">2025年归母净利润（+38.76%）</div></div>
+      <div class="stat-tile"><div class="num red">4.28%</div><div class="label">ROE（加权）</div></div>
+      <div class="stat-tile"><div class="num red">29.17%</div><div class="label">综合毛利率</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num yellow">¥2.70亿</div><div class="label">2026Q1营收（-5.34%）</div></div>
+      <div class="stat-tile"><div class="num yellow">¥213万</div><div class="label">2026Q1净利（扭亏）</div></div>
+      <div class="stat-tile"><div class="num red">0.13%</div><div class="label">Q1 ROE</div></div>
+      <div class="stat-tile"><div class="num red">-¥1.93亿</div><div class="label">2025经营现金流</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>惠城环保成立于 2006 年，2019 年登陆创业板（300779.SZ），是一家专注<strong>工业固废资源化利用</strong>的环保科技公司。公司以 FCC（催化裂化）废催化剂处理起家，逐步构建起<strong>"废催化剂处置 + 资源化产品 + 废塑料化学循环"</strong>三大业务板块，是国内极少数具备废催化剂"收集—处置—资源化—新剂销售"全产业链能力的企业。</p>
+
+    <p>公司的核心故事是<strong>自主研发的 CPDCC（催化裂解）"一步法"废塑料化学循环技术</strong>——将混合废塑料直接裂解为化工原料（油气收率 >92%）。首套 20 万吨/年工业化装置已于 2025 年 7 月试生产、12 月通过石化联合会性能考核。市场给予 ~215 亿估值的核心逻辑就是赌这个技术的商业化和大规模复制。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight yellow">
+          ① FCC催化剂：炼油厂把废催化剂当危废付费给惠城处理 → 惠城提纯再生后卖回去（或卖新剂）→ 赚<strong>处理费 + 产品差价</strong>。<br>
+          ② 废塑料化学循环：收废塑料 → CPDCC裂解成油/气 → 卖给化工厂当原料 → 赚<strong>原料价差 + 技术溢价</strong>。<br>
+          ③ 提钒：从石油焦灰渣中提取钒 → 卖钒产品。
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河（争议极大）</h4>
+        <div class="key-insight">
+          段永平定义：<strong>护城河 = 能持续赚钱的能力</strong><br>
+          ① CPDCC技术：自研"一步法"，目前已通过石化联合会考核，<strong>技术上有壁垒</strong>。<br>
+          ② 广东石化独占：高硫石油焦制氢灰渣处理的唯一方案供应商。<br>
+          ③ FCC催化剂全产业链：废剂处置+新剂生产，客户粘性较强。<br>
+          <strong>但</strong>：废塑料赛道国家队（中国资源循环利用集团，300亿注册资本）已入场，中石化也在推 RPCC 技术。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 主营业务构成</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025 营收</th><th>占比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>危险废物处理处置服务</strong></td><td>¥5.95亿</td><td>52.34%</td><td>~21%</td><td>现金牛（稳定但增速低）</td></tr>
+      <tr><td><strong>资源化综合利用产品</strong></td><td>¥4.59亿</td><td>40.37%</td><td>39.60%</td><td>FCC催化剂核心，出海增长</td></tr>
+      <tr><td>三废治理业务</td><td>¥0.37亿</td><td>3.24%</td><td>—</td><td>环保工程补充</td></tr>
+      <tr><td><strong>20万吨废塑料项目（新）</strong></td><td>计入资源化</td><td>2025负荷~28%</td><td>待验证</td><td><strong>核心故事 / 未来赌注</strong></td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>商业模式本质</strong>：惠城环保做的是 <strong>"工业固废的资源化变现"</strong>——别人眼中的废物（废催化剂、废塑料、含钒灰渣），它用技术转化成可卖的化工产品。这门生意的天花板取决于：① 废塑料化学循环技术能否大规模经济性复制（最大的不确定性）；② FCC催化剂出海能走多远（正在验证中，2025年海外收入+606%）；③ 提钒项目能否顺利投产（建设中）。
+    </div>
+
+    <details>
+      <summary>深度：CPDCC 技术到底靠不靠谱？</summary>
+      <div class="detail-body">
+        <p>惠城环保的 CPDCC（催化裂解）技术是理解这家公司的核心。简单说：</p>
+        <p><strong>1. 技术原理：</strong>传统废塑料回收靠物理分拣（只能处理干净的PET瓶等），混合脏塑料基本只能焚烧或填埋。CPDCC 用催化剂在高温下把混合废塑料一步裂解成小分子油气（类似"逆向炼油"——塑料本是石油做的，现在还原回去）。</p>
+        <p><strong>2. 已验证的指标：</strong>2025年12月石化联合会性能考核结论：油气收率 >92%（即100吨废塑料能产出92吨以上的油气产品）。这个数据很优秀，说明技术路线是通的。</p>
+        <p><strong>3. 但问题在于：</strong></p>
+        <p>① <strong>经济性待验证：</strong>2025年全年运行负荷仅~28%（处理了约5.6万吨），远未满产。满产后每吨废塑料能赚多少钱？目前无人能确定。</p>
+        <p>② <strong>原料供应挑战：</strong>20万吨废塑料一年听起来不多，但要稳定、低成本地收集到这么多量级的前端废塑料，需要建立庞大的回收网络。公司说已与农业/工业/生活垃圾三端协同，但实际运行情况未知。</p>
+        <p>③ <strong>竞争对手虎视眈眈：</strong>中石化有自己的RPCC技术（规模可能更大），中国资源循环利用集团（央企，注册资本300亿）已与惠城签署意向合作但也在考虑其他技术路线。惠城是"先发者"但未必是"最终赢家"。</p>
+        <p>④ <strong>现金流赤字：</strong>在建工程高达19.35亿（70%投向废塑料），经营现金流却为负1.93亿——公司在烧钱等未来。</p>
+        <p><strong>结论：</strong>技术本身靠谱（有石化联合会背书），但<strong>大规模经济性复制是另一个维度的挑战</strong>。从"能做出产品"到"能赚钱且能持续扩大规模"，中间可能隔着巨大的鸿沟。</p>
+      </div>
+    </details>
+
+    <h3>1.3 护城河量化评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>CPDCC技术壁垒</td><td>⭐⭐⭐⭐☆</td><td>自研"一步法"，20万吨级工业化验证通过。但竞争者（中石化、国家队）也在追赶</td></tr>
+      <tr><td>广东石化独占</td><td>⭐⭐⭐⭐☆</td><td>唯一技术方案供应商，协议保障。但客户集中风险高</td></tr>
+      <tr><td>FCC催化剂全产业链</td><td>⭐⭐⭐☆☆</td><td>行业内少有的一站式服务商，但竞争激烈（山东区域、国企采购减少）</td></tr>
+      <tr><td>品牌/转换成本</td><td>⭐⭐⭐☆☆</td><td>炼油厂更换催化剂供应商有验证成本，但并非不可替代</td></tr>
+      <tr><td>成本优势</td><td>⭐⭐☆☆☆</td><td>毛利率29%，ROE 4%，远谈不上成本优势。经营现金流为负</td></tr>
+      <tr><td>规模效应</td><td>⭐⭐☆☆☆</td><td>废塑料20万吨是首套，扩产到120/300万吨是PPT规划，尚未兑现</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合护城河评级：窄（且未充分验证）</strong> — CPDCC技术目前只有一套半负荷运行的首套装置，距离"宽护城河"还差：①满产满销证明经济性；②多基地成功复制；③竞争对手追赶能被有效阻隔。当前阶段，护城河更像是"一个不错的先发位置"，而非不可逾越的壁垒。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: 管理层 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>张新功</strong></td><td>董事长/总经理</td><td>1968年生，中石化出身，长期从事炼油催化剂技术研发。2006年创立惠城环保</td><td><span class="tag tag-blue">技术型创始人</span></td></tr>
+    </table>
+
+    <h3>2.2 管理层评估维度</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>技术能力</td><td>⭐⭐⭐⭐⭐</td><td>CPDCC"一步法"是张新功团队原创，石化联合会考核通过为技术背书</td></tr>
+      <tr><td>战略眼光</td><td>⭐⭐⭐⭐☆</td><td>从FCC催化剂延伸到废塑料化学循环，赛道选择有前瞻性</td></tr>
+      <tr><td>股东回报</td><td>⭐⭐☆☆☆</td><td>2025年分红10转4派1.5元（微薄），经营现金流为负，长期依赖融资</td></tr>
+      <tr><td>财务纪律</td><td>⭐⭐☆☆☆</td><td>资产负债率66%+，在建工程19.35亿占用大量资金，存在过度扩张风险</td></tr>
+      <tr><td>诚信度</td><td>⭐⭐⭐☆☆</td><td>无重大负面，但股价从2023年~20涨至~77的过程中，实控人2025年曾提议回购</td></tr>
+      <tr><td>资本配置</td><td>⭐⭐☆☆☆</td><td>高度依赖定增、借款等外部融资，内生造血能力严重不足</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>管理层综合评价：技术强、财务弱。</strong> 张新功是典型的技术型创始人，在催化剂和废塑料裂解领域有极强的技术积累。但公司管理水平（尤其是财务纪律）令人担忧：经营现金流常年为负、资产负债率飙升、高度依赖融资驱动增长。这更像是"科学家创业"而非"企业家经营"。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>2.85</td><td>3.06</td><td>10.90</td><td>11.49</td><td>11.36</td><td><span class="tag tag-yellow">增长放缓</span></td></tr>
+      <tr><td>归母净利润（万元）</td><td>1,178</td><td>189</td><td>5,980</td><td>4,213</td><td>5,847</td><td><span class="tag tag-yellow">波动大</span></td></tr>
+      <tr><td>扣非净利润（万元）</td><td>—</td><td>—</td><td>—</td><td>2,968</td><td>4,528</td><td><span class="tag tag-green">+52.59%</span></td></tr>
+      <tr><td>ROE</td><td>1.49%</td><td>0.24%</td><td>—</td><td>3.37%</td><td>4.28%</td><td><span class="tag tag-yellow">极低</span></td></tr>
+      <tr><td>综合毛利率</td><td>~29%</td><td>~25%</td><td>~23%</td><td>24.75%</td><td>29.17%</td><td><span class="tag tag-green">回升</span></td></tr>
+      <tr><td>经营现金流（亿元）</td><td>—</td><td>—</td><td>—</td><td>—</td><td>-1.93</td><td><span class="tag tag-red">为负</span></td></tr>
+      <tr><td>资产负债率</td><td>—</td><td>—</td><td>—</td><td>—</td><td>~73%→66%</td><td><span class="tag tag-red">高负债</span></td></tr>
+      <tr><td>货币资金（亿元）</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>紧张</td></tr>
+    </table>
+
+    <h3>3.2 2026Q1 最新数据</h3>
+    <div class="grid-3">
+      <div class="stat-tile"><div class="num yellow">¥2.70亿</div><div class="label">Q1营收（-5.34%）</div></div>
+      <div class="stat-tile"><div class="num green">¥213万</div><div class="label">Q1净利（扭亏为盈）</div></div>
+      <div class="stat-tile"><div class="num red">-¥6,437万</div><div class="label">Q1经营现金流</div></div>
+    </div>
+
+    <div class="key-insight red">
+      <strong>财务核心问题：利润薄如纸，市值高过天。</strong> 2025年全年净利润仅5,847万元，2026Q1更是只有213万元。即便在乐观假设下2026全年净利润能到1亿（+71%），对应目前215亿市值的PE仍高达215倍。而经营现金流常年为负，意味着公司赚的"利润"大多停留在应收账款和存货里，<strong>没有真金白银流入</strong>。这是一家靠融资（定增+借款）续命的公司。
+    </div>
+
+    <details>
+      <summary>财务深度：为什么经营现金流常年为负？</summary>
+      <div class="detail-body">
+        <p>2025年经营现金流为-1.93亿，2026Q1继续为-6,437万，这不是偶发性的，而是结构性的：</p>
+        <p><strong>1. 应收账款暴增：</strong>2025年末应收账款同比增长124.43%——公司为了推废塑料项目和FCC催化剂出海，可能给出了更宽松的信用政策。账面上的"收入增长"没有变成实际的现金回收。</p>
+        <p><strong>2. 在建工程巨额占用：</strong>在建工程19.35亿元（占总资产的26%+），其中70%以上投向废塑料项目。每年折旧和财务费用在不断消耗利润。</p>
+        <p><strong>3. 存货积压：</strong>2025年末存货154亿元的规模对11亿营收来说偏高，可能存在产品滞销或废塑料原料收储成本前置的问题。</p>
+        <p><strong>核心矛盾：</strong>公司处于"烧钱换未来"的投入期——在废塑料项目满产并实现正向现金流入之前，公司需要持续的外部融资来维持运营和扩张。如果融资渠道受阻（如股价下跌导致定增困难），公司可能面临流动性危机。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 FCC催化剂回收 — 细分市场龙头</h3>
+    <p>惠城在废FCC催化剂处理领域是国内头部（处理能力5.85万吨/年，催化剂产能4万吨/年），但赛道狭窄（年市场空间约20-30亿），且面临以下竞争压力：</p>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li>炼油行业利润下滑 → 部分国企减少采购 → 废催化剂处置单价走低</li>
+      <li>山东区域竞争加剧（地方小型处置企业低价抢单）</li>
+      <li>出口虽是亮点（2025年海外+606%），但体量仍小（约7900万）</li>
+    </ul>
+
+    <h3>4.2 废塑料化学循环 — 最受关注但竞争白热化</h3>
+    <table>
+      <tr><th>玩家</th><th>技术</th><th>规模</th><th>优势</th><th>对惠城威胁</th></tr>
+      <tr><td><strong>惠城环保</strong></td><td>CPDCC一步法</td><td>首套20万吨（负荷28%）</td><td>先发+已通过性能考核</td><td>—</td></tr>
+      <tr><td><strong>中石化</strong></td><td>RPCC技术</td><td>不详（但中石化有百万吨级炼厂经验）</td><td>资金+原料+渠道碾压</td><td><span class="tag tag-red">最大威胁</span></td></tr>
+      <tr><td><strong>中国资源循环利用集团</strong></td><td>待定（已与惠城签意向但也在评估其他路线）</td><td>注册资本300亿</td><td>政策+资金+资源整合</td><td><span class="tag tag-yellow">合作或竞争</span></td></tr>
+      <tr><td>埃克森美孚/BASF/SABIC</td><td>热裂解/加氢</td><td>多为10-50万吨级</td><td>全球化+化工一体化</td><td><span class="tag tag-yellow">远期竞争</span></td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>关键判断：惠城在废塑料化学循环赛道是"先发者"，但未必是"最终赢家"。</strong>中石化的资金+原料+渠道优势、国家队的资源整合能力，都是惠城难以匹敌的。最可能的结果是惠城吃掉一部分市场（如20万吨×3-5个基地=60-100万吨），但无法垄断。当前~215亿的估值隐含了"惠城会成为行业主导者"的假设，这个假设过于乐观。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a">
+        <span class="yellow">勉强能理解，但确定性很低。</span>
+        废塑料化学循环的技术原理不复杂（塑料→裂解→油/气），但判断这套技术能否大规模经济性运转、能否在竞争中胜出、每吨能赚多少钱——这些问题的答案高度不确定。就连行业专家（石化联合会、中石化、国家队的判断）都不完全一致。<br>
+        段永平说"不懂不投"。CPDCC技术的长期经济性，对普通投资者来说属于<strong>"能力圈外"</strong>——你可以理解技术在干什么，但你无法判断它未来能赚多少钱。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a">
+        <span class="red">不宽（至少目前不是）。</span>
+        CPDCC技术的壁垒在于：①自研一步法工艺；②20万吨级的先发工业化经验；③石化联合会考核背书。但这些壁垒在面对中石化、国家队时，<strong>不足以构成"不可逾越的护城河"</strong>——中石化有更多的钱、更便宜的原料、更完善的化工产品分销网络。<br>
+        FCC催化剂业务虽是细分龙头，但赛道窄（年市场~20亿），增长有限，无法支撑215亿的市值。
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a">
+        <span class="red">完全没有。</span>
+        当前 PE >2500x（动态），PB 9.65x。即使按最乐观的机构预测（国盛证券：2027E净利润 8.1 亿），PE 仍高达 26.5x——而国盛的预测在 2025 年 10 月给出、至今已过去 9 个月，废塑料项目负荷仍只有 28%。<br>
+        对于一家 ROE 0.13%、经营现金流为负、资产负债率 66%+ 的公司，任何超过 2x PB 的估值都缺乏安全边际。<strong>¥72.28 的价格不仅没有安全边际，反而蕴含了巨大的下行风险。</strong>
+      </div>
+    </div>
+
+    <div class="key-insight red">
+      <strong>三问结论：一黄两红。</strong> 这生意对普通投资者来说很难看透（能力圈边界模糊），护城河不宽（中石化/国家队虎视眈眈），价格完全没有安全边际。用段永平的话说：<strong>"这是一个 too hard 的问题，放到 too hard 那堆里。"</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值分析 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+
+    <h3>6.1 当前估值 vs 行业对比</h3>
+    <table>
+      <tr><th>公司</th><th>市值</th><th>PE（TTM）</th><th>PB</th><th>ROE</th><th>2025净利（亿）</th></tr>
+      <tr><td><strong>惠城环保</strong></td><td>215亿</td><td><strong>~368x</strong></td><td><strong>9.65x</strong></td><td>4.28%</td><td>0.58</td></tr>
+      <tr><td>伟明环保</td><td>~300亿</td><td>~15.8x</td><td>~3x</td><td>~20%</td><td>~19</td></tr>
+      <tr><td>瀚蓝环境</td><td>~180亿</td><td>~11.1x</td><td>~1.5x</td><td>~14%</td><td>~16</td></tr>
+      <tr><td>浙富控股</td><td>~100亿</td><td>~15.9x</td><td>~1.8x</td><td>~11%</td><td>~6</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>惠城环保的估值是环保同行平均水平的 20-30 倍（按 PE 算）</strong>，而 ROE 却是同行的 1/5 到 1/3。这只能有一个解释：市场给的不是"环保公司"的估值，而是"废塑料化学循环赛道期权"的估值——相当于一家早期科技公司的风投定价，而非成熟企业的价值定价。
+    </div>
+
+    <h3>6.2 多情景估值</h3>
+    <table>
+      <tr><th>情景</th><th>假设</th><th>2027E净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-red">保守</span></td><td>废塑料项目负荷40-50%，FCC持平，提钒未投产</td><td>¥1.2亿</td><td>20x</td><td>¥24亿</td><td>¥8</td></tr>
+      <tr><td><span class="tag tag-yellow">基准</span></td><td>废塑料项目负荷60-70%，FCC微增，提钒投产</td><td>¥3亿</td><td>25x</td><td>¥75亿</td><td>¥25</td></tr>
+      <tr><td><span class="tag tag-green">乐观（国盛预测）</span></td><td>废塑料满产+2个基地，FCC出海+20%</td><td>¥8.1亿</td><td>30x</td><td>¥243亿</td><td>¥82</td></tr>
+      <tr><td><span class="tag tag-blue">极度乐观</span></td><td>5个基地满产，独占国内市场</td><td>¥15亿</td><td>35x</td><td>¥525亿</td><td>¥178</td></tr>
+    </table>
+    <p class="fn">当前股价 ¥72.28 已经接近国盛最乐观预测下的目标价（¥82），而国盛的预测还是2025年10月的，至今废塑料负荷未达预期。即使国盛的乐观预测完全兑现，以当前价格买入的回报空间也非常有限。</p>
+
+    <h3>6.3 估值结论</h3>
+    <div class="key-insight red">
+      <strong>当前价格透支了极度乐观情景。</strong> ¥72.28 隐含的假设是：废塑料项目在 2027 年前满产 + 成功复制 2-3 个基地 + 海外 FCC 催化剂持续高增长 + 提钒顺利投产。这 4 个条件全部兑现的概率很低。从安全边际的角度，<strong>只有在 ¥25-35 区间（基准情景的底部），才有足够的犯错容错空间。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: 催化剂 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来 12 个月关键催化</h2>
+  <div class="section-body">
+
+    <div class="tl-item">
+      <div class="tl-time">2026年8月</div>
+      <div class="tl-body">
+        <div class="tl-title">2026 半年报发布（8月27日）</div>
+        <div class="tl-desc">最重要观察窗口：废塑料项目 H1 运行负荷是否提升到 50%+？经营现金流是否转正？若数据持续低迷，可能引发抛售。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">废塑料项目扩产进展</div>
+        <div class="tl-desc">揭阳二期、岳阳、菏泽、天津等基地的选址/环评/开工进展。市场最关注的是"从 1 到 N"的复制能力。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">中国资源循环利用集团合作落地</div>
+        <div class="tl-desc">2025年9月签了意向合作，如果实质性投资协议落地（如合资公司成立），是重大利好。如果不了了之，是重大利空。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2026H2</div>
+      <div class="tl-body">
+        <div class="tl-title">九江提钒项目投产</div>
+        <div class="tl-desc">一期1000吨/年装置加紧建设中，若投产并顺利达产，是新的利润增长点。</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-time">2027年</div>
+      <div class="tl-body">
+        <div class="tl-title">海外FCC催化剂大单</div>
+        <div class="tl-desc">2025年海外收入+606%，如果2026-2027年能在中东/北美/东南亚拿到长期供货合同，将稳定FCC基本盘。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8: 操作 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作建议</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>区间</th><th>价格</th><th>对应 PB</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">可考虑研究</span></td><td><strong>¥25~35</strong></td><td>1x ~ 1.5x</td><td>如果废塑料满产可验证 + 现金流转正，可小仓位试探</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高</span></td><td>¥35~50</td><td>1.5x ~ 2.2x</td><td>仅限深度研究且能承受50%回撤的投资者</td></tr>
+      <tr><td><span class="tag tag-red">严重高估</span></td><td>¥50~72</td><td>2.2x ~ 3.2x</td><td>观望，不加仓</td></tr>
+      <tr><td><span class="tag tag-red">泡沫</span></td><td><strong>¥72+</strong></td><td>>3.2x</td><td><strong>当前价位：不参与。已持有者应考虑减仓</strong></td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>当前建议：不参与。</strong> 惠城环保的故事很性感（废塑料=城市油田），但估值已严重透支。在段永平/巴菲特的框架下，这种"高不确定性 + 零安全边际"的标的属于 <strong>"too hard"</strong>——错过不可惜，买错会亏大钱。如果废塑料项目在 2027-2028 年证明了经济性（满产满销 + 现金流转正 + 第二个基地成功复制），届时再以合理价格参与也完全来得及——好机会永远不缺，缺的是耐心。
+    </div>
+
+    <h3>如果执意要参与（不推荐）</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>仓位上限：</strong>不超过组合的 2%（即把它当风投/期权，做好亏光的心理准备）</li>
+      <li><strong>第一观察点：</strong>2026年8月半年报——废塑料项目 H1 负荷率是否超 50%，经营现金流是否改善</li>
+      <li><strong>止损：</strong>跌破 ¥55（-24%）坚决清仓，不抱幻想</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 9: 风险 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td><strong>废塑料项目迟迟不满产</strong></td><td><span class="tag tag-yellow">中高</span></td><td><span class="tag tag-red">致命</span></td><td>2025年负荷仅28%，若2026H2仍在50%以下，估值逻辑崩盘</td></tr>
+      <tr><td><strong>流动性/融资风险</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-red">极高</span></td><td>经营现金流持续为负 + 高负债，若股价下跌导致融资困难，可能触发流动性危机</td></tr>
+      <tr><td><strong>中石化/国家队碾压</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-red">极高</span></td><td>中石化有钱有原料有渠道，国家队有政策加持，惠城可能沦为"技术先驱但市场失败"</td></tr>
+      <tr><td><strong>技术被证伪或替代</strong></td><td><span class="tag tag-green">低</span></td><td><span class="tag tag-red">致命</span></td><td>CPDCC已通过石化联合会考核，技术本身风险较低。但可能出现更优技术路线</td></tr>
+      <tr><td><strong>应收账款坏账</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">中</span></td><td>应收款同比+124%，若下游客户经营恶化，可能计提大额坏账</td></tr>
+      <tr><td><strong>实控人减持</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">中高</span></td><td>股价高位时定增机构解禁 + 实控人可能减持，对股价形成压制</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>最大风险情景（概率 ~30-40%）：</strong>废塑料项目 2026-2027 年持续低负荷（<50%），经济性无法验证 → 融资渠道受阻 → 公司在建工程形成大量无效资产 → 资产减值 + 流动性危机 → 股价跌至 ¥15-25（跌 65-80%）。<br><br>
+      <strong>这个风险概率不是空穴来风：</strong>公司两个主要募投项目（1万吨固废处理、3万吨FCC再生）至今"不及预期"，说明公司的执行力并非完美。废塑料项目规模更大、复杂度更高，出问题的概率不能低估。
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>惠城环保 (300779.SZ) 价值投资分析报告 | 2026-07-31</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报、券商研报（国盛证券）、东方财富、同花顺、投资者关系记录表</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(heading) {
+  heading.classList.toggle('collapsed');
+  var body = heading.nextElementSibling;
+  if (body) {
+    body.classList.toggle('collapsed');
+  }
+}
+function toggleAll() {
+  var headings = document.querySelectorAll('.card h2');
+  var bodies = document.querySelectorAll('.section-body');
+  var anyOpen = false;
+  bodies.forEach(function(b) { if (!b.classList.contains('collapsed')) anyOpen = true; });
+  headings.forEach(function(h) {
+    if (anyOpen) { h.classList.add('collapsed'); } else { h.classList.remove('collapsed'); }
+  });
+  bodies.forEach(function(b) {
+    if (anyOpen) { b.classList.add('collapsed'); } else { b.classList.remove('collapsed'); }
+  });
+}
+</script>
+</body>
+</html>
