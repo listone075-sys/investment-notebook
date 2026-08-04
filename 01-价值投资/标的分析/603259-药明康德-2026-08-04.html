@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>药明康德 (603259.SH) — 价值投资分析报告</title>
+<style>
+  :root { --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8; --accent: #2563eb; --accent-light: #dbeafe; --green: #16a34a; --green-bg: #dcfce7; --red: #dc2626; --red-bg: #fee2e2; --yellow: #d97706; --yellow-bg: #fef3c7; --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; } .header h1 span { color: var(--accent); } .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; } .meta-bar a:hover { text-decoration: underline; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; } .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; } .card h4 { font-size: 0.95em; color: var(--text2); margin: 14px 0 6px; font-weight: 600; }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; } .section-body.collapsed { max-height: 0 !important; }
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); list-style: none; display: flex; align-items: center; gap: 8px; } details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; } details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; } details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .verdict-box { background: linear-gradient(135deg, var(--yellow-bg), #fff); border: 2px solid var(--yellow); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; } .verdict-box .v-big.buy { color: var(--green); } .verdict-box .v-big.watch { color: var(--yellow); } .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 650px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; } th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); } th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; } tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); } .tag-yellow { background: var(--yellow-bg); color: var(--yellow); } .tag-red { background: var(--red-bg); color: var(--red); } .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); } .stat-tile .num.green { color: var(--green); } .stat-tile .num.yellow { color: var(--yellow); } .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); background: var(--accent-light); border-left: 4px solid var(--accent); } .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); } .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); } .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; } .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 110px; font-weight: 600; color: var(--accent); font-size: 0.9em; } .tl-body { flex: 1; } .tl-body .tl-title { font-weight: 600; } .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; } .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; } .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; } .q-item .a .yellow { color: var(--yellow); font-weight: 600; } .q-item .a .red { color: var(--red); font-weight: 600; }
+  .toggle-bar { text-align: center; margin: 12px 0; } .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; } .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>药明康德 <span>价值投资分析</span></h1>
+  <div class="subtitle">WuXi AppTec — 全球CRDMO龙头 × GLP-1/TIDES第二增长曲线 × 地缘政治折价</div>
+  <div class="codes">
+    <span>603259.SH</span><span>02359.HK</span><span>CXO·医药外包</span><span>沪港双重上市</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-08-04</span>
+    <span>¥141.35（涨停）</span>
+    <span>市值 ¥4,218亿</span>
+    <span>数据截止 2026H1</span>
+    <span><a href="https://finance.sina.com.cn/realstock/company/sh603259/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span>
+  </div>
+</div>
+
+<div class="container">
+<div class="toggle-bar"><button onclick="toggleAll()">全部展开 / 全部折叠</button></div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big watch">⚡ 观察（偏积极）</div>
+  <div class="v-desc">
+    这是近期分析的标的中<strong>生意质量最高的一个</strong>——ROE 28.6%、毛利率 47.6%、在手订单 664亿、H1业绩大超预期。<br>
+    唯一的实质性风险是地缘政治（1260H清单+生物安全法案），但这把"达摩克利斯之剑"已在估值中体现（PE ~20x vs 历史中枢30x+）。<br>
+    <strong>好生意遇到了好价格，但有个"不消失的乌云"——适合在地缘政治恐慌时逆向买入。</strong>
+  </div>
+  <div class="v-details">
+    <span>买入区间：<strong style="color:var(--green);">¥100~120</strong></span>
+    <span>当前价：<strong style="color:var(--yellow);">¥141.35</strong></span>
+    <span>合理价值：<strong>¥130~180</strong></span>
+    <span>仓位：<strong>5~8%（等回调）</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥141.35</div><div class="label">当前股价（涨停后）</div></div>
+      <div class="stat-tile"><div class="num yellow">¥4,218亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num green">~20x</div><div class="label">PE（TTM）</div></div>
+      <div class="stat-tile"><div class="num yellow">5.06x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥288.97亿</div><div class="label">2026H1营收（+38.93%）</div></div>
+      <div class="stat-tile"><div class="num green">¥110.80亿</div><div class="label">2026H1净利（+29.43%）</div></div>
+      <div class="stat-tile"><div class="num green">28.56%</div><div class="label">ROE（2025加权）</div></div>
+      <div class="stat-tile"><div class="num green">47.64%</div><div class="label">综合毛利率（2025）</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥664.3亿</div><div class="label">在手订单（H1末，+25%）</div></div>
+      <div class="stat-tile"><div class="num green">¥585~605亿</div><div class="label">2026年上调后收入指引</div></div>
+      <div class="stat-tile"><div class="num">¥172.0亿</div><div class="label">2025经营现金流</div></div>
+      <div class="stat-tile"><div class="num">17家买入</div><div class="label">90天内机构评级（1增持）</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>药明康德是全球最大的<strong>CRDMO（合同研究、开发与生产一体化）</strong>平台，为全球药企提供从药物发现→临床前研究→临床试验→商业化生产的一站式服务。2025 年营收 455 亿，其中<strong>美国客户占 68.7%</strong>，服务全球 6,000+ 活跃客户。公司是 CXO 行业"富士康+台积电"的合体——既做研发外包（CRO），也做生产外包（CDMO），而且一体化协同产生的效率优势是单一环节的竞争对手无法匹敌的。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          帮全球药企做<strong>"药物研发和生产的外包"</strong>：<br>
+          ① <strong>CRO（合同研发）：</strong>辉瑞/默沙东等药企把药物筛选、毒理测试、临床实验外包给药明——省了自建实验室和养上千科学家的成本。<br>
+          ② <strong>CDMO（合同生产）：</strong>帮药企生产原料药、制剂、到商业化量产。GLP-1 减肥药（司美格鲁肽/替尔泊肽）的代工是当前最大的增长引擎（TIDES +96%）。<br>
+          <strong>核心逻辑：药企降本增效的"卖铲人"——无论谁研发出新药，都要找 CRO/CDMO 做研发和生产。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河</h4>
+        <div class="key-insight">
+          ① <strong>CRDMO一体化：</strong>从"发现"到"商业化生产"的端到端能力，客户可以在药明平台上完成药物的全生命周期——转换成本极高（换供应商=项目延误1-2年+成本激增25%）。<br>
+          ② <strong>规模+速度：</strong>全球最大CRDMO，拥有最大的化学家团队和产能池。RA Capital测算：切断药明康德=美国药企研发成本激增25%。<br>
+          ③ <strong>TIDES先发优势：</strong>多肽/寡核苷酸产能全球领先，GLP-1风口上"卖铲子"的第一大赢家。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 主营业务构成</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025营收</th><th>占比</th><th>毛利率</th><th>2026H1增速</th><th>战略定位</th></tr>
+      <tr><td><strong>化学业务（WuXi Chemistry）</strong></td><td>¥364.7亿</td><td>80.2%</td><td>52.3%</td><td>+43.7%(Q1)</td><td><strong>核心引擎</strong></td></tr>
+      <tr><td>其中：小分子D&M</td><td>¥199.2亿</td><td>—</td><td>—</td><td><strong>+72.7%(H1)</strong></td><td>GLP-1商业化放量</td></tr>
+      <tr><td>其中：TIDES（多肽/寡核苷酸）</td><td>¥113.7亿</td><td>—</td><td>—</td><td><strong>+44.3%(H1)</strong></td><td><strong>第二增长曲线</strong></td></tr>
+      <tr><td>测试业务</td><td>¥40.4亿</td><td>8.9%</td><td>30.5%</td><td>+31.5%(H1)</td><td>稳定增长</td></tr>
+      <tr><td>生物学业务</td><td>¥26.8亿</td><td>5.9%</td><td>37.0%</td><td>+11.2%(H1)</td><td>前端导流</td></tr>
+    </table>
+
+    <div class="key-insight green">
+      <strong>商业模式本质：药明康德是全球制药业的"基础设施"。</strong> 就像台积电是芯片行业的"代工厂"，药明是制药行业的"研发和生产代工厂"。这门生意的好处在：<br>
+      ① <strong>客户粘性极高：</strong>药企一旦把一个分子从发现阶段交给药明，后续的研发、临床、生产自然就沿着 CRDMO 链条走下去——换供应商等于重做很多工作，成本极高。<br>
+      ② <strong>"卖铲子"的确定性：</strong>新药研发成功率 ~10%，但无论哪个分子成功，药明都能赚到钱。它的业绩不依赖于某一个明星药物，而是全球新药研发的总量。<br>
+      ③ <strong>GLP-1 的历史级风口：</strong>全球 GLP-1 减肥药市场预计到 2030 年超过 1000 亿美元。所有药企都在扩产，而药明是它们首选的产能外包方——TIDES 业务 2025 年翻倍增长就是证明。
+    </div>
+
+    <details>
+      <summary>深度：为什么美国药企离不开药明康德？</summary>
+      <div class="detail-body">
+        <p>生物安全法案折腾了两年，美国政客喊了无数次"脱钩"，结果药明的美国客户收入反而从 2023 年的 ~260 亿增长到 2025 年的 312.5 亿（+34%）。为什么？</p>
+        <p><strong>1. 成本差距是结构性的：</strong>RA Capital 测算，若切断与药明合作，美国药企整体研发成本将激增约 25%。这不是 5-10% 的微小差异，而是四分之一——任何一个药企 CFO 都无法忽视。而且药明的价格优势不是靠"补贴"或"汇率"来的，而是靠<strong>中国化学家的规模效应+工程师红利+完整产业链集群</strong>。美国要复现这个体系，至少需要 10 年和数千亿美元。</p>
+        <p><strong>2. 速度差距更可怕：</strong>药明康德平均每天接受全球监管机构和药企客户质量审查 2 次以上，通过率 100%。其项目执行速度是欧美同行无法媲美的（中国工程师的加班文化和庞大的化学家团队）。在新药研发这个"速度就是一切"的行业，多等 1-2 年就等于丢了市场。</p>
+        <p><strong>3. 生物安全法案 2.0 证明了一个事实：</strong>经过两年博弈，最终版本不直接点名中国公司、不涉及 Medicare/Medicaid、给现有合同提供 5 年过渡期——<strong>在最极端的地缘政治压力下，药明的商业模式依然没有被"毙掉"。</strong>这不是说风险不存在，而是说风险比市场一度恐慌的程度要小得多。</p>
+        <p><strong>4. 但风险是真实且永久的：</strong>1260H 清单、BCC 名单、新签合同可能受到信心的潜在影响——这些都是头顶上的"乌云"。它不会消失，只会时浓时淡。投资药明就是接受这道乌云的存在，然后在地缘政治恐慌（股价大跌）时逆向加仓。</p>
+      </div>
+    </details>
+
+    <h3>1.3 护城河评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分</th><th>说明</th></tr>
+      <tr><td>CRDMO一体化</td><td>⭐⭐⭐⭐⭐</td><td>从发现到商业化全链条，全球唯一真正实现端到端一体化的CRDMO平台</td></tr>
+      <tr><td>转换成本</td><td>⭐⭐⭐⭐⭐</td><td>更换CXO供应商=项目延误1-2年+成本+25%，制药业最高转换成本之一</td></tr>
+      <tr><td>规模效应</td><td>⭐⭐⭐⭐⭐</td><td>全球最大化学家团队+产能池+客户群，后来者几乎无法复制</td></tr>
+      <tr><td>TIDES产能壁垒</td><td>⭐⭐⭐⭐⭐</td><td>多肽/寡核苷酸产能建设周期长(2-3年)+投资大，先发优势极强</td></tr>
+      <tr><td>品牌/监管信任</td><td>⭐⭐⭐⭐⭐</td><td>日均接受2次+全球药企和监管机构审查，通过率100%——这是"信任资产"</td></tr>
+      <tr><td>定价权</td><td>⭐⭐⭐⭐☆</td><td>毛利率47.6%证明有定价权，但大药企有议价能力，"提价"能力弱于茅台/片仔癀</td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>综合护城河评级：极宽。</strong> 药明康德拥有我在 A 股见过的<strong>最坚固的护城河之一</strong>——五种不同类型护城河（一体化+转换成本+规模+产能壁垒+监管信任）叠加强化。竞争对手可以复制某一块（如三星在 CDMO 建产能），但复制整个 CRDMO 体系需要 10 年+和数百亿美元的投入。唯一能摧毁这道护城河的，不是市场力量，而是<strong>地缘政治力量</strong>——那是超出商业逻辑分析范畴的变量。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>李革</strong></td><td>董事长/CEO</td><td>北大化学学士+哥大有机化学博士。2000年创立药明康德，中国CXO行业的奠基人</td><td><span class="tag tag-green">行业教父级</span></td></tr>
+    </table>
+    <h3>2.2 管理层评估</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>战略前瞻性</td><td>⭐⭐⭐⭐⭐</td><td>2000年创立时中国还没有CRO行业；2016年布局TIDES产能（GLP-1爆发时已准备好）；2024年主动剥离ATU等敏感资产——每一步都走在市场前面</td></tr>
+      <tr><td>资本配置</td><td>⭐⭐⭐⭐☆</td><td>美国米德尔顿基地（44亿）+新加坡基地（78亿）的全球化布局有理有据。出售ATU/药明合联合部分股权的时机精准</td></tr>
+      <tr><td>危机管理</td><td>⭐⭐⭐⭐⭐</td><td>面对生物安全法案：①主动剥离敏感资产；②起诉美国国防部；③美国建厂——组合拳到位</td></tr>
+      <tr><td>股东回报</td><td>⭐⭐⭐☆☆</td><td>2026年首次推员工持股计划（4000人，¥103.08/股），回购+分红力度一般</td></tr>
+      <tr><td>诚信度</td><td>⭐⭐⭐⭐☆</td><td>生物安全法案风波中信息透明，主动披露客户结构和订单数据，配合监管审查100%通过</td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>管理层综合评价：卓越。</strong> 李革是中国 CXO 行业毋庸置疑的"教父"。从 2000 年看到中国化学家红利创立药明，到 2016 年提前布局 TIDES 产能（8 年后成为 GLP-1 时代的最大赢家），战略前瞻性令人印象深刻。面对美国制裁时，剥离敏感资产、法律起诉、美国建厂三管齐下——<strong>是被动的应对，却是最高水平的应对。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+    <h3>3.1 核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026H1</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>394</td><td>403</td><td>392</td><td>455</td><td>289</td><td><span class="tag tag-green">加速增长</span></td></tr>
+      <tr><td>扣非净利（亿元）</td><td>~90</td><td>~95</td><td>~100</td><td>132.4</td><td>105.7</td><td><span class="tag tag-green">H1≈去年全年</span></td></tr>
+      <tr><td>ROE</td><td>~18%</td><td>~16%</td><td>~17%</td><td><strong>28.56%</strong></td><td>—</td><td><span class="tag tag-green">大幅跃升</span></td></tr>
+      <tr><td>毛利率</td><td>~37%</td><td>~40%</td><td>~41%</td><td><strong>47.64%</strong></td><td>50.4%(Q1)</td><td><span class="tag tag-green">持续改善</span></td></tr>
+      <tr><td>在手订单（亿）</td><td>—</td><td>—</td><td>~450</td><td>580</td><td><strong>664</strong></td><td><span class="tag tag-green">持续新高</span></td></tr>
+      <tr><td>经营现金流（亿）</td><td>~100</td><td>~110</td><td>~124</td><td>172</td><td>—</td><td><span class="tag tag-green">利润含金量高</span></td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>财务状况：A+级别。</strong> 几乎没有瑕疵——营收加速增长（+39% H1）、毛利率持续扩张（37%→50%）、ROE 跃升至 28.6%、在手订单 664 亿提供数年营收可见性、经营现金流远超净利润（说明利润是真实的）。<strong>这是 A 股中少数真正"高质量增长"的公司。</strong>
+    </div>
+
+    <details>
+      <summary>财务深度：2026H1 业绩的五个亮点</summary>
+      <div class="detail-body">
+        <p>8月3日发布的半年报大超市场预期：</p>
+        <p><strong>① H1营收289亿（+39%），Q2单季165亿（+55% YoY）：</strong>不仅增长快，而且加速——Q2增速显著高于Q1。</p>
+        <p><strong>② 上调全年指引至585-605亿：</strong>从原来的513-530亿上调了14%，幅度之大在CXO行业罕见。按中值595亿计，H2至少还有306亿（vs H1 289亿），下半年加速趋势明确。</p>
+        <p><strong>③ D&M（生产）增速72.7%：</strong>商业化生产是CXO利润最丰厚的环节，D&M高速增长说明GLP-1等商业化订单正在放量兑现。</p>
+        <p><strong>④ 在手订单664亿（+25%）：</strong>相当于1.5年的营收保障。订单持续增长意味着2027-2028年的增长也是"锁定的"。</p>
+        <p><strong>⑤ 经营现金流强劲：</strong>105亿扣非利润对应充足的现金流，说明"纸面利润"是有真金白银支撑的。</p>
+        <p><strong>结论：</strong>这是一个罕见的"营收加速+利润率扩张+订单创新高"三击时刻。通常这种质量的公司估值在 30-40x PE，而药明只有 ~20x——<strong>地缘政治折价是唯一的解释。</strong></p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+    <h3>4.1 全球CXO梯队</h3>
+    <table>
+      <tr><th>梯队</th><th>代表公司</th><th>2025营收</th><th>特征</th></tr>
+      <tr><td><strong>第一梯队</strong></td><td><strong>药明康德</strong>、Thermo Fisher（Patheon）、Lonza</td><td>$60亿+</td><td>全球化全链条CRDMO</td></tr>
+      <tr><td>第二梯队</td><td>康龙化成、凯莱英、泰格医药、Catalent</td><td>$10-30亿</td><td>有特色但规模差距大</td></tr>
+      <tr><td>追赶者</td><td>三星生物、富士（美国建厂）</td><td>$5-15亿</td><td>美/日/韩本土替代，但成本高、品类窄</td></tr>
+    </table>
+
+    <h3>4.2 为什么竞争对手难以替代药明？</h3>
+    <table>
+      <tr><th>竞争对手</th><th>优势</th><th>无法替代药明的原因</th></tr>
+      <tr><td><strong>三星生物</strong></td><td>大分子CDMO产能大，韩国政府支持</td><td>只做CDMO不做CRO，缺少前端研发导流；成本高于中国</td></tr>
+      <tr><td><strong>富士（美国）</strong></td><td>美国本土生产，合规确定性高</td><td>总投32亿美元，成本至少是药明的1.5-2倍；仅覆盖大分子</td></tr>
+      <tr><td><strong>Lonza</strong></td><td>全球CDMO龙头之一</td><td>成本和速度均弱于药明；近年增长放缓</td></tr>
+      <tr><td><strong>印度CDMO</strong></td><td>成本低</td><td>质量体系差距大，Enzene美国厂2025年亏损73亿卢比</td></tr>
+    </table>
+    <div class="key-insight green">
+      <strong>核心结论：目前尚不存在能在"质量+成本+速度+规模"四个维度上同时接近药明康德的系统性替代方案。</strong> 这也是为什么生物安全法案折腾了两年，药明的美国客户收入不降反增——药企知道政治家在喊口号，但研发管线等不起。"替代药明"更多是一个政治口号而非商业现实。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a"><span class="green">能理解。</span>药明的生意就是"帮药企做研发和生产的代工"——和台积电帮苹果造芯片是同一个逻辑。药物研发外包的产业链非常清晰，收入和利润有合同/订单背书。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a"><span class="green">极宽。</span>五重护城河叠加（CRDMO一体化+转换成本+规模+产能壁垒+监管信任），全球只有不到3家公司具备同等量级的竞争壁垒。竞争对手可以撬走一个客户或一个项目，但无法撼动整个平台。</div>
+    </div>
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a"><span class="yellow">不足（但有地缘政治折价补偿）。</span>PE ~20x 对于一家 ROE 28%、营收增速 35%+ 的公司来说绝对不贵（PEG < 0.6），但如果地缘政治风险全面爆发（BCC名单扩大+新签合同冻结），利润可能从 200 亿跌回 100 亿——届时 20x PE 变成 40x PE。<strong>"合理估值+尾部风险"是药明的标准画像。</strong>在恐慌时（¥100-120，PE 14-17x）买入，则安全边际充裕；在当前价（涨停后 ¥141，PE ~20x），安全边际偏薄。</div>
+    </div>
+    <div class="key-insight yellow">
+      <strong>三问结论：两绿一黄。</strong> 生意好理解、护城河极宽、价格合理但不便宜。这是在价值投资框架下，<strong>唯一一个我愿意在合适的价格下买入</strong>的标的——前提是等回调，不在涨停板上追。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+    <h3>6.1 多情景估值</h3>
+    <table>
+      <tr><th>情景</th><th>假设</th><th>2026E扣非净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-red">保守</span></td><td>地缘政治恶化，TIDES增速降至15%，新签合同减少</td><td>¥150亿</td><td>18x</td><td>¥2,700亿</td><td>¥90</td></tr>
+      <tr><td><span class="tag tag-yellow">基准</span></td><td>维持当前趋势，全年营收~595亿</td><td>¥180亿</td><td>22x</td><td>¥3,960亿</td><td>¥133</td></tr>
+      <tr><td><span class="tag tag-green">乐观</span></td><td>GLP-1持续放量+美国工厂顺利投产+地缘政治缓和</td><td>¥210亿</td><td>28x</td><td>¥5,880亿</td><td>¥197</td></tr>
+    </table>
+
+    <h3>6.2 历史估值参照</h3>
+    <p>药明康德 PE（TTM）历史走势：2021年高点 ~100x → 2023-2024年生物安全法案恐慌期间跌至 ~13-15x → 2026年修复至 ~20x。</p>
+    <p>历史 PE 中枢约 30-35x（2020-2021年）。当前 20x 处于<strong>"地缘政治折价"</strong>区间——如果法案风险完全消除，PE 有望回到 28-30x；如果风险恶化，PE 可能再次下探 12-15x。</p>
+
+    <div class="key-insight green">
+      <strong>估值结论：¥133（基准情景）是合理价格的锚。</strong> 当前 ¥141 略高于基准估值，但考虑到全年指引刚刚大幅上调+Q2加速趋势，<strong>20x PE 并非泡沫。</strong>最理想的买入机会是地缘政治恐慌造成的回调（¥100-120，PE 14-17x）——这样的机会在 2023-2024 年出现过多次，未来大概率还会出现。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7-9: 催化剂/操作/风险 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来12个月关键催化</h2>
+  <div class="section-body">
+    <div class="tl-item"><div class="tl-time">2026Q3</div><div class="tl-body"><div class="tl-title">🔴 美国米德尔顿基地投产（Q4口服固体制剂）</div><div class="tl-desc">投资44亿的美国工厂投产是地缘政治风险管理的核心举措。若顺利投产并获FDA认证，将大幅降低"供应链脱钩"的概率。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026H2</div><div class="tl-body"><div class="tl-title">🟡 1260H清单诉讼进展</div><div class="tl-desc">6月已起诉美国国防部。历史先例（小米4个月摘牌）表明有成功的可能。若胜诉，将是重大情绪催化剂。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026Q4</div><div class="tl-body"><div class="tl-title">🟡 BCC名单首批公布</div><div class="tl-desc">OMB会同国防部制定首批"受关注生物技术公司"名单。如果药明未被列入或列入范围收窄，是重大利好。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2027Q1</div><div class="tl-body"><div class="tl-title">🔵 2026年报+2027年指引</div><div class="tl-desc">若2026年实现585-605亿营收+2027年指引继续高增长，估值有望修复至25x+。</div></div></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作区间与仓位</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>区间</th><th>价格</th><th>对应PE(2026E)</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">低估/积极买入</span></td><td><strong>¥90~110</strong></td><td>13x ~ 16x</td><td>积极建仓，目标仓位 8-10%</td></tr>
+      <tr><td><span class="tag tag-green">合理偏低/分批建仓</span></td><td><strong>¥110~130</strong></td><td>16x ~ 19x</td><td>分批买入，目标仓位 5-8%</td></tr>
+      <tr><td><span class="tag tag-yellow">合理/持有</span></td><td>¥130~160</td><td>19x ~ 23x</td><td>持有不动，等回调加仓</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高</span></td><td>¥160~200</td><td>23x ~ 29x</td><td>不加仓，若已持有可减仓1/3</td></tr>
+      <tr><td><span class="tag tag-red">高估/卖出</span></td><td>¥200+</td><td>>29x</td><td>分批减仓</td></tr>
+    </table>
+
+    <h3>建仓节奏</h3>
+    <div class="key-insight yellow">
+      <strong>当前 ¥141 处于"合理"区间，不急于追高。</strong><br>
+      ① 涨停之后必有回调——等 3-5 个交易日消化，目标入场区间 ¥125-135<br>
+      ② 如有地缘政治恐慌（1260H诉讼进展不利、BCC名单传闻）导致跌至 ¥110 以下，果断加仓<br>
+      ③ 最佳策略：<strong>设定 ¥120 和 ¥105 两档限价买单</strong>，等待"乌云"带来的恐慌性抛售<br>
+      <strong>核心纪律：不在地缘政治平稳期追涨，在地缘政治恐慌期逆向买入。</strong>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th></tr>
+      <tr><td><strong>地缘政治全面恶化</strong></td><td><span class="tag tag-yellow">中低</span></td><td><span class="tag tag-red">致命</span></td></tr>
+      <tr><td><strong>GLP-1需求见顶</strong></td><td><span class="tag tag-green">低</span></td><td><span class="tag tag-yellow">中</span></td></tr>
+      <tr><td><strong>新签合同意愿下降</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">中高</span></td></tr>
+      <tr><td><strong>海外产能拖累利润</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">中</span></td></tr>
+    </table>
+    <div class="key-insight red">
+      <strong>最大风险：地缘政治是不可量化的"尾部风险"。</strong> 药明康德的基本面接近完美——但这不重要，因为毁灭它的不会是商业竞争，而是一纸行政命令。尽管目前的信号偏乐观（生物安全法案2.0温和、客户收入不降反增），但这个风险永远不会消失。<strong>仓位纪律是唯一的保护——药明在组合中的仓位上限不应超过 10%。</strong>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>药明康德 (603259.SH / 02359.HK) 价值投资分析报告 | 2026-08-04</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报/半年报、光大证券、华西证券、国金证券、高盛、东方财富、同花顺</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(h) { h.classList.toggle('collapsed'); var b=h.nextElementSibling; if(b) b.classList.toggle('collapsed'); }
+function toggleAll() {
+  var hs=document.querySelectorAll('.card h2'), bs=document.querySelectorAll('.section-body');
+  var anyOpen=false; bs.forEach(function(b){ if(!b.classList.contains('collapsed')) anyOpen=true; });
+  hs.forEach(function(h){ if(anyOpen) h.classList.add('collapsed'); else h.classList.remove('collapsed'); });
+  bs.forEach(function(b){ if(anyOpen) b.classList.add('collapsed'); else b.classList.remove('collapsed'); });
+}
+</script>
+</body>
+</html>
