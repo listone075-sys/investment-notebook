@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>金陵药业 (000919.SZ) — 价值投资分析报告</title>
+<style>
+  :root { --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8; --accent: #2563eb; --accent-light: #dbeafe; --green: #16a34a; --green-bg: #dcfce7; --red: #dc2626; --red-bg: #fee2e2; --yellow: #d97706; --yellow-bg: #fef3c7; --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; } .header h1 span { color: var(--accent); } .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; } .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; } .section-body.collapsed { max-height: 0 !important; }
+  .verdict-box { background: linear-gradient(135deg, var(--yellow-bg), #fff); border: 2px solid var(--yellow); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; } .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; } th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); } th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; } tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); } .tag-yellow { background: var(--yellow-bg); color: var(--yellow); } .tag-red { background: var(--red-bg); color: var(--red); }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; } @media (max-width: 700px) { .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); } .stat-tile .num.green { color: var(--green); } .stat-tile .num.red { color: var(--red); } .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); background: var(--accent-light); border-left: 4px solid var(--accent); } .key-insight strong { color: var(--text); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); } .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; } .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; } .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; } .q-item .a .red { color: var(--red); font-weight: 600; }
+  .toggle-bar { text-align: center; margin: 12px 0; } .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>金陵药业 <span>价值投资分析</span></h1>
+  <div class="subtitle">Jinling Pharmaceutical — 中药老字号 × 医疗服务 × 低PB国企</div>
+  <div class="codes"><span>000919.SZ</span><span>中药·医疗服务</span><span>深交所主板</span></div>
+  <div class="meta-bar"><span>2026-08-04</span><span>¥6.36</span><span>市值 ¥39.6亿</span><span>数据截止 2026Q1</span><span><a href="https://finance.sina.com.cn/realstock/company/sz000919/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span></div>
+</div>
+<div class="container">
+<div class="toggle-bar"><button onclick="toggleAll()">全部展开 / 全部折叠</button></div>
+
+<div class="verdict-box">
+  <div class="v-label">综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">PB ~1.0x 是A股医药板块中罕见的"破净边缘"标的，脉络宁是独家品种有品牌价值。<br>但 ROE 1.42%、营收持续下滑、超过50%收入来自低毛利的医院运营——<strong>便宜有便宜的道理。</strong><br>属于"等待催化剂"型的观察标的（常州四药收购若能落地，基本面可能质变）。</div>
+  <div class="v-details"><span>买入区间：<strong style="color:var(--green);">¥4.5~5.5</strong></span><span>当前价：<strong style="color:var(--yellow);">¥6.36</strong></span><span>仓位：<strong>3%（仅当催化剂明确时）</strong></span></div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥6.36</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num yellow">¥39.6亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num yellow">~35x</div><div class="label">PE（动态）</div></div>
+      <div class="stat-tile"><div class="num green">~1.0x</div><div class="label">PB（破净边缘）</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num yellow">¥31.97亿</div><div class="label">2025营收（-2.56%）</div></div>
+      <div class="stat-tile"><div class="num red">¥0.54亿</div><div class="label">2025净利（+33%）</div></div>
+      <div class="stat-tile"><div class="num red">1.42%</div><div class="label">ROE</div></div>
+      <div class="stat-tile"><div class="num yellow">20.86%</div><div class="label">毛利率</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+    <p>金陵药业是典型的<strong>"药+医"双轮驱动地方国企</strong>。制药端有独家品种<strong>脉络宁注射液/口服液</strong>（国家中药保护品种，心脑血管）和<strong>速力菲</strong>（琥珀酸亚铁，补铁剂细分龙头）。医院端控股4家综合医院（含三甲宿迁医院），并运营养老机构。2025年营收32亿，其中医疗服务和药品各占一半。</p>
+    <table>
+      <tr><th>板块</th><th>2025营收</th><th>占比</th><th>特点</th></tr>
+      <tr><td>医疗服务</td><td>16.49亿</td><td>51.58%</td><td>4家医院+养老，毛利率低（~15%），重资产</td></tr>
+      <tr><td>药品生产销售</td><td>14.95亿</td><td>46.74%</td><td>脉络宁独家+速力菲+香菇多糖，毛利率~25%</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>生意本质：低增长、低利润的"稳健型"国企。</strong> 脉络宁是真正的独家品种（国家中药保护），在心脑血管领域有一定品牌认知度，这是公司最大的无形资产。但医院业务拉低了整体盈利水平（毛利率仅约21%），32亿营收只赚5000多万——<strong>利润池太薄了。</strong>PB约1.0x说明市场给的估值恰好等于净资产——没有为"脉络宁"的品牌价值支付任何溢价。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、段永平"三问"测试</h2>
+  <div class="section-body">
+    <div class="q-item"><div class="q">一问：这生意我能理解吗？</div><div class="a"><span class="green">能理解。</span>卖中药注射液/口服液+开医院，模式简单清晰。脉络宁在基层医院有一定刚需。</div></div>
+    <div class="q-item"><div class="q">二问：护城河够宽吗？</div><div class="a"><span class="red">窄。</span>脉络宁是独家品种（中药保护），但心脑血管中药竞争激烈（步长脑心通、天士力复方丹参滴丸等）。速力菲是补铁剂细分龙头但门槛不高。医院业务无护城河——所有医院都面临医保控费压力。</div></div>
+    <div class="q-item"><div class="q">三问：价格有安全边际吗？</div><div class="a"><span class="red">偏薄。</span>PB ~1.0x 提供了"硬资产"底线（跌到净资产附近有支撑），但ROE 1.42%意味着即便以净资产价格买入，年化回报也只有1.4%。<strong>"便宜"不能单独构成买入理由——必须要有ROE改善的催化剂。</strong>常州四药收购若成功，可能使ROE翻倍（常州四药利润体量约1-2亿），届时当前价格才有真正的安全边际。</div></div>
+    <div class="key-insight yellow"><strong>三问结论：一绿两红。</strong> "便宜的烂生意"vs"合理价格的好生意"——段永平选后者。金陵药业属于前者。除非常州四药收购等催化剂落地，否则不值得主动买入。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、估值与操作建议</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>情景</th><th>2026E净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-yellow">基准（现状）</span></td><td>¥0.6亿</td><td>20x</td><td>¥12亿</td><td>¥1.9</td></tr>
+      <tr><td><span class="tag tag-green">乐观（常州四药并表后）</span></td><td>¥2.5亿</td><td>18x</td><td>¥45亿</td><td>¥7.2</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>当前¥6.36已接近乐观情景的估值上限。</strong> 常州四药收购仍处意向阶段，存在重大不确定性。如果收购落地，¥7左右是合理价；如果收购失败，仅凭现有业务，合理价在¥2-3。当前股价已经隐含了部分"收购成功"的预期——<strong>这意味着如果收购失败，下行风险很大。</strong>
+    </div>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>核心催化剂：</strong>常州四药收购落地（时间不确定，仍在意向阶段）</li>
+      <li><strong>观察信号：</strong>毛利率能否持续回升（已连续5个季度改善）+ 脉络宁销售能否恢复增长</li>
+      <li><strong>不建议当前介入</strong>——等待收购确定性提高或股价回调至PB <0.9x再考虑</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer"><p>金陵药业 (000919.SZ) 价值投资分析报告 | 2026-08-04</p><p>本报告基于公开信息整理，不构成投资建议。</p></div>
+</div>
+<script>
+function toggleSection(h) { h.classList.toggle('collapsed'); var b=h.nextElementSibling; if(b) b.classList.toggle('collapsed'); }
+function toggleAll() { var hs=document.querySelectorAll('.card h2'), bs=document.querySelectorAll('.section-body'); var anyOpen=false; bs.forEach(function(b){ if(!b.classList.contains('collapsed')) anyOpen=true; }); hs.forEach(function(h){ if(anyOpen) h.classList.add('collapsed'); else h.classList.remove('collapsed'); }); bs.forEach(function(b){ if(anyOpen) b.classList.add('collapsed'); else b.classList.remove('collapsed'); }); }
+</script>
+</body>
+</html>
