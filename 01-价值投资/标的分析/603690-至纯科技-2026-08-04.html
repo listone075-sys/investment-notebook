@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>至纯科技 (603690.SH) — 价值投资分析报告</title>
+<style>
+  :root { --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8; --accent: #2563eb; --accent-light: #dbeafe; --green: #16a34a; --green-bg: #dcfce7; --red: #dc2626; --red-bg: #fee2e2; --yellow: #d97706; --yellow-bg: #fef3c7; --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; } .header h1 span { color: var(--accent); } .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; } .meta-bar a:hover { text-decoration: underline; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; } .card h4 { font-size: 0.95em; color: var(--text2); margin: 14px 0 6px; font-weight: 600; }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; } .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); color: var(--text); list-style: none; display: flex; align-items: center; gap: 8px; }
+  details summary:hover { background: #e5e7ef; } details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; } details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .verdict-box { background: linear-gradient(135deg, var(--red-bg), #fff); border: 2px solid var(--red); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); } .verdict-box .v-big.watch { color: var(--yellow); } .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); } th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; } tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); } .tag-yellow { background: var(--yellow-bg); color: var(--yellow); } .tag-red { background: var(--red-bg); color: var(--red); } .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); } .stat-tile .num.green { color: var(--green); } .stat-tile .num.yellow { color: var(--yellow); } .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); background: var(--accent-light); border-left: 4px solid var(--accent); }
+  .key-insight strong { color: var(--text); } .key-insight.green { background: var(--green-bg); border-left-color: var(--green); } .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); } .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; } .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 110px; font-weight: 600; color: var(--accent); font-size: 0.9em; } .tl-body { flex: 1; } .tl-body .tl-title { font-weight: 600; } .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; } .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; } .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; } .q-item .a .yellow { color: var(--yellow); font-weight: 600; } .q-item .a .red { color: var(--red); font-weight: 600; }
+  .toggle-bar { text-align: center; margin: 12px 0; } .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; } .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>至纯科技 <span>价值投资分析</span></h1>
+  <div class="subtitle">PNC Process Systems — 高纯工艺系统龙头 × 半导体清洗设备国产替代</div>
+  <div class="codes">
+    <span>603690.SH</span><span>半导体设备·高纯工艺</span><span>上交所主板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-08-04</span>
+    <span>¥21.60</span>
+    <span>市值 ¥82.7亿</span>
+    <span>数据截止 2026Q1</span>
+    <span><a href="https://finance.sina.com.cn/realstock/company/sh603690/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span>
+  </div>
+</div>
+
+<div class="container">
+<div class="toggle-bar"><button onclick="toggleAll()">全部展开 / 全部折叠</button></div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big sell">❌ 回避</div>
+  <div class="v-desc">
+    高纯工艺系统龙头地位真实，SPM清洗设备独家量产也是真的。<br>
+    但2025年亏损7.77亿（上市最差）、2026H1继续亏损2.6-3.8亿、被列入实体清单、负债率73%、存货=净资产——<br>
+    <strong>财务已处于"准危机"状态。在扭亏信号明确出现之前，不碰。</strong>
+  </div>
+  <div class="v-details">
+    <span>可考虑价格：<strong style="color:var(--green);">¥10~15</strong></span>
+    <span>当前价：<strong style="color:var(--red);">¥21.60</strong></span>
+    <span>合理价值：<strong>¥15~25（高度不确定）</strong></span>
+    <span>仓位：<strong>不建议</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num red">¥21.60</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num yellow">¥82.7亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num red">亏损</div><div class="label">PE（无法计算）</div></div>
+      <div class="stat-tile"><div class="num yellow">2.37x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num red">¥28.55亿</div><div class="label">2025年营收（-20.81%）</div></div>
+      <div class="stat-tile"><div class="num red">-¥7.77亿</div><div class="label">2025年净利（上市最差）</div></div>
+      <div class="stat-tile"><div class="num red">-20.84%</div><div class="label">ROE</div></div>
+      <div class="stat-tile"><div class="num yellow">22.76%</div><div class="label">毛利率</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num red">¥6.21亿</div><div class="label">2026Q1营收（-14.70%）</div></div>
+      <div class="stat-tile"><div class="num red">-¥0.79亿</div><div class="label">2026Q1净利（亏损扩大）</div></div>
+      <div class="stat-tile"><div class="num green">¥19.77亿</div><div class="label">Q1新签订单（≈去年78%）</div></div>
+      <div class="stat-tile"><div class="num red">73.05%</div><div class="label">资产负债率</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>至纯科技是国内稀缺的<strong>"晶圆厂全生命周期服务商"</strong>——从建厂阶段的高纯气体/化学品系统集成，到投产后的湿法清洗设备，再到运营期的电子材料和大宗气体供应，贯穿半导体制造全流程。公司约 93% 收入来自泛半导体行业，核心客户覆盖<strong>长江存储、中芯国际、华虹、长鑫科技</strong>等头部晶圆厂。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight yellow">
+          ① 晶圆厂建厂时：给工厂铺设高纯气体/化学品的"管道系统"（市占率 47%/29%，国内老大）→ 一单几亿，毛利率~25%<br>
+          ② 投产后：卖湿法清洗设备（SPM高温硫酸独家国产）+ 卖大宗气体/电子材料 → 毛利率30-40%<br>
+          <strong>核心逻辑：绑定晶圆厂从建到产的全流程，客户粘性极高。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河</h4>
+        <div class="key-insight">
+          ① <strong>高纯工艺系统龙头：</strong>特气系统市占率 47%、化学品系统 29%，晶圆厂一旦选定供应商几乎不会切换（切换意味着停产改造，代价极大）。<br>
+          ② <strong>SPM设备独家：</strong>高温硫酸清洗设备国内唯一量产，累计产出超 100 万片次。<br>
+          ③ <strong>全链条绑定：</strong>从建厂到运营一揽子服务，竞争对手很难单品突破。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 主营业务构成（2025）</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025营收</th><th>占比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>高纯工艺系统集成</strong></td><td>¥22.93亿</td><td>80.3%</td><td>~22%</td><td><strong>基本盘</strong>——晶圆厂的"心血管系统"</td></tr>
+      <tr><td><strong>湿法清洗设备</strong></td><td>¥2.86亿</td><td>10.0%</td><td>~35%</td><td><strong>成长曲线</strong>——SPM独家国产，14nm验证中</td></tr>
+      <tr><td>电子材料</td><td>¥2.69亿</td><td>9.4%</td><td>~25%</td><td>运营期耗材，稳定现金流</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>生意的两面性。</strong> 好的一面：高纯工艺系统是真正的"窄门"生意——晶圆厂特气/化学品管道一旦铺好就焊死了，替换成本极高（等于停工重建），<strong>转换成本是真实的护城河</strong>。不好的一面：2025 年营收暴跌 21%、亏损 7.77 亿创上市最差——即便有护城河，也架不住行业周期下行 + 被美国列入实体清单 + 大项目交付延迟的三重打击。<strong>护城河保护的是长期盈利能力，但不能防止短期灾难。</strong>
+    </div>
+
+    <details>
+      <summary>深度：高纯工艺系统——被低估的"窄门"生意</summary>
+      <div class="detail-body">
+        <p>很多人把至纯科技当成"又一个半导体设备公司"，但实际上它的核心壁垒不在设备，而在<strong>高纯工艺系统集成</strong>——这是一个容易被忽视但极度重要的环节：</p>
+        <p><strong>1. 为什么重要？</strong>晶圆制造需要超纯水、超纯气体、超纯化学品，任何杂质都会导致芯片报废。输送这些介质的管道系统相当于晶圆厂的"心血管"——一旦出问题，整条产线停摆。</p>
+        <p><strong>2. 为什么壁垒高？</strong>①技术壁垒：高纯管道需要达到 PPT（万亿分之一）级别的洁净度，材料、焊接、检测都有极高要求；②转换成本：晶圆厂一旦选定了系统供应商并完成安装，<strong>更换意味着停产 + 重新铺设管道 + 重新认证——成本高达数亿元。</strong>所以晶圆厂倾向于在建厂时就绑定供应商，并在后续扩产中持续使用同一家。</p>
+        <p><strong>3. 至纯的地位：</strong>在国内 12 英寸晶圆厂 49 个中标项目中，至纯在特气系统市占率 47%、化学品系统 29%。这意味着每两座新建的 12 英寸晶圆厂中，就有一座用的是至纯的气体系统。这个市占率是经过十余年积累的，新进入者很难短期替代。</p>
+        <p><strong>4. 但问题在于：</strong>系统集成是"项目制"生意——今年签单、明年执行、后年确认收入。2025 年营收大跌就是因为大项目执行周期拉长、交付延迟。这意味着即便护城河再宽，<strong>短期业绩的波动性非常大</strong>。</p>
+      </div>
+    </details>
+
+    <h3>1.3 护城河评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分</th><th>说明</th></tr>
+      <tr><td>高纯系统转换成本</td><td>⭐⭐⭐⭐⭐</td><td>晶圆厂更换系统供应商=停产重建，代价极高。这是最强的护城河类型</td></tr>
+      <tr><td>SPM设备独特性</td><td>⭐⭐⭐⭐☆</td><td>国内唯一量产，但北方华创/盛美上海在追赶，独占窗口期有限</td></tr>
+      <tr><td>客户关系深度</td><td>⭐⭐⭐⭐☆</td><td>从建厂到运营全链条绑定，单一客户可产生持续十年以上的收入流</td></tr>
+      <tr><td>成本优势</td><td>⭐⭐☆☆☆</td><td>毛利率 23% 在半导体行业偏低（北方华创 ~40%，盛美 ~45%）</td></tr>
+      <tr><td>规模效应</td><td>⭐⭐⭐☆☆</td><td>系统集成业务有一定规模效应，但项目制限制了边际成本递减空间</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合护城河评级：中等偏宽（但正在被财务困境侵蚀）。</strong> 高纯工艺系统的转换成本是真实的、持久的护城河。但公司的财务危机（连续亏损+高负债+实体清单）可能迫使它做出损害长期竞争力的短期决策（如降价抢单、压缩研发）。<strong>护城河是宽的，但城里的粮仓快见底了。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: 管理层 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>蒋渊</strong></td><td>董事长/总经理</td><td>1974年生，技术出身，公司创始人。带领至纯从高纯工艺起家，切入半导体清洗设备</td><td><span class="tag tag-yellow">方向对，但财务失控</span></td></tr>
+    </table>
+
+    <h3>2.2 管理层评估维度</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>战略方向</td><td>⭐⭐⭐⭐☆</td><td>"高纯系统+清洗设备+电子材料"三位一体战略逻辑清晰，SPM做到国内独家</td></tr>
+      <tr><td>执行力</td><td>⭐⭐☆☆☆</td><td>2025年订单仅25亿（目标未达成），大项目交付延迟，设备营收仅2.86亿</td></tr>
+      <tr><td>财务纪律</td><td>⭐☆☆☆☆</td><td>亏损7.77亿、负债率73%、存货34亿=净资产、不分红——财务处于"准危机"状态</td></tr>
+      <tr><td>股东回报</td><td>⭐☆☆☆☆</td><td>2025年不分配不转增，上市以来分红微薄，持续融资稀释股东权益</td></tr>
+      <tr><td>危机应对</td><td>⭐⭐☆☆☆</td><td>被列入实体清单后的应对措施不透明，减值计提是否充分存疑</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>管理层综合评价：方向感好，但财务失控。</strong> 蒋渊的战略规划是清晰的，SPM独家量产也证明团队有技术执行力。但 2025 年亏损 7.77 亿、存货等于净资产、资产负债率 73%——这些数字表明管理层在成本控制、交付管理、风险预警方面存在严重问题。<strong>"实体清单+行业下行"不是全部借口，管理层的财务纪律同样值得质疑。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 核心指标恶化轨迹</h3>
+    <table>
+      <tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>2026Q1</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>~36</td><td>36.05</td><td>28.55</td><td>6.21</td><td><span class="tag tag-red">持续下滑</span></td></tr>
+      <tr><td>归母净利润（亿元）</td><td>~1.5</td><td>-1.36</td><td><strong>-7.77</strong></td><td>-0.79</td><td><span class="tag tag-red">加速亏损</span></td></tr>
+      <tr><td>ROE</td><td>~4%</td><td>-3.6%</td><td><strong>-20.84%</strong></td><td>-2.0%</td><td><span class="tag tag-red">崩塌</span></td></tr>
+      <tr><td>新增订单</td><td>—</td><td>—</td><td><strong>25.34亿</strong></td><td>19.77(Q1)</td><td><span class="tag tag-green">Q1反弹</span></td></tr>
+      <tr><td>存货（亿元）</td><td>~25</td><td>~30</td><td><strong>34.32</strong></td><td>—</td><td><span class="tag tag-red">≈净资产</span></td></tr>
+      <tr><td>资产负债率</td><td>~60%</td><td>~65%</td><td>~73%</td><td><strong>73.05%</strong></td><td><span class="tag tag-red">危险线</span></td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>财务状况：已触及"准危机"红线。</strong> 三个最危险的信号：① <strong>存货 34 亿 = 净资产 35 亿</strong>——存货稍微减值 10% 就能吃掉全部净资产；② <strong>资产负债率 73%</strong>，且经营现金流为负，这意味着公司在靠借钱维持运营；③ <strong>H1 预亏 2.6-3.8 亿</strong>，意味着 Q2 单季亏损 1.8-3.0 亿——亏损没有收窄反而在加速。
+    </div>
+
+    <details>
+      <summary>财务深度：34亿存货——定时炸弹还是隐藏利润？</summary>
+      <div class="detail-body">
+        <p>至纯科技的 34 亿存货（=净资产）是理解这家公司最关键的数字。它可能是"隐藏的利润"（一旦交付就变成收入），也可能是"定时炸弹"（一旦减值就炸掉全部净资产）：</p>
+        <p><strong>"隐藏利润"的逻辑：</strong>系统集成业务是项目制——先投入成本（计入存货-在建工程/合同履约成本），项目验收后才能确认收入。34 亿存货意味着有大量项目在执行中，一旦验收通过，这些存货会释放为营收和利润。Q1 新签订单 19.77 亿（同比大增）也支持这个逻辑——需求回来了，只是还没确认收入。</p>
+        <p><strong>"定时炸弹"的逻辑：</strong>① 实体清单可能导致部分项目无法完成（关键零部件断供）；② 行业下行可能导致客户延期验收甚至取消订单；③ 34 亿存货中如果有大量"烂尾项目"，减值风险极高。2025 年已经大幅减值了，但<strong>是否减值充分？</strong>这是最大的不确定性。</p>
+        <p><strong>判断关键：</strong>8月25日半年报中，关注两个数字——① 存货是否在下降（交付在加速）；② 合同负债是否在上升（新订单预收款在增加）。如果存货降 + 合同负债升 = 困境反转确认。如果存货继续涨 + 合同负债降 = 炸弹在倒计时。</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 高纯工艺系统 — 至纯的"主场"</h3>
+    <table>
+      <tr><th>细分领域</th><th>至纯市占率</th><th>竞争对手</th><th>至纯优势</th></tr>
+      <tr><td>特气设备及系统</td><td><strong>46.9%</strong></td><td>外资为主（Air Liquide等）</td><td>国产替代首选，交付快+成本低</td></tr>
+      <tr><td>化学品设备及系统</td><td><strong>29%</strong></td><td>外资+少数国内</td><td>与特气系统联动，一站式服务</td></tr>
+      <tr><td>洁净室二次配</td><td><strong>15.3%（第一）</strong></td><td>分散</td><td>存量晶圆厂改造需求增量</td></tr>
+    </table>
+
+    <h3>4.2 湿法清洗设备 — 三国杀</h3>
+    <table>
+      <tr><th>公司</th><th>技术特色</th><th>2025营收</th><th>至纯的优势/劣势</th></tr>
+      <tr><td><strong>至纯科技</strong></td><td>SPM高温硫酸独家国产，28nm全覆盖</td><td>2.86亿</td><td>设备营收最小，但SPM独占</td></tr>
+      <tr><td>盛美上海</td><td>SAPS/TEBO兆声波技术，全球独创</td><td>~50亿</td><td>规模碾压，技术差异化强</td></tr>
+      <tr><td>北方华创</td><td>平台型，清洗+刻蚀+薄膜全覆盖</td><td>~30亿（清洗部分）</td><td>平台优势，客户一站式采购</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>设备业务：方向对，但规模太小。</strong> 至纯的 SPM 独家国产是真正的技术突破，但 2.86 亿的设备营收 vs 盛美 50 亿、北方华创 30 亿——<strong>规模差距超过 10 倍</strong>。清洗设备行业的核心竞争力不仅是技术，还包括客户验证覆盖度、量产交付能力、售后服务网络。至纯在技术和客户关系上有基础，但要追上身位，需要设备订单从 2.86 亿跃升至 8-12 亿（2026 年目标）——这需要 14/7nm 验证通过 + 批量订单释放，<strong>目前仍是"故事"而非"事实"</strong>。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a"><span class="green">能理解。</span>高纯工艺系统=给晶圆厂铺特气/化学品管道，清洗设备=芯片制造中间洗掉杂质。都是半导体制造的"基础设施"，逻辑清晰。但<strong>判断 14/7nm 验证能否通过、实体清单影响多大，需要专业的半导体行业知识。</strong></div>
+    </div>
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a"><span class="green">较宽（高纯系统），窄（清洗设备）。</span>高纯工艺系统的转换成本壁垒是真实的——晶圆厂一旦安装几乎不换。但清洗设备领域盛美和北方华创的竞争压力巨大，至纯的 SPM 独占优势能维持多久是未知数。综合看，<strong>护城河存在但不均匀，最赚钱的系统集成业务壁垒最强，最有想象力的设备业务壁垒最弱。</strong></div>
+    </div>
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a"><span class="red">不足（且财务风险极大）。</span>PB 2.37x，对于一家 ROE -20% 的公司来说并不便宜。如果 34 亿存货出现 10% 减值（3.4 亿），净资产就缩水 10%，PB 被动升至 2.6x。如果减值 20%（6.8 亿），净资产掉到 28 亿，PB 升至 3x。<strong>当前的 PB 是在"存货完全没问题"的假设下计算的——这个假设本身就很脆弱。</strong><br>更合理的估值方式是看"困境反转后的盈利能力"——假设 2027 年扭亏赚 2-3 亿，给 25-30x PE，合理市值 50-90 亿（对应股价 ¥13-23）。当前 ¥21.60 已处于合理区间的上沿，<strong>没有安全边际。</strong></div>
+    </div>
+
+    <div class="key-insight red">
+      <strong>三问结论：两绿一红，但红色的这问是最重要的。</strong> 生意能理解，护城河存在（尤其在高纯系统），但价格没有安全边际——而且这个"价格"是建立在"存货没问题、实体清单影响可控、订单能顺利转化为收入"三个未验证的假设之上的。段永平说过："<strong>买一个正在亏钱的公司，等于在猜它什么时候能赚钱——这不是投资。</strong>"
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+    <h3>6.1 多情景估值（2027E）</h3>
+    <table>
+      <tr><th>情景</th><th>假设</th><th>2027E净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-red">保守</span></td><td>订单转化率低，实体清单持续压制，存货减值10-15%</td><td>-1~0.5亿</td><td>—</td><td>¥30-40亿</td><td>¥8-10</td></tr>
+      <tr><td><span class="tag tag-yellow">基准</span></td><td>订单正常交付，设备小幅放量，2027H2扭亏</td><td>¥2亿</td><td>25x</td><td>¥50亿</td><td>¥13</td></tr>
+      <tr><td><span class="tag tag-green">乐观</span></td><td>14/7nm验证通过，清洗设备放量，系统集成重回增长</td><td>¥4亿</td><td>30x</td><td>¥120亿</td><td>¥31</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>估值结论：即使乐观情景，当前价格上行空间也有限（¥21.60→¥31，+44%），而下行风险巨大（¥21.60→¥8，-63%）。</strong>不对称的风险收益比是"回避"评级的核心原因——<strong>赚有限的钱，冒亏大钱的风险，这不是好的赌注。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: 催化剂 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来 12 个月关键催化</h2>
+  <div class="section-body">
+    <div class="tl-item"><div class="tl-time">2026年8月25日</div><div class="tl-body"><div class="tl-title">🔴 半年报发布</div><div class="tl-desc">已预告亏损 2.6-3.8 亿。关键是：存货是否下降？合同负债是否上升？Q2 单季亏损是否 QoQ 收窄？</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026Q3</div><div class="tl-body"><div class="tl-title">🔴🔴 14/7nm清洗设备验证结果</div><div class="tl-desc"><strong>最重要的催化剂。</strong>若通过验证并获得批量订单，设备业务将从"故事"变成"现实"。反之则意味着向先进制程的升级失败。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026H2</div><div class="tl-body"><div class="tl-title">🟡 长江存储三期招标</div><div class="tl-desc">洁净室+气站项目是至纯的"主场"，若中标大单将直接推升2027-2028年营收。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026Q3-Q4</div><div class="tl-body"><div class="tl-title">🟡 实体清单影响评估</div><div class="tl-desc">被列入已超过半年，关键零部件替代方案是否落地？客户是否因实体清单回避至纯？</div></div></div>
+    <div class="tl-item"><div class="tl-time">2027年</div><div class="tl-body"><div class="tl-title">🟢 扭亏为盈</div><div class="tl-desc">如果2025-2026是"洗澡"年（集中计提减值），2027年轻装上阵实现盈利，将是最强的反转信号。</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 8: 操作 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作建议</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>区间</th><th>价格</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">可考虑研究</span></td><td><strong>¥10~15</strong></td><td>若14/7nm验证通过+存货下降+连续两个季度亏损收窄，可小仓位试探</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高</span></td><td>¥15~23</td><td>仅限深度研究且能承受 50%+ 回撤的投资者</td></tr>
+      <tr><td><span class="tag tag-red">不参与</span></td><td><strong>¥23+</strong></td><td><strong>当前 ¥21.60 接近区间上沿，在没有扭亏信号前不碰</strong></td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>当前建议：加入观察名单，等待 8月25日半年报 + Q3 设备验证结果。</strong> 如果两者都超预期（亏损收窄+验证通过），届时在 ¥15-18 区间建 2-3% 试探仓。如果任一不及预期，继续远离。<br><br>
+      在价值投资框架下，<strong>"等待确认"优于"提前预判"</strong>——确认扭亏多付 20% 的股价，比猜错了亏 50% 要好得多。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 9: 风险 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th></tr>
+      <tr><td><strong>存货大规模减值</strong></td><td><span class="tag tag-yellow">中高</span></td><td><span class="tag tag-red">致命</span></td></tr>
+      <tr><td><strong>实体清单持续压制</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-red">很高</span></td></tr>
+      <tr><td><strong>14/7nm验证失败</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-red">高</span></td></tr>
+      <tr><td><strong>流动性危机</strong></td><td><span class="tag tag-yellow">中低</span></td><td><span class="tag tag-red">灾难级</span></td></tr>
+    </table>
+    <div class="key-insight red">
+      <strong>最大风险：存货减值 + 实体清单 = 完美风暴。</strong> 34亿存货中若隐藏大量因实体清单而无法交付的"烂尾项目"，减值规模可能远超市场预期。公司 2025 年已经"洗过一次澡"（亏损 7.77 亿），但如果洗得不够彻底，2026-2027 年可能还需要再洗——很多困境反转股就是这么"反了又反、越反越深"的。
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>至纯科技 (603690.SH) 价值投资分析报告 | 2026-08-04</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报、东北证券、东方财富、同花顺</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(h) { h.classList.toggle('collapsed'); var b=h.nextElementSibling; if(b) b.classList.toggle('collapsed'); }
+function toggleAll() {
+  var hs=document.querySelectorAll('.card h2'), bs=document.querySelectorAll('.section-body');
+  var anyOpen=false; bs.forEach(function(b){ if(!b.classList.contains('collapsed')) anyOpen=true; });
+  hs.forEach(function(h){ if(anyOpen) h.classList.add('collapsed'); else h.classList.remove('collapsed'); });
+  bs.forEach(function(b){ if(anyOpen) b.classList.add('collapsed'); else b.classList.remove('collapsed'); });
+}
+</script>
+</body>
+</html>
