@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东山精密 (002384.SZ) — 价值投资分析报告</title>
+<style>
+  :root {
+    --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8; --accent: #2563eb; --accent-light: #dbeafe;
+    --green: #16a34a; --green-bg: #dcfce7; --red: #dc2626; --red-bg: #fee2e2;
+    --yellow: #d97706; --yellow-bg: #fef3c7; --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; color: var(--text); margin-bottom: 4px; }
+  .header h1 span { color: var(--accent); }
+  .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .meta-bar a:hover { text-decoration: underline; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; color: var(--text); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; }
+  .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .card h4 { font-size: 0.95em; color: var(--text2); margin: 14px 0 6px; font-weight: 600; }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; }
+  .section-body.collapsed { max-height: 0 !important; padding: 0 !important; }
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); color: var(--text); list-style: none; display: flex; align-items: center; gap: 8px; }
+  details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .verdict-box { background: linear-gradient(135deg, var(--yellow-bg), #fff); border: 2px solid var(--yellow); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; }
+  .verdict-box .v-big.buy { color: var(--green); } .verdict-box .v-big.watch { color: var(--yellow); } .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; }
+  tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); } .tag-yellow { background: var(--yellow-bg); color: var(--yellow); } .tag-red { background: var(--red-bg); color: var(--red); } .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); }
+  .stat-tile .num.green { color: var(--green); } .stat-tile .num.yellow { color: var(--yellow); } .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); background: var(--accent-light); border-left: 4px solid var(--accent); }
+  .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); }
+  .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+  .tl-item { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { flex: 0 0 110px; font-weight: 600; color: var(--accent); font-size: 0.9em; }
+  .tl-body { flex: 1; } .tl-body .tl-title { font-weight: 600; } .tl-body .tl-desc { font-size: 0.88em; color: var(--text2); margin-top: 2px; }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; }
+  .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; }
+  .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; } .q-item .a .yellow { color: var(--yellow); font-weight: 600; } .q-item .a .red { color: var(--red); font-weight: 600; }
+  .toggle-bar { text-align: center; margin: 12px 0; }
+  .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .toggle-bar button:hover { background: var(--card2); }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>东山精密 <span>价值投资分析</span></h1>
+  <div class="subtitle">DSBJ — 全球PCB龙头 × 索尔思光模块/光芯片 × AI双引擎驱动</div>
+  <div class="codes">
+    <span>002384.SZ</span><span>电子制造·AI算力</span><span>深交所主板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-08-04</span>
+    <span>¥162.81</span>
+    <span>市值 ¥2,982亿</span>
+    <span>数据截止 2026Q1</span>
+    <span><a href="https://finance.sina.com.cn/realstock/company/sz002384/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="toggle-bar">
+  <button onclick="toggleAll()">全部展开 / 全部折叠</button>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    从苹果代工厂向"AI光模块+AI PCB"平台转型的故事成立，Q1业绩爆发（净利11.1亿≈去年全年）验证了方向。<br>
+    但¥163的价格已将2026年全年60-70亿利润预期打入（PE ~43-50x），且百亿短债+47亿商誉是悬挂的剑。<br>
+    <strong>好方向，但需要更好的价格。</strong>
+  </div>
+  <div class="v-details">
+    <span>买入区间：<strong style="color:var(--green);">¥100~130</strong></span>
+    <span>当前价：<strong style="color:var(--yellow);">¥162.81</strong></span>
+    <span>合理价值：<strong>¥130~200</strong></span>
+    <span>仓位：<strong>3~5%（若跌入买入区间）</strong></span>
+  </div>
+</div>
+
+<!-- SNAPSHOT -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥162.81</div><div class="label">当前股价（2026-08-03）</div></div>
+      <div class="stat-tile"><div class="num yellow">¥2,982亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num yellow">~67x</div><div class="label">PE（动态）</div></div>
+      <div class="stat-tile"><div class="num red">13.17x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥401.25亿</div><div class="label">2025年营收（+9.12%）</div></div>
+      <div class="stat-tile"><div class="num green">¥13.86亿</div><div class="label">2025年归母净利（+27.67%）</div></div>
+      <div class="stat-tile"><div class="num yellow">6.89%</div><div class="label">ROE（加权）</div></div>
+      <div class="stat-tile"><div class="num yellow">14.09%</div><div class="label">综合毛利率</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num green">¥131.38亿</div><div class="label">2026Q1营收（+52.72%）</div></div>
+      <div class="stat-tile"><div class="num green">¥11.10亿</div><div class="label">2026Q1净利（+143%）</div></div>
+      <div class="stat-tile"><div class="num green">19.33%</div><div class="label">Q1毛利率（+5.2pct）</div></div>
+      <div class="stat-tile"><div class="num green">8.56%</div><div class="label">Q1净利率（+3.25pct）</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+
+    <h3>1.1 公司速览</h3>
+    <p>东山精密发源于苏州东山镇的钣金小厂（1980年代），2010年上市，通过一系列并购蜕变为全球精密制造平台。公司拥有四大业务板块：<strong>PCB/FPC</strong>（全球第三PCB、第二FPC，苹果核心供应商）、<strong>光模块/光芯片</strong>（2025年收购索尔思光电切入）、精密制造（新能源车结构件等）、LED显示。</p>
+
+    <p>2025年营收首次突破 400 亿，但真正改变公司命运的是 2025 年收购的 <strong>索尔思光电（Source Photonics）</strong>——全球少数具备"光芯片+光模块"垂直一体化（IDM）能力的企业，拥有 200G PAM4 EML 光芯片量产能力（全球稀缺）。2026Q1 索尔思贡献了 16% 的营收，却贡献了 <strong>53% 的净利润</strong>——AI 业务已成为公司最核心的利润引擎。</p>
+
+    <div class="grid-2" style="margin-top:12px;">
+      <div>
+        <h4>一句话说清怎么赚钱</h4>
+        <div class="key-insight green">
+          传统业务：给苹果/特斯拉做 FPC 软板、PCB 硬板、精密结构件 → 赚制造费（毛利率~14%，辛苦钱）。<br>
+          新增曲线：通过索尔思做 800G/1.6T 光模块 + EML 光芯片 → 卖给 Meta/微软/亚马逊的数据中心 → 赚 AI 基建的钱（毛利率 25-30%+，好赚得多）。<br>
+          <strong>本质是从"苹果代工厂"向"AI 算力基建商"转型。</strong>
+        </div>
+      </div>
+      <div>
+        <h4>核心护城河</h4>
+        <div class="key-insight">
+          ① <strong>光芯片IDM能力（最稀缺）：</strong>索尔思是全球除 Lumentum 外少数能量产 200G PAM4 EML 光芯片的企业。光芯片占光模块成本 50%+，自研芯片=成本优势+供应安全。<br>
+          ② <strong>FPC全球第二：</strong>MFLEX 在苹果供应链中地位稳固，折叠iPhone将增加FPC用量。<br>
+          ③ <strong>Multek高端PCB：</strong>78层板能力，AI服务器PCB新产能2026Q3释放。
+        </div>
+      </div>
+    </div>
+
+    <h3>1.2 主营业务构成</h3>
+    <table>
+      <tr><th>业务板块</th><th>2025营收</th><th>占比</th><th>毛利率</th><th>战略定位</th></tr>
+      <tr><td><strong>电子电路（PCB/FPC）</strong></td><td>¥256.2亿</td><td>63.8%</td><td>~16.7%</td><td>传统基本盘，苹果链+AI PCB升级中</td></tr>
+      <tr><td><strong>精密组件（新能源车等）</strong></td><td>¥59.3亿</td><td>14.8%</td><td>~7.3%</td><td>特斯拉供应链，增长快但毛利低</td></tr>
+      <tr><td><strong>光模块/光芯片（索尔思）</strong></td><td>~¥21亿(Q1)</td><td>~16%(Q1)</td><td><strong>25-30%+</strong></td><td><strong>核心增长引擎，利润占比已超50%</strong></td></tr>
+      <tr><td>LED显示/其他</td><td>~¥64亿</td><td>~16%</td><td>~10%</td><td>稳定但非核心</td></tr>
+    </table>
+
+    <div class="key-insight green">
+      <strong>商业模式本质：从"苦力"到"技术"的跃迁。</strong> 东山精密的传统业务（PCB/FPC/精密件）是典型的重资产制造业——固定资产投资大、毛利率低（7-17%）、客户集中度高（苹果占42-50%）。但索尔思的加入彻底改变了利润结构：光模块/光芯片的毛利率 25-30%+，且 AI 需求爆发使得索尔思成为"卖铲人"。如果这个转型成功，东山将从 14% 毛利的制造商变成 20%+ 的 AI 基建平台——估值体系也会随之重估。
+    </div>
+
+    <details>
+      <summary>深度：索尔思光电——东山精密的"第二次生命"</summary>
+      <div class="detail-body">
+        <p>2025 年东山精密以不超过 59.35 亿元收购索尔思光电 100% 股权。这笔并购可能是中国电子制造业近年来最成功的转型案例之一：</p>
+        <p><strong>1. 索尔思有什么？</strong></p>
+        <p>① <strong>光芯片 IDM 能力：</strong>全球光模块企业中，绝大多数是"买芯片+组装模块"的模式（如中际旭创），只有少数几家拥有自研光芯片能力。索尔思的 200G PAM4 EML 光芯片已量产，这是 800G/1.6T 光模块最核心、最贵的部件。全球能量产 200G EML 的只有 Lumentum 和索尔思两家。</p>
+        <p>② <strong>大客户关系：</strong>Meta 是索尔思最大客户（800G 光模块批量出货），微软、亚马逊、Oracle、xAI 已导入。虽然没有进入英伟达供应链（这是与旭创的最大差距），但云厂商自研 AI 芯片的趋势（亚马逊 Trainium、微软 Maia、谷歌 TPU）意味着"非英伟达链"的光模块需求在快速增长。</p>
+        <p>③ <strong>疯狂扩产：</strong>光模块月产能从 2025 年底 20 万只→2026 年 4 月 50 万只→年底目标 100 万只。EML 芯片从月产 600 万颗→年底目标 2,200 万颗。扩产速度反映了需求的真实性和紧迫性。</p>
+        <p><strong>2. 这笔并购有多大价值？</strong></p>
+        <p>2026Q1，索尔思贡献营收约 21 亿（占 16%），贡献净利润约 5.87 亿（占 53%）。简单年化：索尔思一年能赚 20-25 亿净利润。而东山买它花了不到 60 亿——不到 3 倍 PE 的并购价格。即便考虑后续扩产投入（12亿美元=~81亿人民币），总投资回报率依然极高。</p>
+        <p><strong>3. 风险在哪？</strong></p>
+        <p>① 索尔思的利润高度依赖 AI 资本开支周期。如果 Meta/微软缩减 AI 投资，光模块需求会骤降。</p>
+        <p>② 中际旭创（年营收~800亿+，全球光模块龙头）的规模是索尔思的 9 倍+，竞争压力大。</p>
+        <p>③ 索尔思带来了约 28 亿商誉，如果 AI 需求下滑，减值风险不可忽视。</p>
+        <p>④ 扩产速度太快本身也是风险——良率爬坡、产能利用率、客户认证都需要时间。</p>
+      </div>
+    </details>
+
+    <h3>1.3 护城河评估</h3>
+    <table>
+      <tr><th>护城河类型</th><th width="140">评分（1-5）</th><th>说明</th></tr>
+      <tr><td>光芯片IDM能力</td><td>⭐⭐⭐⭐⭐</td><td>全球仅 Lumentum 和索尔思能量产 200G EML——稀缺性极强，技术壁垒高</td></tr>
+      <tr><td>FPC全球第二</td><td>⭐⭐⭐⭐☆</td><td>MFLEX在苹果链地位稳固，折叠iPhone带来增量。但制造业壁垒不如技术壁垒</td></tr>
+      <tr><td>客户关系</td><td>⭐⭐⭐⭐☆</td><td>Meta/苹果/特斯拉三大顶级客户，但客户集中度高也是风险</td></tr>
+      <tr><td>AI PCB能力</td><td>⭐⭐⭐☆☆</td><td>Multek 78层板能力有竞争力，但面临胜宏科技（AI PCB市占率13.8%）的激烈竞争</td></tr>
+      <tr><td>成本优势</td><td>⭐⭐⭐☆☆</td><td>传统业务毛利率在下降（PCB ASP从5846→3828元/㎡），制造业属性决定了成本压力大</td></tr>
+      <tr><td>规模效应</td><td>⭐⭐⭐⭐☆</td><td>400亿+营收平台，但规模在制造业是"必要但不充分"条件</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>综合护城河评级：中等偏宽（但极度依赖索尔思）。</strong> 光芯片 IDM 能力是真正的"窄门"——全球只有两家公司有，这构成了极强的技术壁垒。但除此之外，PCB/FPC/精密制造的护城河都是标准制造业水平（规模+客户关系，可被替代）。<strong>东山精密的护城河质量，90%取决于索尔思能否持续保持光芯片的技术领先。</strong>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: 管理层 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、管理层评估</h2>
+  <div class="section-body">
+    <h3>2.1 核心人物</h3>
+    <table>
+      <tr><th width="120">人物</th><th>职位</th><th>背景</th><th>评价</th></tr>
+      <tr><td><strong>袁永刚</strong></td><td>董事长</td><td>1973年生，家族企业第二代掌门人。主导了MFLEX、Multek、索尔思等一系列重大并购</td><td><span class="tag tag-green">并购眼光精准</span></td></tr>
+    </table>
+
+    <h3>2.2 管理层评估维度</h3>
+    <table>
+      <tr><th>维度</th><th>评分</th><th>依据</th></tr>
+      <tr><td>资本配置能力</td><td>⭐⭐⭐⭐⭐</td><td>2016年40亿收购MFLEX（切入苹果链）→ 2018年收购Multek（高端PCB）→ 2025年60亿收购索尔思（光芯片）。每一次并购都准确踩中了产业趋势，且整合效果良好</td></tr>
+      <tr><td>战略眼光</td><td>⭐⭐⭐⭐⭐</td><td>从钣金厂→苹果供应链→AI光模块的转型路径，方向感和节奏感极强</td></tr>
+      <tr><td>财务纪律</td><td>⭐⭐☆☆☆</td><td>百亿短债+47亿商誉，资产负债率~64%，财务激进。索尔思扩产还需81亿</td></tr>
+      <tr><td>股东回报</td><td>⭐⭐☆☆☆</td><td>制造业公司重投资轻分红是常态，ROE 6.89%较低</td></tr>
+      <tr><td>执行力</td><td>⭐⭐⭐⭐☆</td><td>索尔思产能从20万→50万→100万只/月的爬坡速度证明执行力强</td></tr>
+    </table>
+
+    <div class="key-insight green">
+      <strong>管理层综合评价：并购天才，财务大胆。</strong> 袁氏家族三次关键并购（MFLEX/Multek/索尔思）的时机和标的都堪称教科书级别。索尔思 60 亿买入、现在一年就能赚 20-25 亿——这是顶尖的资本配置能力。但百亿债务+激进扩产意味着一旦行业下行，财务风险会急剧放大。这是"大赌大赢"型管理层——方向对的时候回报惊人，方向错的时候代价也极其惨重。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: 财务 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、财务分析</h2>
+  <div class="section-body">
+
+    <h3>3.1 五年核心指标</h3>
+    <table>
+      <tr><th>指标</th><th>2021</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>趋势</th></tr>
+      <tr><td>营收（亿元）</td><td>317</td><td>310</td><td>338</td><td>367</td><td>401</td><td><span class="tag tag-green">稳步增长</span></td></tr>
+      <tr><td>归母净利润（亿元）</td><td>~18</td><td>~23</td><td>~19</td><td>~11</td><td>13.86</td><td><span class="tag tag-yellow">波动</span></td></tr>
+      <tr><td>ROE</td><td>~10%</td><td>~12%</td><td>~10%</td><td>~5.5%</td><td>6.89%</td><td><span class="tag tag-yellow">近年回落</span></td></tr>
+      <tr><td>毛利率</td><td>~16%</td><td>~17%</td><td>~14%</td><td>~14%</td><td>14.09%</td><td><span class="tag tag-yellow">毛利率承压</span></td></tr>
+      <tr><td>资产负债率</td><td>~60%</td><td>~62%</td><td>~64%</td><td>~62%</td><td>~64%</td><td><span class="tag tag-red">高杠杆</span></td></tr>
+      <tr><td>商誉（亿元）</td><td>~22</td><td>~22</td><td>~22</td><td>~19</td><td>47.69</td><td><span class="tag tag-red">并购驱动增长</span></td></tr>
+    </table>
+
+    <h3>3.2 2026Q1 — 转折点</h3>
+    <div class="grid-3">
+      <div class="stat-tile"><div class="num green">¥131.38亿</div><div class="label">Q1营收（+52.72%）</div></div>
+      <div class="stat-tile"><div class="num green">¥11.10亿</div><div class="label">Q1净利（≈2025全年）</div></div>
+      <div class="stat-tile"><div class="num green">19.33%</div><div class="label">Q1毛利率（+5.2pct YoY）</div></div>
+    </div>
+
+    <div class="key-insight green">
+      <strong>Q1是分水岭。</strong> 2026Q1 单季净利 11.1 亿接近 2025 全年（13.86亿），毛利率从 14% 跳升至 19.33%。这不是渐进的改善，而是<strong>索尔思并表带来的结构性变化</strong>——高毛利光模块业务拉高了整体盈利水平。按这个趋势，2026 全年净利有望达到 50-70 亿，R OE 将回升至 15-20%。
+    </div>
+
+    <details>
+      <summary>财务深度：债务和商誉——悬在头顶的双刃剑</summary>
+      <div class="detail-body">
+        <p>东山精密的财务状况非常"刺激"——每项指标都有两面性：</p>
+        <p><strong>1. 短期债务 121 亿 vs 现金 91 亿（缺口 ~30 亿）：</strong>公司手里的钱不够还短期借款。但这是制造业并购后的常态（索尔思扩产需要钱），而且 2026Q1 经营现金流 11.27 亿（年化 ~45 亿），加上 H 股上市融资，资金压力可控。但如果 AI 行业突然刹车，这个债务缺口会迅速变成危机。</p>
+        <p><strong>2. 商誉 47.69 亿（其中索尔思 ~28 亿）：</strong>索尔思目前年利润 20-25 亿，商誉只有 28 亿——这个商誉是"物超所值"的。但 Multek 和其他旧并购的商誉（~20 亿）可能存在减值风险。</p>
+        <p><strong>3. 泰国 FPC 工厂 2025 年亏损 ~2 亿：</strong>海外产能爬坡期的正常亏损，公司预计 2026 年扭亏，但需要验证。</p>
+        <p><strong>4. 财务费用暴增 546.85%：</strong>债务扩张的代价。2026 年利息支出将显著侵蚀利润，不过相对于索尔思贡献的利润增量（年化 20 亿+），这个成本是值得的。</p>
+        <p><strong>结论：</strong>财务风险是真实的，但在 AI 光模块需求旺盛的背景下，这些风险可控。关键是——<strong>如果 AI 需求退潮，这些风险会同时引爆。</strong></p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- SECTION 4: 竞争格局 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、竞争格局</h2>
+  <div class="section-body">
+
+    <h3>4.1 光模块赛道对比</h3>
+    <table>
+      <tr><th>公司</th><th>2025营收</th><th>毛利率</th><th>净利率</th><th>光芯片能力</th><th>PE(动态)</th></tr>
+      <tr><td><strong>中际旭创</strong></td><td>~800亿+</td><td>~35%</td><td>~20%</td><td>外购为主</td><td>~30x</td></tr>
+      <tr><td><strong>东山精密（含索尔思）</strong></td><td>401亿(~20%光)</td><td>14%(光模块25-30%)</td><td>3.5%(Q1 8.6%)</td><td><strong>IDM自研EML</strong></td><td>~67x</td></tr>
+      <tr><td>新易盛</td><td>~100亿+</td><td>~30%</td><td>~15%</td><td>外购</td><td>~35x</td></tr>
+      <tr><td>天孚通信</td><td>~50亿</td><td>~50%</td><td>~30%</td><td>光器件（非芯片）</td><td>~40x</td></tr>
+    </table>
+
+    <div class="key-insight yellow">
+      <strong>东山精密的PE最高，不是因为光模块做得最好，而是因为它有"光芯片IDM"这个稀缺标签。</strong> 中际旭创是光模块出货量全球第一（规模是索尔思的 9 倍+），但市场给的 PE 只有 30x。东山精密 PE 67x 的溢价来自：① 索尔思 EML 光芯片自研（成本优势和供应安全）；② PCB+光模块的 AI 双引擎概念；③ 增速更快（Q1 净利+143% vs 旭创 ~40-50%）。但<strong>能否持续高增长是最大的不确定性</strong>。
+    </div>
+
+    <h3>4.2 PCB赛道对比</h3>
+    <table>
+      <tr><th>公司</th><th>2025 PCB营收</th><th>毛利率</th><th>AI PCB定位</th><th>市值</th></tr>
+      <tr><td>鹏鼎控股</td><td>351亿</td><td>~22%</td><td>消费电子为主，AI占比低</td><td>~2000亿</td></tr>
+      <tr><td><strong>东山精密</strong></td><td>256亿</td><td>~16.7%</td><td>Multek 78层板，产能Q3释放</td><td>2982亿</td></tr>
+      <tr><td>胜宏科技</td><td>193亿</td><td><strong>~28%</strong></td><td>AI PCB全球市占率13.8%第一</td><td>~3200亿</td></tr>
+    </table>
+
+    <p class="fn">东山精密的PCB毛利率（16.7%）在同行中偏低，这是"苹果供应链"的代价——大客户议价权强。公司正在通过 Multek 的 AI 服务器 PCB 升级来改善产品结构，但产能 2026Q3 才释放，效果待验证。</p>
+  </div>
+</div>
+
+<!-- SECTION 5: 段永平三问 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">五、段永平"三问"测试</h2>
+  <div class="section-body">
+    <div class="q-item">
+      <div class="q">一问：这生意我能理解吗？—— 能力圈测试</div>
+      <div class="a"><span class="green">能理解。</span>光模块=数据中心用光纤收发数据；EML光芯片=光模块里最贵最核心的零件；PCB=电路板，AI服务器需要更多层、更精密的PCB。三条线逻辑清晰，不是玄学。但<strong>判断光芯片技术路线的持续性（EML vs 硅光的竞争）需要专业储备。</strong></div>
+    </div>
+    <div class="q-item">
+      <div class="q">二问：这护城河够宽吗？—— 竞争优势测试</div>
+      <div class="a"><span class="yellow">在变宽，但不够稳固。</span>光芯片IDM是真正的壁垒（全球只有两家），但：① 中际旭创也在布局自研光芯片；② 硅光技术可能绕过EML路线；③ 传统PCB/FPC业务护城河只是"标准供应商"水平（替换成本存在但不高）。<strong>护城河的宽度取决于索尔思能否在未来3-5年保持光芯片的技术代差。</strong></div>
+    </div>
+    <div class="q-item">
+      <div class="q">三问：价格有安全边际吗？—— 估值测试</div>
+      <div class="a"><span class="yellow">安全边际不足（但比两个月前好多了）。</span>当前 ¥163（从高点 ¥280+ 回落了 42%），动态 PE ~67x。按 2026E 净利 60 亿算 PE ~50x，按 70 亿算 PE ~43x。以 PEG 视角（增速 200%+）不算贵，但<strong>绝对 PE 不低、PB 13x 极高、债务风险不可忽略。</strong><br>如果能跌到 ¥100-130（对应 2026E PE 30-40x），安全边际会更充分。目前这个价格只能说"回调后没那么贵了"，<strong>谈不上低估。</strong></div>
+    </div>
+    <div class="key-insight yellow"><strong>三问结论：一绿两黄。</strong> 东山精密是三份"回避"报告后的第一次"偏积极"评估——生意正在变好（光芯片IDM是真实的壁垒），管理层并购眼光好，但价格仍不便宜。需要耐心等待更好的入场时机。</div>
+  </div>
+</div>
+
+<!-- SECTION 6: 估值 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">六、估值分析</h2>
+  <div class="section-body">
+    <h3>6.1 多情景估值</h3>
+    <table>
+      <tr><th>情景</th><th>假设</th><th>2026E净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-red">保守</span></td><td>光模块需求增速放缓至20%，传统PCB毛利率继续下滑</td><td>¥40亿</td><td>25x</td><td>¥1,000亿</td><td>¥55</td></tr>
+      <tr><td><span class="tag tag-yellow">基准</span></td><td>光模块稳健增长，Q1年化趋势延续，全年~55亿</td><td>¥55亿</td><td>30x</td><td>¥1,650亿</td><td>¥90</td></tr>
+      <tr><td><span class="tag tag-green">乐观</span></td><td>Q1趋势持续，EML芯片扩产顺利，全年~65亿</td><td>¥65亿</td><td>35x</td><td>¥2,275亿</td><td>¥124</td></tr>
+      <tr><td><span class="tag tag-blue">机构平均预期</span></td><td>11家机构一致预测</td><td>¥70亿</td><td>—</td><td>—</td><td>—</td></tr>
+    </table>
+
+    <h3>6.2 分部估值（SOTP）</h3>
+    <table>
+      <tr><th>业务板块</th><th>2026E净利润贡献</th><th>适用PE</th><th>估值</th></tr>
+      <tr><td>光模块/光芯片（索尔思）</td><td>¥30-35亿</td><td>35-40x</td><td>¥1,050-1,400亿</td></tr>
+      <tr><td>PCB/FPC + 精密制造 + LED</td><td>¥25-30亿</td><td>15-18x</td><td>¥375-540亿</td></tr>
+      <tr><td><strong>合计</strong></td><td><strong>¥55-65亿</strong></td><td>—</td><td><strong>¥1,425-1,940亿</strong></td></tr>
+    </table>
+    <p class="fn">SOTP分部估值合理市值约 ¥1,425-1,940亿（对应股价 ¥78-106），低于当前市值 ¥2,982亿。说明市场给予了索尔思更高的PE溢价（可能 60x+）以及对未来利润增长的更高预期。</p>
+
+    <div class="key-insight yellow">
+      <strong>估值结论：当前价格已反映2026年乐观预期，安全边际不足。</strong> SOTP合理估值 ¥78-106 vs 当前 ¥163——即便给索尔思 50x PE（顶级科技股估值），合理价格也不超过 ¥130。当前 ¥163 需要 2026 年全年净利达到 75-80 亿（PE 37-40x）才能支撑。在半年报（8月22日）数据出来之前，这个假设无法被证实或证伪。<br><br>
+      <strong>从 ¥280 跌到 ¥163 不是"便宜了"，而是"没那么贵了"。</strong>真正有安全边际的区间在 ¥100-130。
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: 催化剂 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">七、未来12个月关键催化</h2>
+  <div class="section-body">
+    <div class="tl-item"><div class="tl-time">2026年8月22日</div><div class="tl-body"><div class="tl-title">🔴 2026半年报发布</div><div class="tl-desc">最关键的验证节点。国盛预测 H1 净利 29-30 亿。Q2 单季预期 17.9-18.9 亿（环比+61-70%）。若超预期，全年 70 亿+可期；若低于 28 亿，增长逻辑将受质疑。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026Q3</div><div class="tl-body"><div class="tl-title">🟡 Multek AI PCB 产能释放</div><div class="tl-desc">珠海 70 亿 AI PCB 项目第一期 Q3 投产，验证"光+PCB"双引擎的第二引擎能否兑现。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026H2</div><div class="tl-body"><div class="tl-title">🔴 索尔思 1.6T 光模块进展</div><div class="tl-desc">已送样英伟达验证。若能通过验证并进入英伟达供应链，估值将大幅重估（从"非英伟达链"切换为"全链"）。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026年9月</div><div class="tl-body"><div class="tl-title">🟢 苹果 iPhone 18 / 折叠机发布</div><div class="tl-desc">折叠iPhone将大幅增加FPC用量。东山作为全球第二FPC供应商直接受益。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2026H2</div><div class="tl-body"><div class="tl-title">🟡 H 股上市</div><div class="tl-desc">若成功，募资用于扩产+还债，将缓解债务压力。港股估值可能低于A股，但双平台融资意义更大。</div></div></div>
+    <div class="tl-item"><div class="tl-time">2027年</div><div class="tl-body"><div class="tl-title">🟡 索尔思 12亿美元扩产完成</div><div class="tl-desc">EML芯片月产能目标2,200万颗 + 光模块月产能100万只，届时索尔思将成为全球第二大光芯片供应商。</div></div></div>
+  </div>
+</div>
+
+<!-- SECTION 8: 操作 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">八、操作区间与仓位</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>区间</th><th>价格</th><th>对应2026E PE</th><th>策略</th></tr>
+      <tr><td><span class="tag tag-green">低估/积极买入</span></td><td><strong>¥80~100</strong></td><td>22x ~ 28x</td><td>积极建仓，目标仓位 5-8%</td></tr>
+      <tr><td><span class="tag tag-green">合理偏低/分批建仓</span></td><td><strong>¥100~130</strong></td><td>28x ~ 37x</td><td>分批买入，目标仓位 3-5%</td></tr>
+      <tr><td><span class="tag tag-yellow">合理/持有</span></td><td>¥130~180</td><td>37x ~ 50x</td><td>持有不动，不加仓不减仓</td></tr>
+      <tr><td><span class="tag tag-yellow">合理偏高</span></td><td>¥180~230</td><td>50x ~ 65x</td><td>不加仓，已持有可观望</td></tr>
+      <tr><td><span class="tag tag-red">高估/卖出</span></td><td>¥230+</td><td>>65x</td><td>分批减仓</td></tr>
+    </table>
+
+    <h3>建仓节奏</h3>
+    <div class="key-insight yellow">
+      <strong>当前 ¥163 处于"合理"区间上沿，不急于动手。</strong><br>
+      ① 等待 8月22日半年报——如果 Q2 超预期（>19亿）且股价回调到 ¥130-150，可建 2-3% 试探仓<br>
+      ② 如果 AI 板块整体回调导致跌幅达 20%+（¥130 以下），加仓至 5%<br>
+      ③ 最理想入场窗口：光模块短期景气度担忧（如大客户砍单传闻）导致的恐慌性下跌<br>
+      <strong>核心原则：不在 ¥160+ 追高，耐心等回调。</strong>
+    </div>
+
+    <h3>卖出条件</h3>
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>基本面恶化：</strong>索尔思单季利润增速低于 30%，或 EML 芯片良率出现重大问题</li>
+      <li><strong>技术颠覆：</strong>硅光技术路线确认替代 EML，或 Lumentum 大幅降价打压索尔思份额</li>
+      <li><strong>AI 资本开支见顶：</strong>Meta/微软等大客户宣布削减 AI 基础设施投资</li>
+      <li><strong>债务危机：</strong>公司无法按期偿还短期债务或 H 股上市失败</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SECTION 9: 风险 -->
+<div class="card">
+  <h2 onclick="toggleSection(this)">九、风险提示</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>风险因素</th><th>概率</th><th>影响</th><th>应对</th></tr>
+      <tr><td><strong>AI资本开支周期见顶</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-red">致命</span></td><td>光模块需求和价格双双下行，索尔思利润断崖式下跌</td></tr>
+      <tr><td><strong>光芯片技术路线被颠覆</strong></td><td><span class="tag tag-yellow">中低</span></td><td><span class="tag tag-red">致命</span></td><td>硅光CPO若3-5年内成熟，EML芯片可能被绕过</td></tr>
+      <tr><td><strong>债务流动性危机</strong></td><td><span class="tag tag-yellow">中低</span></td><td><span class="tag tag-red">极高</span></td><td>121亿短债 vs 91亿现金，若H股上市失败+经营恶化，可能触发流动性危机</td></tr>
+      <tr><td><strong>商誉减值</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">高</span></td><td>索尔思28亿商誉目前合理，但若AI需求骤降将面临减值</td></tr>
+      <tr><td><strong>苹果订单波动</strong></td><td><span class="tag tag-yellow">中</span></td><td><span class="tag tag-yellow">中</span></td><td>苹果占收入42-50%，任何砍单或供应链调整都将冲击传统业务</td></tr>
+      <tr><td><strong>索尔思整合不及预期</strong></td><td><span class="tag tag-green">低</span></td><td><span class="tag tag-yellow">中</span></td><td>Q1业绩已证明整合顺利，但后续扩产中的管理挑战仍需关注</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>最大风险情景（概率 ~20-25%）：</strong>2027年AI算力投资进入消化期→光模块需求增速从50%+骤降至个位数→索尔思产能利用率暴跌（从100%→50%）→毛利率从30%降至15%→2027年净利仅30-40亿→商誉减值+债务压力爆发→股价跌至¥60-80。<br><br>
+      <strong>核心观测指标：</strong>Meta/微软/亚马逊的季度资本开支指引。如果连续两个季度增速放缓，就是最强烈的卖出信号——光模块的周期性比市场想象的强得多。
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>东山精密 (002384.SZ) 价值投资分析报告 | 2026-08-04</p>
+  <p>本报告基于公开信息整理，不构成投资建议。投资有风险，入市需谨慎。</p>
+  <p>数据来源：公司年报、开源证券、国盛证券、中原证券、方正证券、东方财富、同花顺</p>
+</div>
+
+</div>
+
+<script>
+function toggleSection(h) { h.classList.toggle('collapsed'); var b=h.nextElementSibling; if(b) b.classList.toggle('collapsed'); }
+function toggleAll() {
+  var hs=document.querySelectorAll('.card h2'), bs=document.querySelectorAll('.section-body');
+  var anyOpen=false; bs.forEach(function(b){ if(!b.classList.contains('collapsed')) anyOpen=true; });
+  hs.forEach(function(h){ if(anyOpen) h.classList.add('collapsed'); else h.classList.remove('collapsed'); });
+  bs.forEach(function(b){ if(anyOpen) b.classList.add('collapsed'); else b.classList.remove('collapsed'); });
+}
+</script>
+</body>
+</html>
