@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翔宇医疗 (688626.SH) — 价值投资分析报告</title>
+<style>
+  :root { --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8; --accent: #2563eb; --accent-light: #dbeafe; --green: #16a34a; --green-bg: #dcfce7; --red: #dc2626; --red-bg: #fee2e2; --yellow: #d97706; --yellow-bg: #fef3c7; --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; } .header h1 span { color: var(--accent); } .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; } .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; } .section-body.collapsed { max-height: 0 !important; }
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); list-style: none; display: flex; align-items: center; gap: 8px; } details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; } details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; } details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .verdict-box { background: linear-gradient(135deg, var(--red-bg), #fff); border: 2px solid var(--red); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); margin-bottom: 6px; }
+  .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; } .verdict-box .v-big.sell { color: var(--red); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 600px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; } th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); } th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; } tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); } .tag-yellow { background: var(--yellow-bg); color: var(--yellow); } .tag-red { background: var(--red-bg); color: var(--red); } .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); } .stat-tile .num.green { color: var(--green); } .stat-tile .num.yellow { color: var(--yellow); } .stat-tile .num.red { color: var(--red); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); background: var(--accent-light); border-left: 4px solid var(--accent); } .key-insight strong { color: var(--text); }
+  .key-insight.green { background: var(--green-bg); border-left-color: var(--green); } .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); } .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; } .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; } .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; } .q-item .a .yellow { color: var(--yellow); font-weight: 600; } .q-item .a .red { color: var(--red); font-weight: 600; }
+  .toggle-bar { text-align: center; margin: 12px 0; } .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>翔宇医疗 <span>价值投资分析</span></h1>
+  <div class="subtitle">Xiangyu Medical — 康复器械龙头 × 脑机接口概念 × 小盘成长</div>
+  <div class="codes">
+    <span>688626.SH</span><span>医疗器械·康复</span><span>科创板</span>
+  </div>
+  <div class="meta-bar">
+    <span>2026-08-04</span>
+    <span>¥41.70</span>
+    <span>市值 ¥70.2亿</span>
+    <span>数据截止 2026Q1</span>
+    <span><a href="https://finance.sina.com.cn/realstock/company/sh688626/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span>
+  </div>
+</div>
+
+<div class="container">
+<div class="toggle-bar"><button onclick="toggleAll()">全部展开 / 全部折叠</button></div>
+
+<div class="verdict-box">
+  <div style="font-size:0.9em; color:var(--text2);">综合评级</div>
+  <div class="v-big sell">❌ 回避</div>
+  <div class="v-desc">
+    康复器械利基市场的小而美，66%毛利率不错，但 7.68亿营收仅赚 0.78亿（净利率10%），ROE不到4%。<br>
+    PE ~69x 已完全透支脑机接口概念——脑机产品刚拿证、营收贡献接近于零。<strong>¥70亿的市值，需要未来5年77%的复合增速才能支撑。</strong>
+  </div>
+  <div class="v-details">
+    <span>可考虑价格：<strong style="color:var(--green);">¥18~25</strong></span>
+    <span>当前价：<strong style="color:var(--red);">¥41.70</strong></span>
+    <span>合理价值：<strong>¥20~30</strong></span>
+    <span>仓位：<strong>不建议</strong></span>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num red">¥41.70</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num red">¥70.2亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num red">~69x</div><div class="label">PE（动态）</div></div>
+      <div class="stat-tile"><div class="num red">3.38x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num yellow">¥7.68亿</div><div class="label">2025营收（+3.26%）</div></div>
+      <div class="stat-tile"><div class="num red">¥0.78亿</div><div class="label">2025净利（-24.08%）</div></div>
+      <div class="stat-tile"><div class="num red">~3.8%</div><div class="label">ROE</div></div>
+      <div class="stat-tile"><div class="num green">66.63%</div><div class="label">毛利率</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+    <p>翔宇医疗是国内康复医疗器械龙头，覆盖<strong>康复理疗、康复训练、康复评定</strong>等十大品类、上千种产品，定位"设备+算法+方案"一体化。核心市场是医院康复科，受益于老龄化+政策推动。2025年营收 7.68 亿（+3.3%），净利 0.78 亿（-24%），利润下滑主因研发费用暴增 24.5%（占营收 25%）——公司在赌<strong>脑机接口（BCI）</strong>的未来。</p>
+
+    <h3>业务构成</h3>
+    <table>
+      <tr><th>板块</th><th>2025营收</th><th>增速</th><th>毛利率</th></tr>
+      <tr><td>康复理疗设备</td><td>4.78亿</td><td><span class="tag tag-red">-5.22%</span></td><td>69.34%</td></tr>
+      <tr><td>康复训练设备</td><td>1.76亿</td><td>+7.00%</td><td>64.38%</td></tr>
+      <tr><td>康复评定设备</td><td>0.41亿</td><td>+46.67%</td><td>71.36%</td></tr>
+      <tr><td>配件及其他</td><td>0.46亿</td><td>+24.17%</td><td>63.44%</td></tr>
+    </table>
+
+    <div class="key-insight red">
+      <strong>核心矛盾：66%毛利率不算低，但7.68亿的营收体量太小、3%的增速太慢，完全撑不起70亿市值。</strong> 公司最大的"故事"是脑机接口——自研BCI芯片+算法+电极，2款脑电采集装置已获注册证，产品进入600+家医院。但脑机接口产品目前几乎无营收贡献，且面临强脑科技（融资20亿）等跨界竞争。把70亿市值押注在一个尚无商业验证的技术上，<strong>这是风投的玩法，不是价值投资。</strong>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、段永平"三问"测试</h2>
+  <div class="section-body">
+    <div class="q-item"><div class="q">一问：这生意我能理解吗？</div><div class="a"><span class="green">能理解。</span>卖康复设备给医院，赚产品差价+后续耗材/配件。市场空间受老龄化+政策推动。但脑机接口的未来商业化形态高度不确定。</div></div>
+    <div class="q-item"><div class="q">二问：护城河够宽吗？</div><div class="a"><span class="red">窄。</span>康复器械门槛不高（国内厂商众多），翔宇的优势是品类全+渠道广+先发规模，但这不是真正的壁垒。BCI技术是潜在的壁垒，但目前尚在"研发"阶段。</div></div>
+    <div class="q-item"><div class="q">三问：价格有安全边际吗？</div><div class="a"><span class="red">完全没有。</span>PE 69x，ROE 3.8%，利润增速-24%。即使按最乐观的券商预测（2028年净利1.5亿，PE 47x），估值仍然离谱。<strong>安全边际不仅不存在，而且是深度负值。</strong></div></div>
+    <div class="key-insight red"><strong>三问结论：一绿两红。</strong> 康复器械是好赛道，66%毛利率证明产品有差异化。但营收体量太小+增速太低+估值太高+脑机接口故事太远离利润——<strong>价值投资者没有任何理由在这个价格上参与。</strong></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、估值与操作建议</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>情景</th><th>2026E净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-yellow">基准</span></td><td>¥1.0亿</td><td>25x</td><td>¥25亿</td><td>¥15.6</td></tr>
+      <tr><td><span class="tag tag-green">乐观（BCI放量）</span></td><td>¥1.5亿</td><td>30x</td><td>¥45亿</td><td>¥28</td></tr>
+    </table>
+    <div class="key-insight red"><strong>即使乐观情景，股价也只有¥28。</strong> 当前¥41.70已经把脑机接口"成功"的预期打满了——但"成功"的概率有多大？放弃。"不买不会亏钱"。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、风险</h2>
+  <div class="section-body">
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>估值回归风险（最大）：</strong>PE从69x回归到行业平均30x=股价腰斩到¥18</li>
+      <li><strong>BCI商业化不及预期：</strong>脑机接口产品处于"试用"阶段，到"买单"还有很长距离</li>
+      <li><strong>主业增长乏力：</strong>康复理疗-5.22%，最大品类在下滑</li>
+      <li><strong>研发烧钱不可持续：</strong>研发费用率24.65%，若BCI迟迟不贡献收入，利润将被持续吞噬</li>
+      <li><strong>集采风险：</strong>康复设备集采降价压力</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer"><p>翔宇医疗 (688626.SH) 价值投资分析报告 | 2026-08-04</p><p>本报告基于公开信息整理，不构成投资建议。</p></div>
+</div>
+
+<script>
+function toggleSection(h) { h.classList.toggle('collapsed'); var b=h.nextElementSibling; if(b) b.classList.toggle('collapsed'); }
+function toggleAll() { var hs=document.querySelectorAll('.card h2'), bs=document.querySelectorAll('.section-body'); var anyOpen=false; bs.forEach(function(b){ if(!b.classList.contains('collapsed')) anyOpen=true; }); hs.forEach(function(h){ if(anyOpen) h.classList.add('collapsed'); else h.classList.remove('collapsed'); }); bs.forEach(function(b){ if(anyOpen) b.classList.add('collapsed'); else b.classList.remove('collapsed'); }); }
+</script>
+</body>
+</html>
