@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>南大光电 (300346.SZ) — 价值投资分析报告</title>
+<style>
+  :root { --bg: #f5f6fa; --card: #ffffff; --card2: #f0f2f8; --accent: #2563eb; --accent-light: #dbeafe; --green: #16a34a; --green-bg: #dcfce7; --red: #dc2626; --red-bg: #fee2e2; --yellow: #d97706; --yellow-bg: #fef3c7; --text: #1e293b; --text2: #475569; --muted: #94a3b8; --border: #e2e8f0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.9; font-size: 15px; }
+  .container { max-width: 1000px; margin: 0 auto; padding: 20px 24px; }
+  .header { background: linear-gradient(135deg, #ffffff, #f0f2f8); border-bottom: 1px solid var(--border); padding: 36px 0 28px; text-align: center; }
+  .header h1 { font-size: 2em; } .header h1 span { color: var(--accent); } .header .subtitle { color: var(--text2); font-size: 0.95em; }
+  .header .codes { display: flex; justify-content: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .header .codes span { background: var(--accent-light); color: var(--accent); padding: 3px 14px; border-radius: 16px; font-size: 0.85em; font-weight: 600; }
+  .meta-bar { display: flex; justify-content: center; gap: 24px; margin-top: 14px; font-size: 0.88em; color: var(--text2); flex-wrap: wrap; }
+  .meta-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .card h2 { font-size: 1.25em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .card h2::after { content: "▼"; font-size: 0.7em; margin-left: auto; color: var(--muted); transition: transform 0.2s; } .card h2.collapsed::after { transform: rotate(-90deg); }
+  .card h3 { font-size: 1.05em; color: var(--accent); margin: 20px 0 10px; }
+  .section-body { overflow: hidden; transition: max-height 0.3s ease; } .section-body.collapsed { max-height: 0 !important; }
+  details { margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  details summary { padding: 12px 16px; cursor: pointer; font-weight: 600; font-size: 0.95em; background: var(--card2); list-style: none; display: flex; align-items: center; gap: 8px; } details summary:hover { background: #e5e7ef; }
+  details summary::-webkit-details-marker { display: none; } details summary::before { content: "▶"; font-size: 0.75em; color: var(--accent); transition: transform 0.2s; } details[open] summary::before { transform: rotate(90deg); }
+  details .detail-body { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .verdict-box { background: linear-gradient(135deg, var(--yellow-bg), #fff); border: 2px solid var(--yellow); border-radius: 12px; padding: 28px; margin: 20px 0; text-align: center; }
+  .verdict-box .v-label { font-size: 0.9em; color: var(--text2); } .verdict-box .v-big { font-size: 2em; font-weight: 700; margin: 8px 0; } .verdict-box .v-big.watch { color: var(--yellow); }
+  .verdict-box .v-desc { color: var(--text2); max-width: 650px; margin: 10px auto 0; font-size: 0.9em; }
+  .verdict-box .v-details { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 16px; font-size: 0.88em; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.9em; } th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); } th { background: var(--card2); color: var(--accent); font-weight: 600; font-size: 0.88em; } tr:hover { background: #f8fafc; }
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78em; font-weight: 600; margin: 1px; }
+  .tag-green { background: var(--green-bg); color: var(--green); } .tag-yellow { background: var(--yellow-bg); color: var(--yellow); } .tag-red { background: var(--red-bg); color: var(--red); } .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; } @media (max-width: 700px) { .grid-4 { grid-template-columns: 1fr; } }
+  .stat-tile { background: var(--card2); border-radius: 8px; padding: 16px; text-align: center; }
+  .stat-tile .num { font-size: 1.5em; font-weight: 700; color: var(--accent); } .stat-tile .num.green { color: var(--green); } .stat-tile .num.red { color: var(--red); } .stat-tile .num.yellow { color: var(--yellow); }
+  .stat-tile .label { font-size: 0.78em; color: var(--text2); margin-top: 4px; }
+  .key-insight { padding: 14px 18px; margin: 14px 0; border-radius: 0 8px 8px 0; font-size: 0.92em; color: var(--text2); background: var(--accent-light); border-left: 4px solid var(--accent); } .key-insight strong { color: var(--text); }
+  .key-insight.yellow { background: var(--yellow-bg); border-left-color: var(--yellow); } .key-insight.green { background: var(--green-bg); border-left-color: var(--green); } .key-insight.red { background: var(--red-bg); border-left-color: var(--red); }
+  .q-item { padding: 14px 16px; margin-bottom: 10px; border-radius: 8px; border: 1px solid var(--border); background: #fafbfc; } .q-item .q { font-weight: 700; color: var(--accent); font-size: 0.95em; } .q-item .a { margin-top: 6px; font-size: 0.92em; color: var(--text2); line-height: 1.6; }
+  .q-item .a .green { color: var(--green); font-weight: 600; } .q-item .a .yellow { color: var(--yellow); font-weight: 600; } .q-item .a .red { color: var(--red); font-weight: 600; }
+  .toggle-bar { text-align: center; margin: 12px 0; } .toggle-bar button { background: var(--card); border: 1px solid var(--border); padding: 6px 18px; border-radius: 6px; font-size: 0.85em; color: var(--text2); cursor: pointer; }
+  .fn { font-size: 0.82em; color: var(--muted); margin-top: 6px; }
+  .footer { text-align: center; padding: 30px 0; color: var(--muted); font-size: 0.82em; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>南大光电 <span>价值投资分析</span></h1>
+  <div class="subtitle">Nanjing University Optoelectronics — MO源全球双寡头 × ArF光刻胶国产唯一 × 电子特气加速替代</div>
+  <div class="codes"><span>300346.SZ</span><span>半导体材料</span><span>深交所创业板</span></div>
+  <div class="meta-bar"><span>2026-08-04</span><span>¥49.45</span><span>市值 ¥342亿</span><span>数据截止 2026Q1</span><span><a href="https://finance.sina.com.cn/realstock/company/sz300346/nc.shtml" target="_blank" rel="noopener">📈 实时行情</a></span></div>
+</div>
+<div class="container">
+<div class="toggle-bar"><button onclick="toggleAll()">全部展开 / 全部折叠</button></div>
+
+<div class="verdict-box">
+  <div class="v-label">综合评级</div>
+  <div class="v-big watch">⚡ 观察</div>
+  <div class="v-desc">
+    MO源全球双寡头是真实的护城河（毛利率50.9%），ArF光刻胶国产唯一量产也是真实的先发优势。<br>
+    但 PE ~98x（TTM）、ROE 仅 9.2% 且连续三年下滑、营收增速从 38% 骤降至 5.5%——<strong>估值已透支 ArF 光刻胶的"想象空间"。</strong><br>
+    这是一家"有真东西但太贵"的公司，等回调才是朋友。
+  </div>
+  <div class="v-details">
+    <span>买入区间：<strong style="color:var(--green);">¥30~38</strong></span>
+    <span>当前价：<strong style="color:var(--yellow);">¥49.45</strong></span>
+    <span>合理价值：<strong>¥35~50</strong></span>
+    <span>仓位：<strong>3~5%（等回调）</strong></span>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">核心速览</h2>
+  <div class="section-body">
+    <div class="grid-4">
+      <div class="stat-tile"><div class="num yellow">¥49.45</div><div class="label">当前股价</div></div>
+      <div class="stat-tile"><div class="num yellow">¥342亿</div><div class="label">总市值</div></div>
+      <div class="stat-tile"><div class="num red">~69x / 98x</div><div class="label">PE（动态/TTM）</div></div>
+      <div class="stat-tile"><div class="num red">8.4x</div><div class="label">PB</div></div>
+    </div>
+    <div class="grid-4" style="margin-top:8px;">
+      <div class="stat-tile"><div class="num yellow">¥25.85亿</div><div class="label">2025营收（+9.93%）</div></div>
+      <div class="stat-tile"><div class="num green">¥3.20亿</div><div class="label">2025净利（+18%）</div></div>
+      <div class="stat-tile"><div class="num red">9.19%</div><div class="label">ROE（连续3年下滑）</div></div>
+      <div class="stat-tile"><div class="num yellow">39.62%</div><div class="label">毛利率（连续3年下滑）</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">一、生意理解</h2>
+  <div class="section-body">
+    <p>南大光电脱胎于南京大学 863 课题组，专注半导体材料的国产替代。三大业务呈清晰梯次：</p>
+    <table>
+      <tr><th>业务</th><th>2025营收</th><th>毛利率</th><th>全球地位</th><th>国产化率</th></tr>
+      <tr><td><strong>MO源/前驱体</strong></td><td>7.14亿(+23.5%)</td><td><strong>50.88%</strong></td><td><strong>全球双寡头（与陶氏）</strong></td><td>>60%</td></tr>
+      <tr><td><strong>电子特气</strong></td><td>15.36亿(+1.9%)</td><td>36.74%</td><td>砷烷全球第一，磷烷第二</td><td>~20%</td></tr>
+      <tr><td><strong>ArF光刻胶</strong></td><td>~0.2亿</td><td>—</td><td><strong>国内唯一28nm浸没式量产</strong></td><td><5%</td></tr>
+    </table>
+
+    <div class="key-insight green">
+      <strong>MO源是全球双寡头——这是真正的护城河。</strong> 南大光电与陶氏化学合计占据全球 95% 的 6N+ 高端 MO 源市场，毛利率 50.88%、国内无规模化竞争对手、已反向出口三星/台积电。这种"细分领域全球双寡头"的格局是价值投资者最喜欢的——<strong>有定价权、有技术壁垒、有稳定现金流。</strong>问题是 MO 源全球市场规模仅约 30-40 亿人民币，天花板明显。
+    </div>
+
+    <details>
+      <summary>深度：ArF光刻胶——最大的故事，最小的收入</summary>
+      <div class="detail-body">
+        <p>南大光电被市场追捧的核心是 ArF 光刻胶——半导体制造中最卡脖子的材料之一：</p>
+        <p><strong>1. 为什么稀缺？</strong>全球 ArF 光刻胶 90%+ 被日本 JSR/TOK/信越化学垄断。南大是国内唯一实现 28nm 浸没式 ArF 光刻胶稳定量产的企业（6 款通过中芯国际/长江存储/长鑫存储验证，良率 99.7%）。14nm 已完成验证小批量供货。</p>
+        <p><strong>2. 为什么现在重要？</strong>日本 2026 年起对华高端光刻胶新客户导入基本停滞、老客户配额收缩、交期从 3 个月拉长至 6-9 个月。国产替代从"可选"变成"必选"，南大是最大受益者。</p>
+        <p><strong>3. 但现实很骨感：</strong>2025 年光刻胶收入仅 ~2000 万（占总营收不到 1%）。500 吨新产线 2026Q2 爬坡、Q3 批量供货——这是 2026-2027 年最关键的观察点。<strong>如果 2027 年光刻胶收入能到 3-5 亿，那当前 342 亿的估值逻辑就能成立；如果不能，估值回归压力巨大。</strong></p>
+        <p><strong>4. 市场空间：</strong>国内 ArF 光刻胶市场 ~22-26 亿（2025），预计 2028 年 50 亿+。即使南大拿到 30-40% 份额，也就是 15-20 亿收入——而且这需要 3-5 年。</p>
+      </div>
+    </details>
+
+    <div class="key-insight yellow">
+      <strong>护城河总结：不均匀但真实。</strong> MO 源是全球双寡头（真护城河），特气是国内第一梯队（有壁垒但不如 MO 源强），光刻胶是"国产唯一的先发位置"（护城河在建设中）。综合护城河评级中等偏宽——<strong>比东山精密的索尔思更稳固（因为 MO 源双寡头地位已稳定多年），但不如药明康德的 CRDMO 五重壁垒。</strong>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">二、段永平"三问"</h2>
+  <div class="section-body">
+    <div class="q-item"><div class="q">一问：这生意我能理解吗？</div><div class="a"><span class="green">能理解。</span>给晶圆厂提供高纯度化学材料（MO源=化合物半导体的原料，特气=蚀刻/清洗用的气体，光刻胶=光刻用的感光材料）。都是芯片制造的"耗材"，需求刚性。</div></div>
+    <div class="q-item"><div class="q">二问：这护城河够宽吗？</div><div class="a"><span class="green">部分宽。</span>MO源全球双寡头格局稳固（与陶氏合计占95%高端市场），是真正的宽护城河。但特气竞争更激烈（华特/雅克/金宏），光刻胶是"先发优势"但竞对（彤程/鼎龙/上海新阳）在追赶。</div></div>
+    <div class="q-item"><div class="q">三问：价格有安全边际吗？</div><div class="a"><span class="red">不足。</span>PE 98x(TTM)，ROE 9.2%且下滑，营收增速骤降至5.5%。按 2026E 净利 4.5 亿计算 PE ~76x。即使 2028 年净利 6.5 亿全部兑现，当前 PE 仍有 53x。<strong>市场已经把 ArF 光刻胶"成功"的预期打满了——但"成功"目前只有 2000 万收入。</strong></div></div>
+    <div class="key-insight yellow"><strong>三问结论：两绿一红。</strong> 生意好理解，MO源护城河真实，但价格已透支未来 3 年的乐观预期。和药明康德一样属于"好公司+不够好的价格"——但药明的护城河比南大更宽、估值更低（PE 20x vs 98x），所以药明是"优先观察"。</div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">三、估值与操作</h2>
+  <div class="section-body">
+    <table>
+      <tr><th>情景</th><th>2027E净利</th><th>合理PE</th><th>合理市值</th><th>目标价</th></tr>
+      <tr><td><span class="tag tag-red">保守（光刻胶不及预期）</span></td><td>¥4.5亿</td><td>35x</td><td>¥158亿</td><td>¥23</td></tr>
+      <tr><td><span class="tag tag-yellow">基准（光刻胶年收入5亿+）</span></td><td>¥5.5亿</td><td>45x</td><td>¥248亿</td><td>¥36</td></tr>
+      <tr><td><span class="tag tag-green">乐观（光刻胶年收入10亿+）</span></td><td>¥7.0亿</td><td>50x</td><td>¥350亿</td><td>¥51</td></tr>
+    </table>
+    <div class="key-insight yellow">
+      <strong>当前 ¥49.45 已接近乐观情景（¥51）。</strong> 只有光刻胶年收入达到 10 亿+时（国内市占率 30-40%），当前价格才算合理。而光刻胶目前收入仅 2000 万——从 2000 万到 10 亿的路，可能需要 5-8 年。<br><br>
+      理想买点在 ¥30-38（对应 2027E PE 35-48x），即光刻胶故事开始兑现但未被充分定价时。如果 2026H2 光刻胶 500 吨产线放量超预期，可以在 ¥38-42 区间建 3% 试探仓位。
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2 onclick="toggleSection(this)">四、风险</h2>
+  <div class="section-body">
+    <ul style="margin-left:20px;font-size:0.92em;color:var(--text2);">
+      <li><strong>估值回归（最大风险）：</strong>PE 98x → 行业均值 50x = 股价腰斩至 ¥25</li>
+      <li><strong>毛利率持续下滑：</strong>近三年 43%→41%→40%，竞争加剧压缩利润空间</li>
+      <li><strong>减值常态化：</strong>2025 年减值 1.69 亿吞噬 53% 利润，后续仍可能发生</li>
+      <li><strong>光刻胶放量不及预期：</strong>500 吨产线爬坡慢于预期、客户导入周期长</li>
+      <li><strong>竞争加剧：</strong>彤程/鼎龙/上海新阳 ArF 光刻胶 2-3 年内集中放量</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer"><p>南大光电 (300346.SZ) 价值投资分析报告 | 2026-08-04</p><p>本报告基于公开信息整理，不构成投资建议。</p></div>
+</div>
+<script>
+function toggleSection(h) { h.classList.toggle('collapsed'); var b=h.nextElementSibling; if(b) b.classList.toggle('collapsed'); }
+function toggleAll() { var hs=document.querySelectorAll('.card h2'), bs=document.querySelectorAll('.section-body'); var anyOpen=false; bs.forEach(function(b){ if(!b.classList.contains('collapsed')) anyOpen=true; }); hs.forEach(function(h){ if(anyOpen) h.classList.add('collapsed'); else h.classList.remove('collapsed'); }); bs.forEach(function(b){ if(anyOpen) b.classList.add('collapsed'); else b.classList.remove('collapsed'); }); }
+</script>
+</body>
+</html>
